@@ -7,7 +7,8 @@ package model;
 
 /**
  *
- * @author S W I F T 3
+ * @author 1119002 Albertus Angkuw
+ * @author 1119006 William Juniar
  */
 public class Transaksi {
     int idtransaksi;

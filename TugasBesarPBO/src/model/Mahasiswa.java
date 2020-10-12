@@ -8,6 +8,7 @@ package model;
 /**
  *
  * @author 1119002 Albertus Angkuw
+ * @author 1119006 William Juniar
  */
 public class Mahasiswa extends User {
     int NIM;
