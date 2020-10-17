@@ -9,7 +9,7 @@ package model;
  *
  * @author 1119002 Albertus Angkuw
  */
-public class User {
+public abstract class User {
     
     private String idUser;
     private String namaLengkap;
@@ -22,71 +22,71 @@ public class User {
     
     public User(){}
     //Construktor
-    public User(String nomorInduk,String password, String namaLengkap, String tglLahir, String tempatLahir, String jenisKelamin){
-        this.idUser = nomorInduk;
+
+    public User(String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+        this.idUser = idUser;
         this.namaLengkap = namaLengkap;
+        this.email = email;
+        this.password = password;
         this.tglLahir = tglLahir;
         this.jenisKelamin = jenisKelamin;
+        this.notelp = notelp;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getNamaLengkap() {
+        return namaLengkap;
+    }
+
+    public void setNamaLengkap(String namaLengkap) {
+        this.namaLengkap = namaLengkap;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
-        notelp = "";
-        
     }
-    
-    //Getter
-    public String getIdUser(){
-        return idUser; 
+
+    public String getTglLahir() {
+        return tglLahir;
     }
-    
-    public String getNamaLengkap(){
-        return namaLengkap; 
+
+    public void setTglLahir(String tglLahir) {
+        this.tglLahir = tglLahir;
     }
-    
-    public String getTglLahir(){
-        return tglLahir; 
+
+    public String getJenisKelamin() {
+        return jenisKelamin;
     }
-    
-    
-    
-    public String getJenisKelamin(){
-        return jenisKelamin; 
+
+    public void setJenisKelamin(String jenisKelamin) {
+        this.jenisKelamin = jenisKelamin;
     }
-    
-   
-    public String getnotelp(){
-        return notelp; 
+
+    public String getNotelp() {
+        return notelp;
     }
-    
-    public String getPassword(){
-        return password; 
-    }
-    
-    //Setter
-    public void setIdUser(String data){
-        idUser = data; 
-    }
-    
-    public void setNamaLengkap(String data){
-        namaLengkap = data;  
-    }
-    
-    public void setTglLahir(String data){
-        tglLahir = data; 
-    }
-    
-  
-    
-    public void setJenisKelamin(String data){
-        jenisKelamin = data; 
-    }
-    
-  
-    
-    public void setnotelp(String data){
-        notelp = data; 
-    }
-    
-    public void setPassword(String data){
-        password = data; 
+
+    public void setNotelp(String notelp) {
+        this.notelp = notelp;
     }
     
     
