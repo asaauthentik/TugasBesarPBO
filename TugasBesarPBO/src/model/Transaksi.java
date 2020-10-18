@@ -9,7 +9,7 @@ package model;
  *
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
- * @author 1119038 Elangel Neilea Shaday
+ * @author 1119038 Elangel Neilea Shaday test
  */
 public class Transaksi {
     int idtransaksi;
