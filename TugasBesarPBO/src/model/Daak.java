@@ -10,7 +10,7 @@ package model;
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
- * test ini harusnya ada dibrach albert
+ * test ini harusnya ada dibrach albert  wj wj wj
 */
 public class Daak extends User{
     String jabatan;
