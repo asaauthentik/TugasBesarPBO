@@ -26,26 +26,7 @@ public class Daak extends User{
     public Daak(int NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, String tanggalLahir, String jenisKelamin, String nomorTelepon) {
         super(idUser, namaLengkap, email, password, tanggalLahir, jenisKelamin, nomorTelepon);
         this.NIK = NIK;
-    String jabatan;
-    boolean hakAksesKeuangan;
-    boolean hakAksesKemahasiswaan;
-    boolean hakAksesPerkuliahan;
-    boolean hakAksesDosen;
-    boolean hakAksesAdmin;
-    boolean statusKontrak;
-
-    public Daak(String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
-        super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
-        this.jabatan = jabatan;
-        this.hakAksesKeuangan = hakAksesKeuangan;
-        this.hakAksesKemahasiswaan = hakAksesKemahasiswaan;
-        this.hakAksesPerkuliahan = hakAksesPerkuliahan;
-        this.hakAksesDosen = hakAksesDosen;
-        this.hakAksesAdmin = hakAksesAdmin;
-        this.statusKontrak = statusKontrak;
     }
-
-
     public int getNIK() {
         return NIK;
     }

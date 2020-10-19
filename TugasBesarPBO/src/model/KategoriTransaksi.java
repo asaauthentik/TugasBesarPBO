@@ -27,19 +27,6 @@ public class KategoriTransaksi {
         this.kategoriSemester = kategoriSemester;
         this.kategoriAngkatan = kategoriAngkatan;
         this.tahunBerlaku = tahunBerlaku;
-
-    private char kategoriSMT;
-    private int kategoriAngkatan;
-    private int taBerlaku;
-
-    public KategoriTransaksi(int idKategori, String namakategori, int harga, char kategoriSMT, int kategoriAngkatan, int taBerlaku) {
-        this.idKategori = idKategori;
-        this.namakategori = namakategori;
-        this.harga = harga;
-        this.kategoriSMT = kategoriSMT;
-        this.kategoriAngkatan = kategoriAngkatan;
-        this.taBerlaku = taBerlaku;
-
     }
 
     public int getIdKategori() {
@@ -73,9 +60,6 @@ public class KategoriTransaksi {
 
     public void setKategoriSemester(char kategoriSemester) {
         this.kategoriSemester = kategoriSemester;
-
-    public int getKategoriAngkatan() {
-        return kategoriAngkatan;
     }
 
     public void setKategoriAngkatan(int kategoriAngkatan) {
@@ -94,9 +78,4 @@ public class KategoriTransaksi {
     public String toString() {
         return "KategoriTransaksi{" + "idKategori=" + idKategori + ", namakategori=" + namakategori + ", harga=" + harga + ", kategoriSemester=" + kategoriSemester + ", kategoriAngkatan=" + kategoriAngkatan + ", tahunBerlaku=" + tahunBerlaku + '}';
     }
-
-    public int getTaBerlaku() {
-        return taBerlaku;
-    }
-
 }
