@@ -62,7 +62,7 @@ public class viewDB extends javax.swing.JFrame {
         });
 
         menuRencanaStudi.setBackground(new java.awt.Color(67, 50, 103));
-        menuRencanaStudi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        menuRencanaStudi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuRencanaStudi.setForeground(new java.awt.Color(153, 153, 153));
         menuRencanaStudi.setText("Rencana Studi");
         menuRencanaStudi.setBorderPainted(false);
