@@ -10,7 +10,8 @@ package model;
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
- * test ini harusnya ada dibrach albert  wj wj wj wweae
+ * 
+ * 
 */
 public class Daak extends User{
     String jabatan;
@@ -21,8 +22,8 @@ public class Daak extends User{
     boolean hakAksesAdmin;
     boolean statusKontrak;
 
-    public Daak(String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String nomorInduk, String password, String namaLengkap, String tglLahir, String tempatLahir, String jenisKelamin) {
-        super(nomorInduk, password, namaLengkap, tglLahir, tempatLahir, jenisKelamin);
+    public Daak(String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+        super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
         this.jabatan = jabatan;
         this.hakAksesKeuangan = hakAksesKeuangan;
         this.hakAksesKemahasiswaan = hakAksesKemahasiswaan;
@@ -31,6 +32,8 @@ public class Daak extends User{
         this.hakAksesAdmin = hakAksesAdmin;
         this.statusKontrak = statusKontrak;
     }
+
+   
 
     public String getJabatan() {
         return jabatan;
