@@ -9,6 +9,8 @@ package model;
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
+ *
+ * @author ASUS
  */
 public class KategoriTransaksi {
     private int idKategori;
@@ -25,6 +27,19 @@ public class KategoriTransaksi {
         this.kategoriSemester = kategoriSemester;
         this.kategoriAngkatan = kategoriAngkatan;
         this.tahunBerlaku = tahunBerlaku;
+
+    private char kategoriSMT;
+    private int kategoriAngkatan;
+    private int taBerlaku;
+
+    public KategoriTransaksi(int idKategori, String namakategori, int harga, char kategoriSMT, int kategoriAngkatan, int taBerlaku) {
+        this.idKategori = idKategori;
+        this.namakategori = namakategori;
+        this.harga = harga;
+        this.kategoriSMT = kategoriSMT;
+        this.kategoriAngkatan = kategoriAngkatan;
+        this.taBerlaku = taBerlaku;
+
     }
 
     public int getIdKategori() {
@@ -51,13 +66,13 @@ public class KategoriTransaksi {
         this.harga = harga;
     }
 
+
     public char getKategoriSemester() {
         return kategoriSemester;
     }
 
     public void setKategoriSemester(char kategoriSemester) {
         this.kategoriSemester = kategoriSemester;
-    }
 
     public int getKategoriAngkatan() {
         return kategoriAngkatan;
@@ -79,4 +94,9 @@ public class KategoriTransaksi {
     public String toString() {
         return "KategoriTransaksi{" + "idKategori=" + idKategori + ", namakategori=" + namakategori + ", harga=" + harga + ", kategoriSemester=" + kategoriSemester + ", kategoriAngkatan=" + kategoriAngkatan + ", tahunBerlaku=" + tahunBerlaku + '}';
     }
+
+    public int getTaBerlaku() {
+        return taBerlaku;
+    }
+
 }

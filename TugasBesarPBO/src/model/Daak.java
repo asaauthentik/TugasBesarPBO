@@ -9,8 +9,11 @@ package model;
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
+ * 
+ * 
 */
 public class Daak extends User{
+
     private int NIK;
     private String jabatan;
     private boolean hakAksesKeuangan;
@@ -23,6 +26,16 @@ public class Daak extends User{
     public Daak(int NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, String tanggalLahir, String jenisKelamin, String nomorTelepon) {
         super(idUser, namaLengkap, email, password, tanggalLahir, jenisKelamin, nomorTelepon);
         this.NIK = NIK;
+    String jabatan;
+    boolean hakAksesKeuangan;
+    boolean hakAksesKemahasiswaan;
+    boolean hakAksesPerkuliahan;
+    boolean hakAksesDosen;
+    boolean hakAksesAdmin;
+    boolean statusKontrak;
+
+    public Daak(String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+        super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
         this.jabatan = jabatan;
         this.hakAksesKeuangan = hakAksesKeuangan;
         this.hakAksesKemahasiswaan = hakAksesKemahasiswaan;
@@ -32,6 +45,7 @@ public class Daak extends User{
         this.statusKontrak = statusKontrak;
     }
 
+
     public int getNIK() {
         return NIK;
     }
@@ -40,6 +54,7 @@ public class Daak extends User{
         this.NIK = NIK;
     }
     
+
     public String getJabatan() {
         return jabatan;
     }
