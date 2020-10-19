@@ -6,33 +6,27 @@
 package model;
 
 /**
- *
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
  */
 public abstract class User {
-    
     private String idUser;
     private String namaLengkap;
     private String email;
     private String password;
-    private String tglLahir;
+    private String tanggalLahir;
     private String jenisKelamin;
-    private String notelp;
-    
-    
-    public User(){}
-    //Construktor
+    private String nomorTelepon;
 
-    public User(String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+    public User(String idUser, String namaLengkap, String email, String password, String tanggalLahir, String jenisKelamin, String nomorTelepon) {
         this.idUser = idUser;
         this.namaLengkap = namaLengkap;
         this.email = email;
         this.password = password;
-        this.tglLahir = tglLahir;
+        this.tanggalLahir = tanggalLahir;
         this.jenisKelamin = jenisKelamin;
-        this.notelp = notelp;
+        this.nomorTelepon = nomorTelepon;
     }
 
     public String getIdUser() {
@@ -67,12 +61,12 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getTglLahir() {
-        return tglLahir;
+    public String getTanggalLahir() {
+        return tanggalLahir;
     }
 
-    public void setTglLahir(String tglLahir) {
-        this.tglLahir = tglLahir;
+    public void setTanggalLahir(String tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
     }
 
     public String getJenisKelamin() {
@@ -83,13 +77,16 @@ public abstract class User {
         this.jenisKelamin = jenisKelamin;
     }
 
-    public String getNotelp() {
-        return notelp;
+    public String getNomorTelepon() {
+        return nomorTelepon;
     }
 
-    public void setNotelp(String notelp) {
-        this.notelp = notelp;
+    public void setNomorTelepon(String nomorTelepon) {
+        this.nomorTelepon = nomorTelepon;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "User{" + "idUser=" + idUser + ", namaLengkap=" + namaLengkap + ", email=" + email + ", password=" + password + ", tanggalLahir=" + tanggalLahir + ", jenisKelamin=" + jenisKelamin + ", nomorTelepon=" + nomorTelepon + '}';
+    }
 }

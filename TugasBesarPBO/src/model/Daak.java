@@ -6,22 +6,23 @@
 package model;
 
 /**
- *
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
 */
 public class Daak extends User{
-    String jabatan;
-    boolean hakAksesKeuangan;
-    boolean hakAksesKemahasiswaan;
-    boolean hakAksesPerkuliahan;
-    boolean hakAksesDosen;
-    boolean hakAksesAdmin;
-    boolean statusKontrak;
+    private int NIK;
+    private String jabatan;
+    private boolean hakAksesKeuangan;
+    private boolean hakAksesKemahasiswaan;
+    private boolean hakAksesPerkuliahan;
+    private boolean hakAksesDosen;
+    private boolean hakAksesAdmin;
+    private boolean statusKontrak;
 
-    public Daak(String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String nomorInduk, String password, String namaLengkap, String tglLahir, String tempatLahir, String jenisKelamin) {
-        super(nomorInduk, password, namaLengkap, tglLahir, tempatLahir, jenisKelamin);
+    public Daak(int NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, String tanggalLahir, String jenisKelamin, String nomorTelepon) {
+        super(idUser, namaLengkap, email, password, tanggalLahir, jenisKelamin, nomorTelepon);
+        this.NIK = NIK;
         this.jabatan = jabatan;
         this.hakAksesKeuangan = hakAksesKeuangan;
         this.hakAksesKemahasiswaan = hakAksesKemahasiswaan;
@@ -31,6 +32,14 @@ public class Daak extends User{
         this.statusKontrak = statusKontrak;
     }
 
+    public int getNIK() {
+        return NIK;
+    }
+
+    public void setNIK(int NIK) {
+        this.NIK = NIK;
+    }
+    
     public String getJabatan() {
         return jabatan;
     }
@@ -89,7 +98,6 @@ public class Daak extends User{
 
     @Override
     public String toString() {
-        return "Daak{" + "jabatan=" + jabatan + ", hakAksesKeuangan=" + hakAksesKeuangan + ", hakAksesKemahasiswaan=" + hakAksesKemahasiswaan + ", hakAksesPerkuliahan=" + hakAksesPerkuliahan + ", hakAksesDosen=" + hakAksesDosen + ", hakAksesAdmin=" + hakAksesAdmin + ", statusKontrak=" + statusKontrak + '}';
+        return "Daak{" + "NIK=" + NIK + ", jabatan=" + jabatan + ", hakAksesKeuangan=" + hakAksesKeuangan + ", hakAksesKemahasiswaan=" + hakAksesKemahasiswaan + ", hakAksesPerkuliahan=" + hakAksesPerkuliahan + ", hakAksesDosen=" + hakAksesDosen + ", hakAksesAdmin=" + hakAksesAdmin + ", statusKontrak=" + statusKontrak + '}';
     }
-    
 }

@@ -6,26 +6,17 @@
 package model;
 
 /**
- *
+ * @author 1119002 Albertus Angkuw
+ * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
  */
 
 public class Kehadiran extends Roster{
-    private Mahasiswa mhs;
     private String keterangan;
 
-    public Kehadiran(Mahasiswa mhs, String keterangan, String tanggal, int jamMulai, int jamSelesai, String ruangan) {
+    public Kehadiran(String keterangan, String tanggal, int jamMulai, int jamSelesai, String ruangan) {
         super(tanggal, jamMulai, jamSelesai, ruangan);
-        this.mhs = mhs;
         this.keterangan = keterangan;
-    }
-
-    public Mahasiswa getMhs() {
-        return mhs;
-    }
-
-    public void setMhs(Mahasiswa mhs) {
-        this.mhs = mhs;
     }
 
     public String getKeterangan() {
@@ -38,6 +29,6 @@ public class Kehadiran extends Roster{
 
     @Override
     public String toString() {
-        return "Kehadiran{" + "mhs=" + mhs + ", keterangan=" + keterangan + '}';
+        return "Kehadiran{" + "keterangan=" + keterangan + '}';
     }
 }

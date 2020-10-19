@@ -5,39 +5,89 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
- *
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
  */
 public class Mahasiswa extends User {
-    int NIM;
-    String jurusan;
-    int tahunMasuk;
-    int tahunLulus;
-    float ipk;
-    String predikat;
-    RencanaStudi rencanastudi[];
-    
-    Mahasiswa(){
-        super();
-    }
-    
-    Mahasiswa(String status, String jurusan, int tahunMasuk, int tahunLulus, float ipk, String predikat){
+    private int NIM;
+    private String jurusan;
+    private int tahunMasuk;
+    private int tahunLulus;
+    private float ipk;
+    private String predikat;
+    public ArrayList<RencanaStudi> rencanaStudi;
+    public ArrayList<Transaksi> transaksiMahasiswa;
+
+    public Mahasiswa(int NIM, String jurusan, int tahunMasuk, int tahunLulus, float ipk, String predikat, ArrayList<RencanaStudi> rencanaStudi, ArrayList<Transaksi> transaksiMahasiswa, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+        super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
+        this.NIM = NIM;
         this.jurusan = jurusan;
         this.tahunMasuk = tahunMasuk;
         this.tahunLulus = tahunLulus;
         this.ipk = ipk;
         this.predikat = predikat;
-        /*
-        rencanastudi = new RencanaStudi[10];
-        for(int i=0; i<rencanastudi.length; i++){
-            rencanastudi[i] = new RencanaStudi();
-        }*/
+        this.rencanaStudi = rencanaStudi;
+        this.transaksiMahasiswa = transaksiMahasiswa;
     }
-    public void printData(){
-        System.out.println("Nama: " + getNamaLengkap());
-        System.out.println("Jurusan: ");
+
+    public int getNIM() {
+        return NIM;
+    }
+
+    public void setNIM(int NIM) {
+        this.NIM = NIM;
+    }
+
+    public String getJurusan() {
+        return jurusan;
+    }
+
+    public void setJurusan(String jurusan) {
+        this.jurusan = jurusan;
+    }
+
+    public int getTahunMasuk() {
+        return tahunMasuk;
+    }
+
+    public void setTahunMasuk(int tahunMasuk) {
+        this.tahunMasuk = tahunMasuk;
+    }
+
+    public int getTahunLulus() {
+        return tahunLulus;
+    }
+
+    public void setTahunLulus(int tahunLulus) {
+        this.tahunLulus = tahunLulus;
+    }
+
+    public float getIpk() {
+        return ipk;
+    }
+
+    public void setIpk(float ipk) {
+        this.ipk = ipk;
+    }
+
+    public String getPredikat() {
+        return predikat;
+    }
+
+    public void setPredikat(String predikat) {
+        this.predikat = predikat;
+    }
+
+    @Override
+    public String toString() {
+        return "Mahasiswa{" + "NIM=" + NIM + ", jurusan=" + jurusan + ", tahunMasuk=" + tahunMasuk + ", tahunLulus=" + tahunLulus + ", ipk=" + ipk + ", predikat=" + predikat + ", rencanaStudi=" + rencanaStudi + ", transaksiMahasiswa=" + transaksiMahasiswa + '}';
+    }
+    
+    public float hitungIPK(){
+        return ipk;
     }
 }
