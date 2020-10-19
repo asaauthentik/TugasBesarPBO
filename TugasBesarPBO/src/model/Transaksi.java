@@ -26,7 +26,7 @@ public class Transaksi {
         this.jumlahBayar = jumlahBayar;
         this.semeterDiambil = semeterDiambil;
         this.tahunSemester = tahunSemester;
-
+    }
     private String tgltransaksi;
     private int jmlbayar;
     private int ta;
