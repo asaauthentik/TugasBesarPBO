@@ -6,6 +6,9 @@
 package model;
 
 /**
+ * @author 1119002 Albertus Angkuw
+ * @author 1119006 William Juniar
+ * @author 1119038 Elangel Neilea Shaday
  *
  * @author ASUS
  */
@@ -13,17 +16,17 @@ public class KategoriTransaksi {
     private int idKategori;
     private String namakategori;
     private int harga;
-    private char kategoriSMT;
+    private char kategoriSemester;
     private int kategoriAngkatan;
-    private int taBerlaku;
+    private int tahunBerlaku;
 
-    public KategoriTransaksi(int idKategori, String namakategori, int harga, char kategoriSMT, int kategoriAngkatan, int taBerlaku) {
+    public KategoriTransaksi(int idKategori, String namakategori, int harga, char kategoriSemester, int kategoriAngkatan, int tahunBerlaku) {
         this.idKategori = idKategori;
         this.namakategori = namakategori;
         this.harga = harga;
-        this.kategoriSMT = kategoriSMT;
+        this.kategoriSemester = kategoriSemester;
         this.kategoriAngkatan = kategoriAngkatan;
-        this.taBerlaku = taBerlaku;
+        this.tahunBerlaku = tahunBerlaku;
     }
 
     public int getIdKategori() {
@@ -50,29 +53,29 @@ public class KategoriTransaksi {
         this.harga = harga;
     }
 
-    public char getKategoriSMT() {
-        return kategoriSMT;
+
+    public char getKategoriSemester() {
+        return kategoriSemester;
     }
 
-    public void setKategoriSMT(char kategoriSMT) {
-        this.kategoriSMT = kategoriSMT;
-    }
-
-    public int getKategoriAngkatan() {
-        return kategoriAngkatan;
+    public void setKategoriSemester(char kategoriSemester) {
+        this.kategoriSemester = kategoriSemester;
     }
 
     public void setKategoriAngkatan(int kategoriAngkatan) {
         this.kategoriAngkatan = kategoriAngkatan;
     }
 
-    public int getTaBerlaku() {
-        return taBerlaku;
+    public int getTahunBerlaku() {
+        return tahunBerlaku;
     }
 
-    public void setTaBerlaku(int taBerlaku) {
-        this.taBerlaku = taBerlaku;
+    public void setTahunBerlaku(int tahunBerlaku) {
+        this.tahunBerlaku = tahunBerlaku;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "KategoriTransaksi{" + "idKategori=" + idKategori + ", namakategori=" + namakategori + ", harga=" + harga + ", kategoriSemester=" + kategoriSemester + ", kategoriAngkatan=" + kategoriAngkatan + ", tahunBerlaku=" + tahunBerlaku + '}';
+    }
 }

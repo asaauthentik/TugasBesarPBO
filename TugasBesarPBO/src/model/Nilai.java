@@ -6,89 +6,127 @@
 package model;
 
 /**
- *
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
  */
 public class Nilai {
-    //test
-    private Mahasiswa mhs;
-    private int n1;
-    private int n2;
-    private int n3;
-    private int n4;
-    private int n5;
-    private int nUAS;
-    private float na;
-    private String hm;
-    public Nilai(){}
-    //Konstruktor
-    public Nilai(int n1, int n2, int n3, int n4,int n5,int nUAS, float na,String hm){
-        this.n1 = n1;
-        this.n2 = n2;
-        this.n3 = n3;
-        this.n4 = n4;
-        this.n5 = n5;
-        this.nUAS = nUAS;
-        this.na = na;
-        this.hm = hm;
-      
+    private int nilai1;
+    private int nilai2;
+    private int nilai3;
+    private int nilai4;
+    private int nilai5;
+    private int nilaiUAS;
+    private float nilaiAkhir;
+    private String hurufMutu;
+
+    public Nilai(int nilai1, int nilai2, int nilai3, int nilai4, int nilai5, int nilaiUAS, float nilaiAkhir, String hurufMutu) {
+        this.nilai1 = nilai1;
+        this.nilai2 = nilai2;
+        this.nilai3 = nilai3;
+        this.nilai4 = nilai4;
+        this.nilai5 = nilai5;
+        this.nilaiUAS = nilaiUAS;
+        this.nilaiAkhir = nilaiAkhir;
+        this.hurufMutu = hurufMutu;
     }
-    //Getter
-    public int getN1(){
-        return n1; 
+
+    public int getNilai1() {
+        return nilai1;
     }
-    public int getN2(){
-        return n2; 
+
+    public void setNilai1(int nilai1) {
+        this.nilai1 = nilai1;
     }
-    public int getN3(){
-        return n3; 
+
+    public int getNilai2() {
+        return nilai2;
     }
-    public int getN4(){
-        return n4; 
+
+    public void setNilai2(int nilai2) {
+        this.nilai2 = nilai2;
     }
-    public int getN5(){
-        return n5; 
+
+    public int getNilai3() {
+        return nilai3;
     }
-    public int getnUAS(){
-        return nUAS; 
+
+    public void setNilai3(int nilai3) {
+        this.nilai3 = nilai3;
     }
-    public float getna(){
-        return na; 
+
+    public int getNilai4() {
+        return nilai4;
     }
-    public String gethm(){
-        return hm;
+
+    public void setNilai4(int nilai4) {
+        this.nilai4 = nilai4;
+    }
+
+    public int getNilai5() {
+        return nilai5;
+    }
+
+    public void setNilai5(int nilai5) {
+        this.nilai5 = nilai5;
+    }
+
+    public int getNilaiUAS() {
+        return nilaiUAS;
+    }
+
+    public void setNilaiUAS(int nilaiUAS) {
+        this.nilaiUAS = nilaiUAS;
+    }
+
+    public float getNilaiAkhir() {
+        return nilaiAkhir;
+    }
+
+    public void setNilaiAkhir(float nilaiAkhir) {
+        this.nilaiAkhir = nilaiAkhir;
+    }
+
+    public String getHurufMutu() {
+        return hurufMutu;
+    }
+
+    public void setHurufMutu(String hurufMutu) {
+        this.hurufMutu = hurufMutu;
+    }
+
+    @Override
+    public String toString() {
+        return "Nilai{" + "nilai1=" + nilai1 + ", nilai2=" + nilai2 + ", nilai3=" + nilai3 + ", nilai4=" + nilai4 + ", nilai5=" + nilai5 + ", nilaiUAS=" + nilaiUAS + ", nilaiAkhir=" + nilaiAkhir + ", hurufMutu=" + hurufMutu + '}';
     }
     
-     //Setter
-    public void setN1(int data){
-        n1 = data; 
-    }
-    public void setN2(int data){
-        n2 = data; 
-    }
-    public void setN3(int data){
-        n3 = data; 
-    }
-    public void setN4(int data){
-        n4 = data; 
-    }
-    public void setN5(int data){
-        n5 = data; 
-    }
-    public void setnUAS(int data){
-        nUAS = data; 
-    }
-    public void setNA(float data){
-        na = data; 
-    }
-    public void sethm(String data){
-        hm = data; 
+    public float hitungNA(){
+        float total = nilai1 + nilai2 + nilai3 + nilai4 + nilai5 + nilaiUAS;
+        nilaiAkhir = total / 6;
+        return nilaiAkhir;
     }
     
-    
-    
-    
-    
+    public String convertHurufMutu(){
+        float nilai = hitungNA();
+        if(nilai >= 80){
+            hurufMutu = "A";
+        }else if(nilai >= 76){
+            hurufMutu = "A-";
+        }else if(nilai >= 72){
+            hurufMutu = "B+";
+        }else if(nilai >= 68){
+            hurufMutu = "B";
+        }else if(nilai >= 64){
+            hurufMutu = "B-";
+        }else if(nilai >= 60){
+            hurufMutu = "C+";
+        }else if(nilai >= 56){
+            hurufMutu = "C";
+        }else if(nilai >= 41){
+            hurufMutu = "D";
+        }else{
+            hurufMutu = "E";
+        }
+        return hurufMutu;
+    }
 }
