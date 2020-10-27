@@ -5,7 +5,9 @@
  */
 package main;
 
-import view.viewMahasiswa;
+import view.menuMahasiswa.dashboard;
+import view.*;
+
 
 /**
  *
@@ -13,8 +15,6 @@ import view.viewMahasiswa;
  */
 public class main {
     public static void main(String[] args) {
-        System.out.println("Test");
-        //new viewMahasiswa();
-        
+        new dashboard();
     }
 }
