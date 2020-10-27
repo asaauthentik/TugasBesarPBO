@@ -3,24 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.menuMahasiswa;
 
+import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.*;
-
 /**
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelProfile extends JPanel{
-    JLabel dummy;
-    public JPanelProfile(){
-        dummy = new JLabel("Hi this is profile side");
-        setBackground(Color.BLUE);
-        add(dummy);
+public class JPanelRencanaStudi  extends JPanel {
+    public JPanelRencanaStudi(){
+        setBackground(Color.DARK_GRAY);
     }
-    
     
     @Override
     public Dimension getPreferredSize() {

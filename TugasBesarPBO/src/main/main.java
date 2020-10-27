@@ -5,6 +5,7 @@
  */
 package main;
 
+import view.menuMahasiswa.dashboard;
 import view.*;
 
 
@@ -14,7 +15,6 @@ import view.*;
  */
 public class main {
     public static void main(String[] args) {
-        System.out.println("Test");
         new dashboard();
     }
 }
