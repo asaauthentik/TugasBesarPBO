@@ -53,8 +53,8 @@ jobs:
     - name: Display the path
       run: ls
       shell: bash
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v1
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
@@ -63,6 +63,9 @@ jobs:
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
 
+    - name: Run Ant
+      run: ant -f TugasBesarPBO -Dnb.internal.action.name=run run
+      shell: bash
     #- run: |
     #   make bootstrap
     #   make release
