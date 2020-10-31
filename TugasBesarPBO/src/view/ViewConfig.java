@@ -21,5 +21,7 @@ public interface ViewConfig {
     
     Font FONT_DEFAULT_BOLD = new java.awt.Font("Segoe UI", 1, 14);
     Font FONT_DEFAULT_PLAIN = new java.awt.Font("Segoe UI", 0, 14);
+    Dimension DIMENSION_PANEL_CARD = new Dimension(668, 620);
     Font FONT_TITLE = new java.awt.Font("Segoe UI",1,20);
+
 }
