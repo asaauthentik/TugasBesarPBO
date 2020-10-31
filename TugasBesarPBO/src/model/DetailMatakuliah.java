@@ -8,7 +8,8 @@ package model;
 import java.util.ArrayList;
 
 /**
- *
+ * @author 1119002 Albertus Angkuw
+ * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
  */
 public class DetailMatakuliah extends Matakuliah{
@@ -16,23 +17,21 @@ public class DetailMatakuliah extends Matakuliah{
     private int tahun;
     private String semester;
     private char kelas;
-    private int jmlPertemuan;
-    public ArrayList<Dosen> pengajar;
+    private int jumlahPertemuan;
+    public ArrayList<Nilai> nilaiMahasiswa;
     public ArrayList<Roster> jadwal;
-    public ArrayList<Nilai> nilaiMHS;
-    public ArrayList<Kehadiran> kehadiranMHS;
+    public ArrayList<Kehadiran> kehadiranMahasiswa;
 
-    public DetailMatakuliah(String id_MK, int tahun, String semester, char kelas, int jmlPertemuan, ArrayList<Dosen> pengajar, ArrayList<Roster> jadwal, ArrayList<Nilai> nilaiMHS, ArrayList<Kehadiran> kehadiranMHS, String kode_MK, String nama_MK, String jenis_MK, String sifat_MK, int sks) {
+    public DetailMatakuliah(String id_MK, int tahun, String semester, char kelas, int jumlahPertemuan, ArrayList<Nilai> nilaiMahasiswa, ArrayList<Roster> jadwal, ArrayList<Kehadiran> kehadiranMahasiswa, String kode_MK, String nama_MK, String jenis_MK, String sifat_MK, int sks) {
         super(kode_MK, nama_MK, jenis_MK, sifat_MK, sks);
         this.id_MK = id_MK;
         this.tahun = tahun;
         this.semester = semester;
         this.kelas = kelas;
-        this.jmlPertemuan = jmlPertemuan;
-        this.pengajar = pengajar;
+        this.jumlahPertemuan = jumlahPertemuan;
+        this.nilaiMahasiswa = nilaiMahasiswa;
         this.jadwal = jadwal;
-        this.nilaiMHS = nilaiMHS;
-        this.kehadiranMHS = kehadiranMHS;
+        this.kehadiranMahasiswa = kehadiranMahasiswa;
     }
 
     public String getId_MK() {
@@ -67,16 +66,24 @@ public class DetailMatakuliah extends Matakuliah{
         this.kelas = kelas;
     }
 
-    public int getJmlPertemuan() {
-        return jmlPertemuan;
+    public int getJumlahPertemuan() {
+        return jumlahPertemuan;
     }
 
-    public void setJmlPertemuan(int jmlPertemuan) {
-        this.jmlPertemuan = jmlPertemuan;
+    public void setJumlahPertemuan(int jumlahPertemuan) {
+        this.jumlahPertemuan = jumlahPertemuan;
     }
 
     @Override
     public String toString() {
-        return "DetailMatakuliah{" + "id_MK=" + id_MK + ", tahun=" + tahun + ", semester=" + semester + ", kelas=" + kelas + ", jmlPertemuan=" + jmlPertemuan + ", pengajar=" + pengajar + ", jadwal=" + jadwal + ", nilaiMHS=" + nilaiMHS + ", kehadiranMHS=" + kehadiranMHS + '}';
+        return "DetailMatakuliah{" + "id_MK=" + id_MK + ", tahun=" + tahun + ", semester=" + semester + ", kelas=" + kelas + ", jumlahPertemuan=" + jumlahPertemuan + ", nilaiMahasiswa=" + nilaiMahasiswa + ", jadwal=" + jadwal + ", kehadiranMahasiswa=" + kehadiranMahasiswa + '}';
+    }
+    
+    public int hitungKehadiran(Kehadiran dataKehadiran){
+        int counter = 0;
+        if(dataKehadiran.getKeterangan() == "Hadir"){
+            counter++;
+        }
+        return counter;
     }
 }

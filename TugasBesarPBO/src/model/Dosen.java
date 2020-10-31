@@ -5,8 +5,9 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
- *
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
@@ -18,61 +19,79 @@ public class Dosen extends User {
     private String gelarAkademik;
     private String statusPegawai; //PNS/nonpns
     private String statusIkatanKerja; //Dosen tetap, tidak tetap , dll
-    private String id_MK_Diajar[];
     private boolean statusDosen;
+    public ArrayList<DetailMatakuliah> Matakuliah;
 
-
-
-    public Dosen(){}
-    //Konstruktor
-    public Dosen(String programStudi,String bidangIlmu, String gelarAkademik, String statusPegawai, String statusIkatanKerja, boolean statusDosen){
+    public Dosen(String NID, String programStudi, String bidangIlmu, String gelarAkademik, String statusPegawai, String statusIkatanKerja, boolean statusDosen, ArrayList<DetailMatakuliah> Matakuliah, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+        super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
+        this.NID = NID;
         this.programStudi = programStudi;
         this.bidangIlmu = bidangIlmu;
         this.gelarAkademik = gelarAkademik;
         this.statusPegawai = statusPegawai;
         this.statusIkatanKerja = statusIkatanKerja;
         this.statusDosen = statusDosen;
-      
+        this.Matakuliah = Matakuliah;
     }
-    
-    //Getter
-    public String getprogramStudi(){
-        return programStudi; 
+
+    public String getNID() {
+        return NID;
     }
-    public String getbidangIlmu(){
-        return bidangIlmu; 
+
+    public void setNID(String NID) {
+        this.NID = NID;
     }
-    public String getgelarAkademik(){
-        return gelarAkademik; 
+
+    public String getProgramStudi() {
+        return programStudi;
     }
-    public String getstatusPegawai(){
-        return statusPegawai; 
+
+    public void setProgramStudi(String programStudi) {
+        this.programStudi = programStudi;
     }
-    public String getstatusIkatanKerja(){
-        return statusIkatanKerja; 
+
+    public String getBidangIlmu() {
+        return bidangIlmu;
     }
-    public boolean getstatusDosen(){
-        return statusDosen; 
+
+    public void setBidangIlmu(String bidangIlmu) {
+        this.bidangIlmu = bidangIlmu;
     }
-    
-    //Setter
-    public void setprogramStudi(String data){
-        programStudi = data; 
+
+    public String getGelarAkademik() {
+        return gelarAkademik;
     }
-    public void setbidangIlmu(String data){
-        bidangIlmu = data; 
+
+    public void setGelarAkademik(String gelarAkademik) {
+        this.gelarAkademik = gelarAkademik;
     }
-    public void setgelarAkademik(String data){
-        gelarAkademik = data; 
+
+    public String getStatusPegawai() {
+        return statusPegawai;
     }
-    public void setstatusPegawai(String data){
-        statusPegawai = data; 
+
+    public void setStatusPegawai(String statusPegawai) {
+        this.statusPegawai = statusPegawai;
     }
-    public void setstatusIkatanKerja(String data){
-        statusIkatanKerja = data; 
+
+    public String getStatusIkatanKerja() {
+        return statusIkatanKerja;
     }
-    public void setstatusDosen(boolean data){
-        statusDosen = data; 
+
+    public void setStatusIkatanKerja(String statusIkatanKerja) {
+        this.statusIkatanKerja = statusIkatanKerja;
     }
-   
+
+    public boolean isStatusDosen() {
+        return statusDosen;
+    }
+
+    public void setStatusDosen(boolean statusDosen) {
+        this.statusDosen = statusDosen;
+    }
+
+    @Override
+    public String toString() {
+        return "Dosen{" + "NID=" + NID + ", programStudi=" + programStudi + ", bidangIlmu=" + bidangIlmu + ", gelarAkademik=" + gelarAkademik + ", statusPegawai=" + statusPegawai + ", statusIkatanKerja=" + statusIkatanKerja + ", statusDosen=" + statusDosen + ", Matakuliah=" + Matakuliah + '}';
+    }
 }
