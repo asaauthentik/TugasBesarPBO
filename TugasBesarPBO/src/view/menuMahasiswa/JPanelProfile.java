@@ -21,8 +21,8 @@ import static view.ViewConfig.*;
 public class JPanelProfile extends JPanel{
     JPanel Header;
     JLabel Judul;
-    JLabel NIM, Nama, Jurusan, Angkatan, TanggalLahir, JenisKelamin, NomorHP, Email, Alamat, IPK;
-    JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK;
+    JLabel NIM, Nama, Jurusan, Angkatan, TanggalLahir, JenisKelamin, NomorHP, Email, Alamat, IPK, Predikat;
+    JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK, ViewPredikat;
     JButton Keluar;
     public JPanelProfile(){
         Header = new JPanel();
@@ -46,77 +46,84 @@ public class JPanelProfile extends JPanel{
         add(ViewFoto);
         //NIM
         NIM = new JLabel("NIM");
-        NIM.setBounds(320,70,100,100);
+        NIM.setBounds(320,50,100,100);
         add(NIM);
         ViewNIM = new JLabel(": 1119038");
-        ViewNIM.setBounds(420,70,100,100);
+        ViewNIM.setBounds(420,50,100,100);
         add(ViewNIM);
         //Nama
         Nama = new JLabel("Nama");
-        Nama.setBounds(320,100,100,100);
+        Nama.setBounds(320,80,100,100);
         add(Nama);
         ViewNama = new JLabel(": Elangel");
-        ViewNama.setBounds(420,100,100,100);
+        ViewNama.setBounds(420,80,100,100);
         add(ViewNama);
         //Jurusan
         Jurusan = new JLabel("Jurusan");
-        Jurusan.setBounds(320,130,100,100);
+        Jurusan.setBounds(320,110,100,100);
         add(Jurusan);
         ViewJurusan = new JLabel(": Informatika");
-        ViewJurusan.setBounds(420,130,100,100);
+        ViewJurusan.setBounds(420,110,100,100);
         add(ViewJurusan);
         //Angkatan
         Angkatan = new JLabel("Angkatan");
-        Angkatan.setBounds(320,160,100,100);
+        Angkatan.setBounds(320,140,100,100);
         add(Angkatan);
         ViewAngkatan = new JLabel(": 2019");
-        ViewAngkatan.setBounds(420,160,100,100);
+        ViewAngkatan.setBounds(420,140,100,100);
         add(ViewAngkatan);
         //Tanggal Lahir
         TanggalLahir = new JLabel("Tanggal Lahir");
-        TanggalLahir.setBounds(320,190,100,100);
+        TanggalLahir.setBounds(320,170,100,100);
         add(TanggalLahir);
         ViewTanggalLahir = new JLabel(": 17 Agustus 2001");
-        ViewTanggalLahir.setBounds(420,190,100,100);
+        ViewTanggalLahir.setBounds(420,170,100,100);
         add(ViewTanggalLahir);
         //Jenis Kelamin
         JenisKelamin = new JLabel("Jenis Kelamin");
-        JenisKelamin.setBounds(320,220,100,100);
+        JenisKelamin.setBounds(320,200,100,100);
         add(JenisKelamin);
         ViewJenisKelamin = new JLabel(": Perempuan");
-        ViewJenisKelamin.setBounds(420,220,100,100);
+        ViewJenisKelamin.setBounds(420,200,100,100);
         add(ViewJenisKelamin);
         //Nomor HP
         NomorHP = new JLabel("Nomor HP");
-        NomorHP.setBounds(320,250,100,100);
+        NomorHP.setBounds(320,230,100,100);
         add(NomorHP);
         ViewNomorHP = new JLabel(": 08123456789");
-        ViewNomorHP.setBounds(420,250,100,100);
+        ViewNomorHP.setBounds(420,230,100,100);
         add(ViewNomorHP);
         //Email
         Email = new JLabel("Email");
-        Email.setBounds(320,280,100,100);
+        Email.setBounds(320,260,100,100);
         add(Email);
         ViewEmail = new JLabel(": elangel@gmail.com");
-        ViewEmail.setBounds(420,280,200,100);
+        ViewEmail.setBounds(420,260,200,100);
         add(ViewEmail);
         //Alamat 
         Alamat = new JLabel("Alamat");
-        Alamat.setBounds(320,310,100,100);
+        Alamat.setBounds(320,290,100,100);
         add(Alamat);
         ViewAlamat = new JLabel(": Bandung");
-        ViewAlamat.setBounds(420,310,100,100);
+        ViewAlamat.setBounds(420,290,100,100);
         add(ViewAlamat);
         //IPK
         IPK = new JLabel("IPK");
-        IPK.setBounds(320,340,100,100);
+        IPK.setBounds(320,320,100,100);
         add(IPK);
         ViewIPK= new JLabel(": 4.00");
-        ViewIPK.setBounds(420,340,100,100);
+        ViewIPK.setBounds(420,320,100,100);
         add(ViewIPK);
+        //Predikat
+        Predikat = new JLabel("Predikat");
+        Predikat.setBounds(320,350,100,100);
+        add(Predikat);
+        ViewPredikat = new JLabel(": Cumlaude");
+        ViewPredikat.setBounds(420,350,100,100);
+        add(ViewPredikat);
         //Button keluar
         Keluar = new JButton("Keluar");
-        Keluar.setBounds(30,430,500,30);
+        Keluar.setBounds(30,440,500,30);
         Keluar.setContentAreaFilled(true);
         Keluar.setBackground(Color.WHITE);
         Keluar.setForeground(BGCOLOR_DEFAULT);
