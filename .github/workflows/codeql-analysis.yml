@@ -51,7 +51,7 @@ jobs:
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
     - name: Display the path
-      run: echo $PATH
+      run: ls
       shell: bash
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1
