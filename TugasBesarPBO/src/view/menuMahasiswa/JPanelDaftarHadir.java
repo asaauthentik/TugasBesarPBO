@@ -7,9 +7,12 @@ package view.menuMahasiswa;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,7 +25,7 @@ import static view.ViewConfig.FONT_TITLE;
  *
  * @author 1119038 Elangel Neilea Shaday
  */
-public class JPanelDaftarHadir extends JPanel{
+public class JPanelDaftarHadir extends JPanel implements ActionListener{
     JPanel Header;
     JLabel Judul, Matkul, Tahun, Semester;
     JComboBox ViewMatkul, ViewSemester;
@@ -32,11 +35,11 @@ public class JPanelDaftarHadir extends JPanel{
     JButton Find;
     JTable daftarHadir;
     String data[][] = {
-        {"1.", "101", "Algoritma", "12"}, 
-        {"2.", "102", "Kalkulus", "11"}, 
-        {"3.", "103", "Web Programming", "13"}, 
-        {"4.", "103", "Web Design", "13"}}; 
-    String column[] = {"No", "Kode MK", "Nama Matakuliah", "Jumlah Kehadiran"};
+        {"1.", "101", "Algoritma", "A","12"}, 
+        {"2.", "102", "Kalkulus", "A","11"}, 
+        {"3.", "103", "Web Programming", "B","13"}, 
+        {"4.", "103", "Web Design", "B","13"}}; 
+    String column[] = {"No", "Kode MK", "Nama Matakuliah", "Kelas", "Jumlah Kehadiran"};
     public JPanelDaftarHadir(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
@@ -75,14 +78,44 @@ public class JPanelDaftarHadir extends JPanel{
         Find.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
         Find.setFocusPainted(false);
         Find.setFont(FONT_DEFAULT_PLAIN);
+        Find.addActionListener(this);
         add(Find);
         //Table Daftar Hadir
         daftarHadir = new JTable(data, column);
         daftarHadir.setBounds(15,180,540,500);
         add(daftarHadir);
+        daftarHadir.setVisible(false);
+        
 //        JScrollPane table = new JScrollPane(daftarHadir);  
 //        add(table);
 //        setVisible(true);
+    }
+    private boolean checkAllData(){
+        if(ViewMatkul.getSelectedItem().toString().equals("")){
+            return false;
+        }
+        if(ViewTahun.getText().equals("")){
+            return false;
+        }
+        if(ViewSemester.getSelectedItem().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        System.out.println("Action Panel Daftar Hadir: " + action);
+        if(action.equals("Lihat Daftar Hadir")){
+            if(checkAllData() == false){
+                JOptionPane.showMessageDialog(null,"Silahkan Isi Semua Data!");
+            }else{
+                String printMatkul = ViewMatkul.getSelectedItem().toString();
+                String printTahun = ViewTahun.getText();
+                String printSemester = ViewSemester.getSelectedItem().toString();
+                daftarHadir.setVisible(true);
+            }
+        }
     }
     @Override
     public Dimension getPreferredSize() {

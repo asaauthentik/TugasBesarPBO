@@ -8,9 +8,12 @@ package view.menuMahasiswa;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
@@ -21,7 +24,7 @@ import static view.ViewConfig.FONT_TITLE;
  * @author 1119002 Albertus Angkuw
  * @author 1119038 Elangel Neilea Shaday
  */
-public class JPanelTranskripNilai  extends JPanel {
+public class JPanelTranskripNilai  extends JPanel implements ActionListener{
     JPanel Header;
     JLabel Judul, Tahun, Semester;
     JComboBox ViewSemester;
@@ -67,17 +70,35 @@ public class JPanelTranskripNilai  extends JPanel {
         Find.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
         Find.setFocusPainted(false);
         Find.setFont(FONT_DEFAULT_PLAIN);
+        Find.addActionListener(this);
         add(Find);
         //Table Daftar Hadir
-        daftarNilai = new JTable();
+        daftarNilai = new JTable(data,column);
         daftarNilai.setBounds(15,130,540,500);
-        daftarNilai.setBackground(Color.GRAY);
+        daftarNilai.setVisible(false);
         add(daftarNilai);
-//        JScrollPane table = new JScrollPane(daftarHadir);  
-//        add(table);
-//        setVisible(true);
     }
-    
+    private boolean checkAllData(){
+        if(ViewTahun.getText().equals("")){
+            return false;
+        }
+        if(ViewSemester.getSelectedItem().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        System.out.println("Action Panel Transkrip Nilai: " + action);
+        if(checkAllData() == false){
+            JOptionPane.showMessageDialog(null,"Silahkan Isi Semua Data!");
+        }else{
+            String printTahun = ViewTahun.getText();
+            String printSemester = ViewSemester.getSelectedItem().toString();
+            daftarNilai.setVisible(true);
+        }
+    }
     @Override
     public Dimension getPreferredSize() {
         
