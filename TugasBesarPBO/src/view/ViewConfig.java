@@ -10,6 +10,7 @@ import java.awt.*;
 /**
  *
  * @author 1119002 Albertus Angkuw
+ * @author 1119038 Elangel Neilea Shaday
  */
 public interface ViewConfig {
     //Purple Color
@@ -20,4 +21,5 @@ public interface ViewConfig {
     
     Font FONT_DEFAULT_BOLD = new java.awt.Font("Segoe UI", 1, 14);
     Font FONT_DEFAULT_PLAIN = new java.awt.Font("Segoe UI", 0, 14);
+    Font FONT_TITLE = new java.awt.Font("Segoe UI",1,20);
 }
