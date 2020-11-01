@@ -163,6 +163,7 @@ public class dashboard implements ActionListener,ViewConfig {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultLookAndFeelDecorated(true);
+        frame.setLocationRelativeTo(null);
         //End of Inisialisasi Frame
     }
     @Override
