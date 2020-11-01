@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package view.menuDaak.HelperUser;
 
-import view.menuMahasiswa.dashboard;
-import view.*;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JPanel;
 
 /**
  *
  * @author 1119002 Albertus Angkuw
- * @author 1119038 Elangel Neilea Shaday
  */
-public class main {
-    public static void main(String[] args) {
-        //for codeql
-        //new dashboard();
+public class JPanelDosen extends JPanel{
+    public JPanelDosen(){
+        setBackground(Color.ORANGE);
     }
+    
+   
 }
