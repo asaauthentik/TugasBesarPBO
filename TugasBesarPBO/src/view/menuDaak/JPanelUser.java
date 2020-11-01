@@ -36,6 +36,9 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
     JComboBox optionListUser;
     
     JPanelMahasiswa mahasiswa;
+    
+    
+    JButton Cancel;
     public JPanelUser(){
         setLayout(null);
         title = new JLabel("User Management");
@@ -112,8 +115,9 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
         
         optionListUser = new JComboBox(listUser);
         optionListUser.setBounds(20, 100, 250 ,30);
-        add(optionListUser);
         optionListUser.setVisible(false);
+        add(optionListUser);
+        
         
         btnTypeUser = new JButton("Process");
         btnTypeUser.setBounds(285, 100, 100 ,30);
@@ -124,13 +128,27 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
         btnTypeUser.setFocusPainted(false);
         btnTypeUser.setFont(FONT_DEFAULT_PLAIN );
         btnTypeUser.setVisible(false);
+        btnTypeUser.addActionListener(this);
         add(btnTypeUser);
       
         mahasiswa = new JPanelMahasiswa();
-        mahasiswa.setBounds(20,135,540,490);
-        
+        mahasiswa.setBounds(20,135,480,490);
+        mahasiswa.setVisible(false);
         add(mahasiswa);
+            
         //setBackground(Color.RED);
+        
+        Cancel = new JButton("Cancel");
+        Cancel.setBounds(500,580, 100, 30);
+        Cancel.setContentAreaFilled(true);
+        Cancel.setBackground(BGCOLOR_DEFAULT);
+        Cancel.setForeground(COLOR_WHITE);
+        Cancel.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        Cancel.setFocusPainted(false);
+        Cancel.setFont(FONT_DEFAULT_PLAIN);
+        Cancel.addActionListener(this);
+        Cancel.setVisible(false);
+        add(Cancel);
     }
     
     @Override
@@ -143,6 +161,20 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
          String option = e.getActionCommand();
          System.out.println("Action Panel User : " + option);
          
+         if(option.equals("Process")){
+            if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("Mahasiswa")){
+                mahasiswa.setVisible(true);
+            }
+            
+            Cancel.setVisible(true);
+            return;
+         }
+         
+         if(option.equals("Cancel")){
+            mahasiswa.setVisible(false);
+            Cancel.setVisible(false);
+         }
+         
          createUser.setBackground(COLOR_WHITE);
          createUser.setForeground(BGCOLOR_DEFAULT);
          editUser.setBackground(COLOR_WHITE);
@@ -153,25 +185,27 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
          btnSearch.setVisible(false);
          btnTypeUser.setVisible(false);
          optionListUser.setVisible(false);
+        
          
          if(option.equals("Tambah User")){
             createUser.setBackground(BGCOLOR_DEFAULT);
             createUser.setForeground(COLOR_WHITE);
             optionListUser.setVisible(true);
             btnTypeUser.setVisible(true);
+            
          }else if(option.equals("Edit User")){
             editUser.setBackground(BGCOLOR_DEFAULT);
             editUser.setForeground(COLOR_WHITE);
             searchUser.setVisible(true);
             btnSearch.setVisible(true);
          }else if(option.equals("Hapus User")){
-             revalidate();
-             repaint();
             deleteUser.setBackground(BGCOLOR_DEFAULT);
             deleteUser.setForeground(COLOR_WHITE);
             searchUser.setVisible(true);
             btnSearch.setVisible(true);
          }
+         
+         
     }
     
      
