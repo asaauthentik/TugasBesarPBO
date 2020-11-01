@@ -12,9 +12,11 @@ import view.*;
 /**
  *
  * @author 1119002 Albertus Angkuw
+ * @author 1119038 Elangel Neilea Shaday
  */
 public class main {
     public static void main(String[] args) {
-        new dashboard();
+        //for codeql
+        //new dashboard();
     }
 }
