@@ -19,8 +19,8 @@ public class Mahasiswa extends User {
     private int tahunLulus;
     private float ipk;
     private String predikat;
-    public ArrayList<RencanaStudi> rencanaStudi;
-    public ArrayList<Transaksi> transaksiMahasiswa;
+    private ArrayList<RencanaStudi> rencanaStudi;
+    private ArrayList<Transaksi> transaksiMahasiswa;
 
     public Mahasiswa(int NIM, String jurusan, int tahunMasuk, int tahunLulus, float ipk, String predikat, ArrayList<RencanaStudi> rencanaStudi, ArrayList<Transaksi> transaksiMahasiswa, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
         super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
@@ -81,6 +81,24 @@ public class Mahasiswa extends User {
     public void setPredikat(String predikat) {
         this.predikat = predikat;
     }
+
+    public ArrayList<RencanaStudi> getRencanaStudi() {
+        return rencanaStudi;
+    }
+
+    public void setRencanaStudi(ArrayList<RencanaStudi> rencanaStudi) {
+        this.rencanaStudi = rencanaStudi;
+    }
+
+    public ArrayList<Transaksi> getTransaksiMahasiswa() {
+        return transaksiMahasiswa;
+    }
+
+    public void setTransaksiMahasiswa(ArrayList<Transaksi> transaksiMahasiswa) {
+        this.transaksiMahasiswa = transaksiMahasiswa;
+    }
+    
+    
 
     @Override
     public String toString() {

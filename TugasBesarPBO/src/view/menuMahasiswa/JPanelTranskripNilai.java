@@ -25,19 +25,19 @@ import static view.ViewConfig.FONT_TITLE;
  * @author 1119038 Elangel Neilea Shaday
  */
 public class JPanelTranskripNilai  extends JPanel implements ActionListener{
-    JPanel Header;
-    JLabel Judul, Tahun, Semester;
-    JComboBox ViewSemester;
-    String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
-    JTextField ViewTahun;
-    JButton Find;
-    JTable daftarNilai;
-    String data[][] = {
+    private final JPanel Header;
+    private final JLabel Judul, Tahun, Semester;
+    private final JComboBox ViewSemester;
+    private final String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
+    private final JTextField ViewTahun;
+    private final JButton Find;
+    private final JTable daftarNilai;
+    private final String data[][] = {
         {"1.", "101", "Algoritma", "77", "88", "99", "100", "86", "90", "96", "A"}, 
         {"2.", "102", "Kalkulus",  "77", "88", "99", "100", "86", "90", "96", "A"}, 
         {"3.", "103", "Web Programming",  "77", "88", "99", "100", "86", "90", "96", "A"}, 
         {"4.", "104", "Web Design",  "77", "88", "99", "100", "86", "90", "96", "A"}}; 
-    String column[] = {"No", "Kode MK", "Nama Matakuliah", "N1", "N2", "N3", "N4", "N5", "UAS", "NA", "HM"};
+    private final String column[] = {"No", "Kode MK", "Nama Matakuliah", "N1", "N2", "N3", "N4", "N5", "UAS", "NA", "HM"};
     public JPanelTranskripNilai(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);

@@ -26,20 +26,20 @@ import static view.ViewConfig.FONT_TITLE;
  * @author 1119038 Elangel Neilea Shaday
  */
 public class JPanelDaftarHadir extends JPanel implements ActionListener{
-    JPanel Header;
-    JLabel Judul, Matkul, Tahun, Semester;
-    JComboBox ViewMatkul, ViewSemester;
-    String MatkulValue[] = {"", "A", "B", "C"};
-    String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
-    JTextField ViewTahun;
-    JButton Find;
-    JTable daftarHadir;
-    String data[][] = {
+    private final JPanel Header;
+    private final JLabel Judul, Matkul, Tahun, Semester;
+    private final JComboBox ViewMatkul, ViewSemester;
+    private final String MatkulValue[] = {"", "A", "B", "C"};
+    private final String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
+    private final JTextField ViewTahun;
+    private final JButton Find;
+    private final JTable daftarHadir;
+    private final String data[][] = {
         {"1.", "101", "Algoritma", "A","12"}, 
         {"2.", "102", "Kalkulus", "A","11"}, 
         {"3.", "103", "Web Programming", "B","13"}, 
         {"4.", "103", "Web Design", "B","13"}}; 
-    String column[] = {"No", "Kode MK", "Nama Matakuliah", "Kelas", "Jumlah Kehadiran"};
+    private final String column[] = {"No", "Kode MK", "Nama Matakuliah", "Kelas", "Jumlah Kehadiran"};
     public JPanelDaftarHadir(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);

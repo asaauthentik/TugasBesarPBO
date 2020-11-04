@@ -19,11 +19,11 @@ import static view.ViewConfig.*;
  * @author 1119038 Elangel Neilea Shaday
  */
 public class JPanelProfile extends JPanel{
-    JPanel Header;
-    JLabel Judul;
-    JLabel NIM, Nama, Jurusan, Angkatan, TanggalLahir, JenisKelamin, NomorHP, Email, Alamat, IPK, Predikat;
-    JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK, ViewPredikat;
-    JButton Keluar;
+    private final JPanel Header;
+    private final JLabel Judul;
+    private final JLabel NIM, Nama, Jurusan, Angkatan, TanggalLahir, JenisKelamin, NomorHP, Email, Alamat, IPK, Predikat;
+    private final JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK, ViewPredikat;
+    private final JButton Keluar;
     public JPanelProfile(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
