@@ -59,9 +59,16 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
     JButton Save;
     
     
-    public JPanelMahasiswa(){
+    public JPanelMahasiswa(String type,String data){
         setLayout(null);
-        generateInputForm();
+        
+        if(type.equals("Input")){
+            generateInputForm();
+        }else if(type.equals("Show")){
+            generateShowForm();
+        }else if(type.equals("Edit")){
+            
+        }
         
         Save = new JButton("Save");
         Save.setBounds(370,445, 100, 30);
@@ -221,7 +228,7 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
         
     }
     
-    private void generateShowForm(){
+    private void generateEditForm(){
         
         generateInputForm();
               
@@ -246,6 +253,37 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
         
         
     }
+    
+    private void generateShowForm(){
+        
+        generateEditForm();
+              
+        fieldNim.setEditable(false);
+        fieldNama.setEditable(false);
+        fieldEmail.setEditable(false);
+        fieldPassword.setEditable(true);
+        modelTglLahir.setSelected(true);
+        modelTglLahir.setDate(2001, 9, 17);
+        fieldTanggalLahir.setEnabled(false);
+        fieldPria.setEnabled(false);
+        fieldWanita.setSelected(false); 
+        fieldTelp.setEditable(true);
+        fieldJurusan.setEditable(true);
+        fieldTahunMasuk.setEditable(true);
+        fieldTahunLulus.setEditable(true);
+        fieldIpk.setEditable(true);
+        fieldPredikat.setEditable(true);
+        
+        Save.setText("Ok");
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     private void addColon(JLabel label){
         int space = 17;
         String text = label.getText();

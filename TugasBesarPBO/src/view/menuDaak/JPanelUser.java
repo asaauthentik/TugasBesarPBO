@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.*;
 import view.ViewConfig;
 import static view.ViewConfig.*;
+import view.menuDaak.HelperUser.JPanelTable;
 /**
  *
  * @author 1119002 Albertus Angkuw
@@ -37,6 +38,7 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
     
     JPanelMahasiswa mahasiswa;
     
+    JPanelTable tableExample;
     
     JButton Cancel;
     public JPanelUser(){
@@ -131,11 +133,17 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
         btnTypeUser.addActionListener(this);
         add(btnTypeUser);
       
-        mahasiswa = new JPanelMahasiswa();
+        
+        mahasiswa = new JPanelMahasiswa("Input","Data");
         mahasiswa.setBounds(20,135,480,490);
         mahasiswa.setVisible(false);
         add(mahasiswa);
-            
+        
+//        
+//        tableExample = new JPanelTable();
+//        tableExample.setBounds(20,135,480,490);
+//        tableExample.setVisible(true);
+//        add(tableExample);
         //setBackground(Color.RED);
         
         Cancel = new JButton("Cancel");

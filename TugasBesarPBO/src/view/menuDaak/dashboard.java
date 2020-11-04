@@ -6,7 +6,7 @@
 package view.menuDaak;
 
 
-import view.menuDaak.HelperUser.JPanelDosen;
+import view.menuDaak.HelperUser.JPanelTable;
 import view.menuDaak.HelperUser.JPanelMahasiswa;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -38,7 +38,7 @@ public class dashboard implements ActionListener,ViewConfig {
     JPanelMatakuliah matakuliah;
     JPanelKeuangan keuangan;
     JPanelUser user;
-    JPanelDosen dosen;
+    JPanelTable dosen;
     JPanelMahasiswa mahasiswa;
     JPanelJadwalPerkuliahan jadwalPerkuliahan;
       
@@ -222,5 +222,7 @@ public class dashboard implements ActionListener,ViewConfig {
     }
     public static void main(String[] args) {
         new dashboard();
+        
+        //new view.menuMahasiswa.dashboard();
     }
 }
