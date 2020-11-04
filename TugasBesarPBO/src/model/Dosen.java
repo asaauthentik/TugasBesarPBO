@@ -13,18 +13,18 @@ import java.util.ArrayList;
  * @author 1119038 Elangel Neilea Shaday
  */
 public class Dosen extends User {
-    private String NID;
+    private String NIM;
     private String programStudi;
     private String bidangIlmu;
     private String gelarAkademik;
     private String statusPegawai; //PNS/nonpns
     private String statusIkatanKerja; //Dosen tetap, tidak tetap , dll
     private boolean statusDosen;
-    public ArrayList<DetailMatakuliah> Matakuliah;
+    private ArrayList<DetailMatakuliah> Matakuliah;
 
-    public Dosen(String NID, String programStudi, String bidangIlmu, String gelarAkademik, String statusPegawai, String statusIkatanKerja, boolean statusDosen, ArrayList<DetailMatakuliah> Matakuliah, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+    public Dosen(String NIM, String programStudi, String bidangIlmu, String gelarAkademik, String statusPegawai, String statusIkatanKerja, boolean statusDosen, ArrayList<DetailMatakuliah> Matakuliah, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
         super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
-        this.NID = NID;
+        this.NIM = NIM;
         this.programStudi = programStudi;
         this.bidangIlmu = bidangIlmu;
         this.gelarAkademik = gelarAkademik;
@@ -34,12 +34,21 @@ public class Dosen extends User {
         this.Matakuliah = Matakuliah;
     }
 
-    public String getNID() {
-        return NID;
+
+    public ArrayList<DetailMatakuliah> getMatakuliah() {
+        return Matakuliah;
     }
 
-    public void setNID(String NID) {
-        this.NID = NID;
+    public void setMatakuliah(ArrayList<DetailMatakuliah> Matakuliah) {
+        this.Matakuliah = Matakuliah;
+    }
+
+    public String getNID() {
+        return NIM;
+    }
+
+    public void setNID(String NIM) {
+        this.NIM = NIM;
     }
 
     public String getProgramStudi() {
@@ -92,6 +101,6 @@ public class Dosen extends User {
 
     @Override
     public String toString() {
-        return "Dosen{" + "NID=" + NID + ", programStudi=" + programStudi + ", bidangIlmu=" + bidangIlmu + ", gelarAkademik=" + gelarAkademik + ", statusPegawai=" + statusPegawai + ", statusIkatanKerja=" + statusIkatanKerja + ", statusDosen=" + statusDosen + ", Matakuliah=" + Matakuliah + '}';
+        return "Dosen{" + "NIM=" + NIM + ", programStudi=" + programStudi + ", bidangIlmu=" + bidangIlmu + ", gelarAkademik=" + gelarAkademik + ", statusPegawai=" + statusPegawai + ", statusIkatanKerja=" + statusIkatanKerja + ", statusDosen=" + statusDosen + ", Matakuliah=" + Matakuliah + '}';
     }
 }

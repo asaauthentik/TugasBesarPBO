@@ -25,25 +25,25 @@ import view.ViewConfig;
  * @author 1119006 William Juniar
  */
 public class dashboard implements ActionListener,ViewConfig {
-    CardLayout card;
-    JPanel cardPanel;
-    JPanel sideBar;
+    private final CardLayout card;
+    private final JPanel cardPanel;
+    private final JPanel sideBar;
     //--List Card as Menu
    
     //Menu Dosen
-    JPanelProfile profile;
-    JPanelJadwalMengajar jadwalmengajar;
-    JPanelDaftarKehadiran daftarkehadiran;
-    JPanelNilaiMatakuliah nilaimatakuliah;
-    JPanelRekapDataMengajar rekapdatamengajar;
+    private final JPanelProfile profile;
+    private final JPanelJadwalMengajar jadwalmengajar;
+    private final JPanelDaftarHadir daftarhadir;
+    private final JPanelNilaiMatakuliah nilaimatakuliah;
+    private final JPanelRekapDataMengajar rekapdatamengajar;
     
     
     //List Button
-    JButton showProfile;
-    JButton showJadwalMengajar;
-    JButton showDaftarKehadiran;
-    JButton showNilaiMatakuliah;
-    JButton showRekapDataMengajar;
+    private final JButton showProfile;
+    private final JButton showJadwalMengajar;
+    private final JButton showDaftarHadir;
+    private final JButton showNilaiMatakuliah;
+    private final JButton showRekapDataMengajar;
     
     public dashboard(){
         card = new CardLayout();
@@ -53,12 +53,12 @@ public class dashboard implements ActionListener,ViewConfig {
         //--Action Menu
         showProfile = new JButton("Profile");
         showJadwalMengajar = new JButton("Jadwal Mengajar");
-        showDaftarKehadiran = new JButton("Daftar Kehadiran");
+        showDaftarHadir = new JButton("Daftar Hadir");
         showNilaiMatakuliah = new JButton("Nilai Matakuliah");
         showRekapDataMengajar = new JButton("Rekap Data Mengajar");
         sideBar.add(showProfile);
         sideBar.add(showJadwalMengajar);
-        sideBar.add(showDaftarKehadiran);
+        sideBar.add(showDaftarHadir);
         sideBar.add(showNilaiMatakuliah);
         sideBar.add(showRekapDataMengajar);
         
@@ -69,43 +69,43 @@ public class dashboard implements ActionListener,ViewConfig {
         
         showProfile.setBackground(BGCOLOR_DEFAULT);
         showJadwalMengajar.setBackground(BGCOLOR_DEFAULT);
-        showDaftarKehadiran.setBackground(BGCOLOR_DEFAULT);
+        showDaftarHadir.setBackground(BGCOLOR_DEFAULT);
         showNilaiMatakuliah.setBackground(BGCOLOR_DEFAULT);
         showRekapDataMengajar.setBackground(BGCOLOR_DEFAULT);
         
         showProfile.setForeground(COLOR_WHITE );
         showJadwalMengajar.setForeground(COLOR_GRAY);
-        showDaftarKehadiran.setForeground(COLOR_GRAY);
+        showDaftarHadir.setForeground(COLOR_GRAY);
         showNilaiMatakuliah.setForeground(COLOR_GRAY);
         showRekapDataMengajar.setForeground(COLOR_GRAY);
         
         showProfile.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showJadwalMengajar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
-        showDaftarKehadiran.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
+        showDaftarHadir.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showNilaiMatakuliah.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showRekapDataMengajar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         
         showProfile.setPreferredSize(new Dimension(200, 20));
         showJadwalMengajar.setPreferredSize(new Dimension(200, 20));
-        showDaftarKehadiran.setPreferredSize(new Dimension(200, 20));
+        showDaftarHadir.setPreferredSize(new Dimension(200, 20));
         showNilaiMatakuliah.setPreferredSize(new Dimension(200, 20));
         showRekapDataMengajar.setPreferredSize(new Dimension(200, 20));
         
         showProfile.setBorderPainted(true);
         showJadwalMengajar.setBorderPainted(false);
-        showDaftarKehadiran.setBorderPainted(false);
+        showDaftarHadir.setBorderPainted(false);
         showNilaiMatakuliah.setBorderPainted(false);
         showRekapDataMengajar.setBorderPainted(false);
         
         showProfile.setContentAreaFilled(false);
         showJadwalMengajar.setContentAreaFilled(false);
-        showDaftarKehadiran.setContentAreaFilled(false);
+        showDaftarHadir.setContentAreaFilled(false);
         showNilaiMatakuliah.setContentAreaFilled(false);
         showRekapDataMengajar.setContentAreaFilled(false);
         
         showProfile.setFocusPainted(false);
         showJadwalMengajar.setFocusPainted(false);
-        showDaftarKehadiran.setFocusPainted(false);
+        showDaftarHadir.setFocusPainted(false);
         showNilaiMatakuliah.setFocusPainted(false);
         showRekapDataMengajar.setFocusPainted(false);
         
@@ -113,7 +113,7 @@ public class dashboard implements ActionListener,ViewConfig {
         
         showProfile.addActionListener(this);
         showJadwalMengajar.addActionListener(this);
-        showDaftarKehadiran.addActionListener(this);
+        showDaftarHadir.addActionListener(this);
         showNilaiMatakuliah.addActionListener(this);
         showRekapDataMengajar.addActionListener(this);
         
@@ -121,13 +121,13 @@ public class dashboard implements ActionListener,ViewConfig {
         //--List Menu
         profile = new JPanelProfile();
         jadwalmengajar = new JPanelJadwalMengajar();
-        daftarkehadiran = new JPanelDaftarKehadiran();
+        daftarhadir = new JPanelDaftarHadir();
         nilaimatakuliah = new JPanelNilaiMatakuliah();
         rekapdatamengajar = new JPanelRekapDataMengajar();
         
         cardPanel.add(profile,"ProfilePanel");
         cardPanel.add(jadwalmengajar,"JadwalMengajarPanel");
-        cardPanel.add(daftarkehadiran,"DaftarKehadiranPanel");
+        cardPanel.add(daftarhadir,"DaftarHadirPanel");
         cardPanel.add(nilaimatakuliah,"NilaiMatakuliahPanel");
         cardPanel.add(rekapdatamengajar,"RekapDataMengajarPanel");
         
@@ -150,13 +150,13 @@ public class dashboard implements ActionListener,ViewConfig {
         
         showProfile.setForeground(COLOR_GRAY);
         showJadwalMengajar.setForeground(COLOR_GRAY);
-        showDaftarKehadiran.setForeground(COLOR_GRAY);
+        showDaftarHadir.setForeground(COLOR_GRAY);
         showNilaiMatakuliah.setForeground(COLOR_GRAY);
         showRekapDataMengajar.setForeground(COLOR_GRAY);
         
         showProfile.setBorderPainted(false);
         showJadwalMengajar.setBorderPainted(false);
-        showDaftarKehadiran.setBorderPainted(false);
+        showDaftarHadir.setBorderPainted(false);
         showNilaiMatakuliah.setBorderPainted(false);
         showRekapDataMengajar.setBorderPainted(false);
         if("Profile".equals(option)){
@@ -167,10 +167,10 @@ public class dashboard implements ActionListener,ViewConfig {
             card.show(cardPanel,"JadwalMengajarPanel");
             showJadwalMengajar.setBorderPainted(true);
              showJadwalMengajar.setForeground(COLOR_WHITE);
-        }else if("Daftar Kehadiran".equals(option)){
-            card.show(cardPanel,"DaftarKehadiranPanel");
-            showDaftarKehadiran.setBorderPainted(true);
-            showDaftarKehadiran.setForeground(COLOR_WHITE);
+        }else if("Daftar Hadir".equals(option)){
+            card.show(cardPanel,"DaftarHadirPanel");
+            showDaftarHadir.setBorderPainted(true);
+            showDaftarHadir.setForeground(COLOR_WHITE);
         }else if("Nilai Matakuliah".equals(option)){
             card.show(cardPanel,"NilaiMatakuliahPanel");
             showNilaiMatakuliah.setBorderPainted(true);
