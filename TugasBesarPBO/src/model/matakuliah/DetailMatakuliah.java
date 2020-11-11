@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.matakuliah;
 
 import java.util.ArrayList;
 
@@ -18,9 +18,9 @@ public class DetailMatakuliah extends Matakuliah{
     private String semester;
     private char kelas;
     private int jumlahPertemuan;
-    public ArrayList<Nilai> nilaiMahasiswa;
-    public ArrayList<Roster> jadwal;
-    public ArrayList<Kehadiran> kehadiranMahasiswa;
+    private ArrayList<Nilai> nilaiMahasiswa;
+    private ArrayList<Roster> jadwal;
+    private ArrayList<Kehadiran> kehadiranMahasiswa;
 
     public DetailMatakuliah(String id_MK, int tahun, String semester, char kelas, int jumlahPertemuan, ArrayList<Nilai> nilaiMahasiswa, ArrayList<Roster> jadwal, ArrayList<Kehadiran> kehadiranMahasiswa, String kode_MK, String nama_MK, String jenis_MK, String sifat_MK, int sks) {
         super(kode_MK, nama_MK, jenis_MK, sifat_MK, sks);
@@ -74,6 +74,31 @@ public class DetailMatakuliah extends Matakuliah{
         this.jumlahPertemuan = jumlahPertemuan;
     }
 
+    public ArrayList<Nilai> getNilaiMahasiswa() {
+        return nilaiMahasiswa;
+    }
+
+    public void setNilaiMahasiswa(ArrayList<Nilai> nilaiMahasiswa) {
+        this.nilaiMahasiswa = nilaiMahasiswa;
+    }
+
+    public ArrayList<Roster> getJadwal() {
+        return jadwal;
+    }
+
+    public void setJadwal(ArrayList<Roster> jadwal) {
+        this.jadwal = jadwal;
+    }
+
+    public ArrayList<Kehadiran> getKehadiranMahasiswa() {
+        return kehadiranMahasiswa;
+    }
+
+    public void setKehadiranMahasiswa(ArrayList<Kehadiran> kehadiranMahasiswa) {
+        this.kehadiranMahasiswa = kehadiranMahasiswa;
+    }
+
+    
     @Override
     public String toString() {
         return "DetailMatakuliah{" + "id_MK=" + id_MK + ", tahun=" + tahun + ", semester=" + semester + ", kelas=" + kelas + ", jumlahPertemuan=" + jumlahPertemuan + ", nilaiMahasiswa=" + nilaiMahasiswa + ", jadwal=" + jadwal + ", kehadiranMahasiswa=" + kehadiranMahasiswa + '}';

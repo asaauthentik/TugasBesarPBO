@@ -8,18 +8,30 @@ package view.menuMahasiswa;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.JLabel;
+import view.ViewConfig;
+import static view.ViewConfig.FONT_TITLE;
 /**
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelKeuangan  extends JPanel {
+public class JPanelKeuangan  extends JPanel implements ViewConfig{
+    private final JPanel Header;
+    private final JLabel Judul;
     public JPanelKeuangan(){
-        setBackground(Color.BLUE);
+        Header = new JPanel();
+        Header.setBackground(Color.DARK_GRAY);
+        Header.setBounds(0,20,700,50);
+        Judul = new JLabel("INSTITUTE TEKNOLOGI HARAPAN BANGSA");
+        Judul.setForeground(Color.WHITE);
+        Judul.setFont(FONT_TITLE);
+        Header.add(Judul);
+        add(Header);
+        setLayout(null);
     }
     
     @Override
     public Dimension getPreferredSize() {
-        
-        return new Dimension(568, 520);
+        return DIMENSION_PANEL_CARD;
     }
 }

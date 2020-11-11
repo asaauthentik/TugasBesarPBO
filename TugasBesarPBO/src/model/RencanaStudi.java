@@ -5,6 +5,7 @@
  */
 package model;
 
+import model.matakuliah.DetailMatakuliah;
 import java.util.ArrayList;
 
 /**
