@@ -74,7 +74,7 @@ public class JPanelTranskripNilai  extends JPanel implements ActionListener{
         add(Find);
         //Table Daftar Hadir
         daftarNilai = new JTable(data,column);
-        daftarNilai.setBounds(15,130,540,500);
+        daftarNilai.setBounds(15,300,340,300);
         daftarNilai.setVisible(false);
         add(daftarNilai);
     }
