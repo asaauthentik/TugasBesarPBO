@@ -6,8 +6,8 @@
 package view.menuDaak;
 
 
-import view.menuDaak.HelperUser.JPanelTable;
-import view.menuDaak.HelperUser.JPanelMahasiswa;
+import view.menuDaak.Helper.JPanelTable;
+import view.menuDaak.Helper.JPanelMahasiswa;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
