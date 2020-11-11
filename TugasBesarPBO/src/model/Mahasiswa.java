@@ -19,8 +19,13 @@ public class Mahasiswa extends User {
     private int tahunLulus;
     private float ipk;
     private String predikat;
+
     private ArrayList<RencanaStudi> rencanaStudi;
     private ArrayList<Transaksi> transaksiMahasiswa;
+    
+    public Mahasiswa(){
+        super();
+    }
 
     public Mahasiswa(int NIM, String jurusan, int tahunMasuk, int tahunLulus, float ipk, String predikat, ArrayList<RencanaStudi> rencanaStudi, ArrayList<Transaksi> transaksiMahasiswa, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
         super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);

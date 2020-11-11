@@ -9,18 +9,366 @@ package view.menuDaak;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import view.ViewConfig;
+import static view.ViewConfig.BGCOLOR_DEFAULT;
+import static view.ViewConfig.COLOR_WHITE;
+import static view.ViewConfig.FONT_DEFAULT_PLAIN;
+import view.menuDaak.Helper.JPanelHelperMatakuliah;
+
 /**
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelMatakuliah  extends JPanel {
+public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConfig{
+    JLabel title;
+    JButton createMatakuliah;
+    JButton editMatakuliah;
+    JButton deleteMatakuliah;
+    JTextField searchMatakuliah;
+    JTextField yearMatakuliah;
+    
+    JButton btnSearchEdit;
+    JButton btnSearchDelete;
+    JButton btnTypeMatakuliah;
+    
+    String[] listMatakuliah = {"-Kategori Matakuliah-","Matakuliah", "Detail Matakuliah"};
+    JComboBox optionListMatakuliah;
+    
+    String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
+    JComboBox optionSemester;
+    
+    JPanelHelperMatakuliah matakuliahCreate;
+    JPanelHelperMatakuliah matakuliahEdit;
+    JPanelHelperMatakuliah matakuliahDelete;
+    
+    JPanelHelperMatakuliah detailMatakuliahCreate;
+    JPanelHelperMatakuliah detailMatakuliahEdit;
+    JPanelHelperMatakuliah detailMatakuliahDelete;
+    
+    JLabel errorMsg ;
+    JButton Cancel;
+    
+    String menuNow = null;
     public JPanelMatakuliah(){
-        setBackground(Color.YELLOW);
+        setLayout(null);
+        title = new JLabel("Matakuliah Management");
+        title.setBounds(20, 0, 300, 60);
+        title.setFont(new java.awt.Font("Segoe UI", 1, 20));
+        add(title);
+        
+        createMatakuliah = new JButton("Tambah Matakuliah");
+        createMatakuliah.setBounds(20, 60, 170 ,30);
+        createMatakuliah.setContentAreaFilled(true);
+        createMatakuliah.setBackground(COLOR_WHITE);
+        createMatakuliah.setForeground(BGCOLOR_DEFAULT);
+        createMatakuliah.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        createMatakuliah.setFocusPainted(false);
+        createMatakuliah.setFont(FONT_DEFAULT_PLAIN );
+        createMatakuliah.addActionListener(this);
+        add(createMatakuliah);
+        
+        editMatakuliah = new JButton("Edit Matakuliah");
+        editMatakuliah.setBounds(200, 60, 170 ,30);
+        editMatakuliah.setContentAreaFilled(true);
+        editMatakuliah.setBackground(COLOR_WHITE);
+        editMatakuliah.setForeground(BGCOLOR_DEFAULT);
+        editMatakuliah.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        editMatakuliah.setFocusPainted(false);
+        editMatakuliah.setFont(FONT_DEFAULT_PLAIN );
+        editMatakuliah.addActionListener(this);
+        add(editMatakuliah);
+        
+        deleteMatakuliah = new JButton("Hapus Matakuliah");
+        deleteMatakuliah.setBounds(380, 60, 170 ,30);
+        deleteMatakuliah.setContentAreaFilled(true);
+        deleteMatakuliah.setBackground(COLOR_WHITE);
+        deleteMatakuliah.setForeground(BGCOLOR_DEFAULT);
+        deleteMatakuliah.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        deleteMatakuliah.setFocusPainted(false);
+        deleteMatakuliah.setFont(FONT_DEFAULT_PLAIN );
+        deleteMatakuliah.addActionListener(this);
+        add(deleteMatakuliah);
+        
+        
+        optionListMatakuliah = new JComboBox(listMatakuliah);
+        optionListMatakuliah.setBounds(20, 100, 170 ,30);
+        optionListMatakuliah.setVisible(false);
+        optionListMatakuliah.setFont(FONT_DEFAULT_PLAIN);
+        add(optionListMatakuliah);
+        
+        searchMatakuliah = new JTextField(" Kode Matakuliah");
+        searchMatakuliah.setBounds(200, 100, 120 ,30);
+        searchMatakuliah.setFont(FONT_DEFAULT_PLAIN );
+        searchMatakuliah.setForeground(Color.GRAY);
+        searchMatakuliah.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchMatakuliah.getText().equals(" Kode Matakuliah")) {
+                    searchMatakuliah.setText("");
+                    searchMatakuliah.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (searchMatakuliah.getText().isEmpty()) {
+                    searchMatakuliah.setForeground(Color.GRAY);
+                    searchMatakuliah.setText(" Kode Matakuliah");
+                }
+            }
+        });
+        searchMatakuliah.setVisible(false);
+        add(searchMatakuliah);
+        
+        yearMatakuliah = new JTextField(" Tahun");
+        yearMatakuliah.setBounds(330, 100, 70 ,30);
+        yearMatakuliah.setFont(FONT_DEFAULT_PLAIN );
+        yearMatakuliah.setForeground(Color.GRAY);
+        yearMatakuliah.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (yearMatakuliah.getText().equals(" Tahun")) {
+                    yearMatakuliah.setText("");
+                    yearMatakuliah.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (yearMatakuliah.getText().isEmpty()) {
+                    yearMatakuliah.setForeground(Color.GRAY);
+                    yearMatakuliah.setText(" Tahun");
+                }
+            }
+        });
+        yearMatakuliah.setVisible(false);
+        add(yearMatakuliah);
+       
+        optionSemester = new JComboBox(listSemester);
+        optionSemester.setBounds(410, 100, 100 ,30);
+        optionSemester.setFont(FONT_DEFAULT_PLAIN );
+        optionSemester.setVisible(false);
+        add(optionSemester);
+        
+        optionListMatakuliah.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                searchMatakuliah.setVisible(false);
+                optionSemester.setVisible(false);
+                yearMatakuliah.setVisible(false);
+                if(menuNow.equals("Edit Matakuliah") || menuNow.equals("Delete Matakuliah") ){
+                    if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Matakuliah")){
+                        searchMatakuliah.setVisible(true);
+                    }else if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Detail Matakuliah")){
+                        searchMatakuliah.setVisible(true);
+                        optionSemester.setVisible(true);
+                        yearMatakuliah.setVisible(true);
+                    }
+                }
+            }
+        });
+        btnSearchEdit = new JButton("Cari");
+        btnSearchEdit.setBounds(20, 140, 100 ,30);
+        btnSearchEdit.setContentAreaFilled(true);
+        btnSearchEdit.setBackground(BGCOLOR_DEFAULT);
+        btnSearchEdit.setForeground(COLOR_WHITE);
+        btnSearchEdit.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        btnSearchEdit.setFocusPainted(false);
+        btnSearchEdit.setFont(FONT_DEFAULT_PLAIN );
+        btnSearchEdit.setVisible(false);
+        btnSearchEdit.addActionListener(this);
+        add(btnSearchEdit);
+        
+        btnTypeMatakuliah = new JButton("Process");
+        btnTypeMatakuliah.setBounds(200, 100, 100 ,30);
+        btnTypeMatakuliah.setContentAreaFilled(true);
+        btnTypeMatakuliah.setBackground(BGCOLOR_DEFAULT);
+        btnTypeMatakuliah.setForeground(COLOR_WHITE);
+        btnTypeMatakuliah.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        btnTypeMatakuliah.setFocusPainted(false);
+        btnTypeMatakuliah.setFont(FONT_DEFAULT_PLAIN );
+        btnTypeMatakuliah.setVisible(false);
+        btnTypeMatakuliah.addActionListener(this);
+        add(btnTypeMatakuliah);
+      
+        errorMsg = new JLabel();
+
+        Cancel = new JButton("Cancel");
+        Cancel.setBounds(500,580, 100, 30);
+        Cancel.setContentAreaFilled(true);
+        Cancel.setBackground(BGCOLOR_DEFAULT);
+        Cancel.setForeground(COLOR_WHITE);
+        Cancel.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        Cancel.setFocusPainted(false);
+        Cancel.setFont(FONT_DEFAULT_PLAIN);
+        Cancel.addActionListener(this);
+        Cancel.setVisible(false);
+        add(Cancel);
+        
+        //setBackground(Color.yellow);
     }
     
     @Override
     public Dimension getPreferredSize() {
-        
-        return new Dimension(568, 520);
+        return DIMENSION_PANEL_CARD;
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+         String option = e.getActionCommand();
+         System.out.println("Action Panel User : " + option);
+         
+         if(matakuliahCreate != null){
+            matakuliahCreate.setVisible(false);
+         }
+         if(matakuliahEdit != null){
+            matakuliahEdit.setVisible(false);
+         }
+         if(matakuliahDelete != null){
+            matakuliahDelete.setVisible(false); 
+         }
+         if(detailMatakuliahCreate != null){
+            detailMatakuliahCreate.setVisible(false);
+         }
+         if(detailMatakuliahEdit != null){
+            detailMatakuliahEdit.setVisible(false);
+         }
+         if(detailMatakuliahDelete != null){
+            detailMatakuliahDelete.setVisible(false); 
+         }
+         if(matakuliahDelete != null){
+            matakuliahDelete.setVisible(false); 
+         }
+                  
+         errorMsg.setVisible(false);
+         Cancel.setVisible(false);
+         //Proccces Create
+         if(option.equals("Process")){
+            if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Mahasiswa")){      
+                //matakuliahCreate = new JPanelMahasiswa("Input",null);
+                matakuliahCreate.setBounds(20,135,668,490);
+                matakuliahCreate.setVisible(false);
+                add(matakuliahCreate);
+                matakuliahCreate.setVisible(true);
+                
+            }else if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Dosen")){
+                //detailMatakuliahCreate = new JPanelDosen("Input",null);
+                detailMatakuliahCreate.setBounds(20,135,668,490);
+                detailMatakuliahCreate.setVisible(false);
+                add(detailMatakuliahCreate);
+                detailMatakuliahCreate.setVisible(true);
+            }
+            Cancel.setVisible(true);
+            return;
+         }
+         
+         if(option.equals("Cancel")){
+            if(matakuliahCreate != null){
+                matakuliahCreate.setVisible(false);
+            }
+            if(detailMatakuliahCreate != null){
+                detailMatakuliahCreate.setVisible(false);
+            }
+            return;
+         }
+         
+         //Proccces Edit / Delete
+         if(option.equals("Cari")){
+             String nameToSearch = searchMatakuliah.getText();
+             String tipe = "";
+             //Lakukan pencarian didatabase nanti y :v
+             boolean foundTest = false;
+             //Dummy Boy
+             if(nameToSearch.equals("Albert")){
+                 foundTest = true;
+                 tipe = "Mahasiswa";
+             }else if( nameToSearch.equals("AlbertDosen")){
+                 foundTest = true;
+                 tipe = "Dosen";
+             }
+             //End Dummy
+             if(foundTest){
+                if(tipe.equals("Mahasiswa")){
+                    if(menuNow.equals("Edit")){
+                        //matakuliahEdit = new JPanelMahasiswa("Edit",null);
+                        matakuliahEdit.setBounds(20,135,660,490);
+                        matakuliahEdit.setVisible(false);
+                        add(matakuliahEdit);
+                        matakuliahEdit.setVisible(true);
+
+                    }else if(menuNow.equals("Delete")){
+                        //matakuliahDelete = new JPanelMahasiswa("Delete",null);
+                        matakuliahDelete.setBounds(20,135,660,490);
+                        matakuliahDelete.setVisible(false);
+                        add(matakuliahDelete);
+                        matakuliahDelete.setVisible(true);
+                    }
+                }else if(tipe.equals("Dosen")){
+                    if(menuNow.equals("Edit")){
+                        //detailMatakuliahEdit = new JPanelDosen("Edit",null);
+                        detailMatakuliahEdit.setBounds(20,135,660,490);
+                        detailMatakuliahEdit.setVisible(false);
+                        add(detailMatakuliahEdit);
+                        detailMatakuliahEdit.setVisible(true);
+
+                    }else if(menuNow.equals("Delete")){
+                        //detailMatakuliahDelete = new JPanelDosen("Delete",null);
+                        detailMatakuliahDelete.setBounds(20,135,660,490);
+                        detailMatakuliahDelete.setVisible(false);
+                        add(detailMatakuliahDelete);
+                        detailMatakuliahDelete.setVisible(true);
+                    }
+                }
+            }else{
+                errorMsg.setText("Maaf pencarian untuk '" + nameToSearch + "' tidak ditemukan.");
+                errorMsg.setBounds(130, 140, 450, 30);
+                errorMsg.setFont(new java.awt.Font("Segoe UI", 0, 16));
+                errorMsg.setVisible(false);
+                add(errorMsg);
+                errorMsg.setVisible(true);
+             }
+             return;
+         }
+         //Reset Zone
+         
+         createMatakuliah.setBackground(COLOR_WHITE);
+         createMatakuliah.setForeground(BGCOLOR_DEFAULT);
+         editMatakuliah.setBackground(COLOR_WHITE);
+         editMatakuliah.setForeground(BGCOLOR_DEFAULT);
+         deleteMatakuliah.setBackground(COLOR_WHITE);
+         deleteMatakuliah.setForeground(BGCOLOR_DEFAULT);
+         searchMatakuliah.setVisible(false);
+         btnSearchEdit.setVisible(false);
+         btnTypeMatakuliah.setVisible(false);
+         optionListMatakuliah.setVisible(false);
+         optionSemester.setVisible(false);
+         yearMatakuliah.setVisible(false);
+            
+        if(option.equals("Tambah Matakuliah")){
+            menuNow = "Tambah Matakuliah";
+            createMatakuliah.setBackground(BGCOLOR_DEFAULT);
+            createMatakuliah.setForeground(COLOR_WHITE);
+            optionListMatakuliah.setVisible(true);
+            btnTypeMatakuliah.setVisible(true);
+                        
+         }else if(option.equals("Edit Matakuliah")){
+            menuNow = "Edit Matakuliah";
+            editMatakuliah.setBackground(BGCOLOR_DEFAULT);
+            editMatakuliah.setForeground(COLOR_WHITE);
+            optionListMatakuliah.setVisible(true);
+            btnSearchEdit.setVisible(true);
+         }else if(option.equals("Hapus Matakuliah")){
+            menuNow = "Delete Matakuliah";
+            deleteMatakuliah.setBackground(BGCOLOR_DEFAULT);
+            deleteMatakuliah.setForeground(COLOR_WHITE);
+            optionListMatakuliah.setVisible(true);
+            btnSearchEdit.setVisible(true);
+         }
+         
+    }
+     
 }

@@ -111,6 +111,7 @@ public class JPanelTranskripNilai  extends JPanel implements ActionListener, Vie
         jScrollPane1.setBounds(15,140,640,460);
         jScrollPane1.setVisible(false);
         add(jScrollPane1);
+
     }
     private boolean checkAllData(){
         if(ViewTahun.getText().equals("")){
