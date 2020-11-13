@@ -18,7 +18,8 @@ public class JPanelNilaiMatakuliah  extends JPanel {
     public JPanelNilaiMatakuliah(){
         setBackground(Color.DARK_GRAY);
     }
-    
+    // input : Semester Tahun 
+    // 
     @Override
     public Dimension getPreferredSize() {
         

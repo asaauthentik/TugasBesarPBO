@@ -18,7 +18,7 @@ public class RencanaStudi {
     private String id_RSM;
     private String semesterAjaran;
     private int tahunAjaran;
-    public ArrayList<DetailMatakuliah> id_Matkul;
+    private ArrayList<DetailMatakuliah> id_Matkul;
 
     public RencanaStudi(String id_RSM, String semesterAjaran, int tahunAjaran, ArrayList<DetailMatakuliah> id_Matkul) {
         this.id_RSM = id_RSM;
@@ -27,6 +27,15 @@ public class RencanaStudi {
         this.id_Matkul = id_Matkul;
     }
 
+    public ArrayList<DetailMatakuliah> getId_Matkul() {
+        return id_Matkul;
+    }
+
+    public void setId_Matkul(ArrayList<DetailMatakuliah> id_Matkul) {
+        this.id_Matkul = id_Matkul;
+    }
+
+    
     public String getId_RSM() {
         return id_RSM;
     }
