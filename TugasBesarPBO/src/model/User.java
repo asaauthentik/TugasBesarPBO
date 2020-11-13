@@ -19,6 +19,9 @@ public abstract class User {
     private String jenisKelamin;
     private String nomorTelepon;
 
+    public User(){
+        
+    }
     public User(String idUser, String namaLengkap, String email, String password, String tanggalLahir, String jenisKelamin, String nomorTelepon) {
         this.idUser = idUser;
         this.namaLengkap = namaLengkap;
