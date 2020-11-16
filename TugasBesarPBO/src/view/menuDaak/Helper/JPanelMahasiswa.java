@@ -341,6 +341,11 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
             System.out.println("Ipk : " + ipk);
             System.out.println("Predikat : " + predikat);
             
+//            System.out.println("Tanggal Awal : " + tanggalLahir);
+//            fieldTanggalLahir.getModel().addDay(7);
+//            String tglAkhir = fieldTanggalLahir.getModel().getValue().toString();
+//            System.out.println("Tanggal Ending : " + tglAkhir);
+//            
             //To Sql Controller !
         }else if(action.equals("Hapus")){
             System.out.println("Menggunakan controller unttuk delete");

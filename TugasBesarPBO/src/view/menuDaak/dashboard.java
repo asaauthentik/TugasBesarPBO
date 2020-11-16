@@ -90,7 +90,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showJadwalPerkuliahan.setForeground(COLOR_GRAY);
         showUser.setForeground(COLOR_GRAY);
         
-        showProfile.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, COLOR_WHITE));
+        showProfile.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showRencanaStudi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showMatakuliah.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showKeuangan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
