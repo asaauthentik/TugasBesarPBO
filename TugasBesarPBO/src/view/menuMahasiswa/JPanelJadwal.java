@@ -10,6 +10,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.Date;
+import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,6 +22,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 import view.ViewConfig;
 import static view.ViewConfig.FONT_TITLE;
 /**
@@ -26,14 +33,18 @@ import static view.ViewConfig.FONT_TITLE;
  */
 public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig {
     private final JPanel Header;
-    private final JLabel Judul, Semester, Tahun, Matakuliah, Kelas;
-    private final JComboBox ViewSemester, ViewMatkul, ViewKelas;
+    private final JLabel Judul, Semester, Tahun, Tanggal, Periode;
+    private final JComboBox ViewSemester;
     private final String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
     private final String MatkulValue[] = {"", "ABC", "BCA", "CBA"};
     private final String KelasValue[] = {"", "A", "B"};
     private final JTextField ViewTahun;
     private final JButton Find;
     private final JTable daftarJadwal;
+    UtilDateModel modelTanggal1, modelTanggal2;
+    Properties p1, p2;
+    JDatePanelImpl datePanel1, datePanel2;
+    JDatePickerImpl tanggal, tanggalAkhir;
     JScrollPane jScrollPane1;
     public JPanelJadwal(){
         Header = new JPanel();
@@ -50,29 +61,56 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
         Semester.setBounds(15,50,100,100);
         add(Semester);
         ViewSemester = new JComboBox(SemesterValue);
-        ViewSemester.setBounds(85,90,100,25);
+        ViewSemester.setBounds(85,90,80,25);
         add(ViewSemester);
         
         Tahun = new JLabel("Tahun");
-        Tahun.setBounds(200,50,100,100);
+        Tahun.setBounds(180,50,100,100);
         add(Tahun);
         ViewTahun = new JTextField();
-        ViewTahun.setBounds(250,90,50,25);
+        ViewTahun.setBounds(230,90,50,25);
         add(ViewTahun);
         
-        Matakuliah = new JLabel("Matakuliah");
-        Matakuliah.setBounds(315,50,100,100);
-        add(Matakuliah);
-        ViewMatkul = new JComboBox(MatkulValue);
-        ViewMatkul.setBounds(390,90,150,25);
-        add(ViewMatkul);
+        Tanggal = new JLabel("Tanggal");
+        Tanggal.setBounds(295,50,100,100);
+        add(Tanggal);
+        modelTanggal1 = new UtilDateModel();
+        p1 = new Properties();
+        p1.put("text.today", "Today");
+        p1.put("text.month", "Month");
+        p1.put("text.year", "Year");
+        datePanel1 = new JDatePanelImpl(modelTanggal1, p1);
+        tanggal = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+        tanggal.setBounds(360,90,130,30);
+        add(tanggal);
         
-        Kelas = new JLabel("Kelas");
-        Kelas.setBounds(555,50,100,100);
-        add(Kelas);
-        ViewKelas = new JComboBox(KelasValue);
-        ViewKelas.setBounds(605,90,50,25);
-        add(ViewKelas);
+        Periode = new JLabel("-");
+        Periode.setBounds(500,85,20,30);
+        Periode.setVisible(true);
+        add(Periode);
+        
+        modelTanggal2 = new UtilDateModel();
+        p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
+        datePanel2 = new JDatePanelImpl(modelTanggal2, p2);
+        tanggalAkhir = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+        tanggalAkhir.setBounds(520,90,130,30);
+        tanggalAkhir.setEnabled(false);
+        tanggalAkhir.getComponent(1).setEnabled(false);
+        add(tanggalAkhir);
+        
+        tanggal.addActionListener (new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(tanggal.getModel().isSelected()){
+                    modelTanggal2.setValue((Date) tanggal.getModel().getValue());
+                    tanggalAkhir.getModel().addDay(7);
+                }
+            }
+        });
+
         
         Find = new JButton("Lihat Jadwal Matakuliah");
         Find.setBounds(15,135,640,30);
@@ -134,18 +172,13 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
         if(ViewTahun.getText().equals("")){
             return false;
         }
-        if(ViewMatkul.getSelectedItem().toString().equals("")){
-            return false;
-        }
-        if(ViewKelas.getSelectedItem().toString().equals("")){
-            return false;
-        }
         return true;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         System.out.println("Action Panel Daftar Hadir: " + action);
+        //Periode.setVisible(true);
         if(action.equals("Lihat Jadwal Matakuliah")){
             if(checkAllData() == false){
                 JOptionPane.showMessageDialog(null,"Silahkan Isi Semua Data!");
@@ -155,8 +188,11 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
                 jScrollPane1.setVisible(true);
                 String printSemester = ViewSemester.getSelectedItem().toString();
                 String printTahun = ViewTahun.getText();
-                String printMatkul = ViewMatkul.getSelectedItem().toString();
-                String printKelas = ViewKelas.getSelectedItem().toString();
+                Date printTanggal = (Date) tanggal.getModel().getValue();
+                tanggal.getModel().addDay(7);
+                Date printTanggalAkhir = (Date) tanggal.getModel().getValue();
+                System.out.println(printTanggal);
+                System.out.println(printTanggalAkhir.getTime());
             }
         }
     }
