@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import view.ViewConfig;
 import static view.ViewConfig.*;
 
 /**
@@ -18,16 +19,16 @@ import static view.ViewConfig.*;
  * @author 1119002 Albertus Angkuw
  * @author 1119038 Elangel Neilea Shaday
  */
-public class JPanelProfile extends JPanel{
-    JPanel Header;
-    JLabel Judul;
-    JLabel NIM, Nama, Jurusan, Angkatan, TanggalLahir, JenisKelamin, NomorHP, Email, Alamat, IPK, Predikat;
-    JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK, ViewPredikat;
-    JButton Keluar;
+public class JPanelProfile extends JPanel implements ViewConfig{
+    private final JPanel Header, IPKPanel, PredikatPanel, ViewIPKPanel, ViewPredikatPanel;
+    private final JLabel Judul;
+    private final JLabel NIM, Nama, Jurusan, Angkatan, TanggalLahir, JenisKelamin, NomorHP, Email, Alamat, IPK, Predikat;
+    private final JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK, ViewPredikat;
+    private final JButton Keluar;
     public JPanelProfile(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
-        Header.setBounds(0,20,600,50);
+        Header.setBounds(0,20,700,50);
         Judul = new JLabel("INSTITUTE TEKNOLOGI HARAPAN BANGSA");
         Judul.setForeground(Color.WHITE);
         Judul.setFont(FONT_TITLE);
@@ -39,91 +40,116 @@ public class JPanelProfile extends JPanel{
         JLabel ViewFoto;
         ImageIcon pathFoto = new ImageIcon(pathFileFoto);
         Image pathPictureFoto = pathFoto.getImage();
-        Image newPicture1 = pathPictureFoto.getScaledInstance(250,250, Image.SCALE_SMOOTH);
+        Image newPicture1 = pathPictureFoto.getScaledInstance(300,300, Image.SCALE_SMOOTH);
         ImageIcon image1 = new ImageIcon(newPicture1);
         ViewFoto = new JLabel(image1);
-        ViewFoto.setBounds(20,100,270,300);
+        ViewFoto.setBounds(50,100,270,300);
         add(ViewFoto);
         //NIM
         NIM = new JLabel("NIM");
-        NIM.setBounds(320,50,100,100);
+        NIM.setBounds(370,80,100,100);
         add(NIM);
         ViewNIM = new JLabel(": 1119038");
-        ViewNIM.setBounds(420,50,100,100);
+        ViewNIM.setBounds(470,80,100,100);
         add(ViewNIM);
         //Nama
         Nama = new JLabel("Nama");
-        Nama.setBounds(320,80,100,100);
+        Nama.setBounds(370,110,100,100);
         add(Nama);
         ViewNama = new JLabel(": Elangel");
-        ViewNama.setBounds(420,80,100,100);
+        ViewNama.setBounds(470,110,100,100);
         add(ViewNama);
         //Jurusan
         Jurusan = new JLabel("Jurusan");
-        Jurusan.setBounds(320,110,100,100);
+        Jurusan.setBounds(370,140,100,100);
         add(Jurusan);
         ViewJurusan = new JLabel(": Informatika");
-        ViewJurusan.setBounds(420,110,100,100);
+        ViewJurusan.setBounds(470,140,100,100);
         add(ViewJurusan);
         //Angkatan
         Angkatan = new JLabel("Angkatan");
-        Angkatan.setBounds(320,140,100,100);
+        Angkatan.setBounds(370,170,100,100);
         add(Angkatan);
         ViewAngkatan = new JLabel(": 2019");
-        ViewAngkatan.setBounds(420,140,100,100);
+        ViewAngkatan.setBounds(470,170,100,100);
         add(ViewAngkatan);
         //Tanggal Lahir
         TanggalLahir = new JLabel("Tanggal Lahir");
-        TanggalLahir.setBounds(320,170,100,100);
+        TanggalLahir.setBounds(370,200,100,100);
         add(TanggalLahir);
         ViewTanggalLahir = new JLabel(": 17 Agustus 2001");
-        ViewTanggalLahir.setBounds(420,170,100,100);
+        ViewTanggalLahir.setBounds(470,200,100,100);
         add(ViewTanggalLahir);
         //Jenis Kelamin
         JenisKelamin = new JLabel("Jenis Kelamin");
-        JenisKelamin.setBounds(320,200,100,100);
+        JenisKelamin.setBounds(370,230,100,100);
         add(JenisKelamin);
         ViewJenisKelamin = new JLabel(": Perempuan");
-        ViewJenisKelamin.setBounds(420,200,100,100);
+        ViewJenisKelamin.setBounds(470,230,100,100);
         add(ViewJenisKelamin);
         //Nomor HP
         NomorHP = new JLabel("Nomor HP");
-        NomorHP.setBounds(320,230,100,100);
+        NomorHP.setBounds(370,260,100,100);
         add(NomorHP);
         ViewNomorHP = new JLabel(": 08123456789");
-        ViewNomorHP.setBounds(420,230,100,100);
+        ViewNomorHP.setBounds(470,260,100,100);
         add(ViewNomorHP);
         //Email
         Email = new JLabel("Email");
-        Email.setBounds(320,260,100,100);
+        Email.setBounds(370,290,100,100);
         add(Email);
         ViewEmail = new JLabel(": elangel@gmail.com");
-        ViewEmail.setBounds(420,260,200,100);
+        ViewEmail.setBounds(470,290,200,100);
         add(ViewEmail);
         //Alamat 
         Alamat = new JLabel("Alamat");
-        Alamat.setBounds(320,290,100,100);
+        Alamat.setBounds(370,320,100,100);
         add(Alamat);
         ViewAlamat = new JLabel(": Bandung");
-        ViewAlamat.setBounds(420,290,100,100);
+        ViewAlamat.setBounds(470,320,100,100);
         add(ViewAlamat);
-        //IPK
+        
+        IPKPanel = new JPanel();
+        IPKPanel.setBounds(50,450,100,40);
+        IPKPanel.setBackground(BGCOLOR_DEFAULT);
         IPK = new JLabel("IPK");
-        IPK.setBounds(320,320,100,100);
-        add(IPK);
-        ViewIPK= new JLabel(": 4.00");
-        ViewIPK.setBounds(420,320,100,100);
-        add(ViewIPK);
-        //Predikat
+        IPK.setBounds(0,320,100,100);
+        IPK.setForeground(COLOR_WHITE);
+        IPK.setFont(FONT_TITLE);
+        IPKPanel.add(IPK);
+        add(IPKPanel);
+        
+        ViewIPKPanel = new JPanel();
+        ViewIPKPanel.setBounds(150,450,100,40);
+        ViewIPKPanel.setBackground(Color.LIGHT_GRAY);
+        ViewIPK= new JLabel("4.00");
+        ViewIPK.setBounds(0,320,100,100);
+        ViewIPK.setFont(FONT_TITLE);
+        ViewIPKPanel.add(ViewIPK);
+        add(ViewIPKPanel);
+        
+        PredikatPanel = new JPanel();
+        PredikatPanel.setBounds(250,450,190,40);
+        PredikatPanel.setBackground(BGCOLOR_DEFAULT);
         Predikat = new JLabel("Predikat");
-        Predikat.setBounds(320,350,100,100);
-        add(Predikat);
-        ViewPredikat = new JLabel(": Cumlaude");
-        ViewPredikat.setBounds(420,350,100,100);
-        add(ViewPredikat);
+        Predikat.setBounds(370,350,100,100);
+        Predikat.setForeground(COLOR_WHITE);
+        Predikat.setFont(FONT_TITLE);
+        PredikatPanel.add(Predikat);
+        add(PredikatPanel);
+        
+        ViewPredikatPanel = new JPanel();
+        ViewPredikatPanel.setBounds(440,450,180,40);
+        ViewPredikatPanel.setBackground(Color.LIGHT_GRAY);
+        ViewPredikat = new JLabel("Cumlaude");
+        ViewPredikat.setBounds(0,350,100,100);
+        ViewPredikat.setFont(FONT_TITLE);
+        ViewPredikatPanel.add(ViewPredikat);
+        add(ViewPredikatPanel);
+        
         //Button keluar
         Keluar = new JButton("Keluar");
-        Keluar.setBounds(30,440,500,30);
+        Keluar.setBounds(50,530,570,40);
         Keluar.setContentAreaFilled(true);
         Keluar.setBackground(Color.WHITE);
         Keluar.setForeground(BGCOLOR_DEFAULT);
@@ -141,6 +167,6 @@ public class JPanelProfile extends JPanel{
     }
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(568, 520);
+        return DIMENSION_PANEL_CARD;
     }
 }
