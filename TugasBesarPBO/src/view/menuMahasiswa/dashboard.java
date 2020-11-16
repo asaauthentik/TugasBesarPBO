@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import static javax.swing.BorderFactory.createMatteBorder;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -87,7 +88,7 @@ public class dashboard implements ActionListener,ViewConfig {
         
         showProfile.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showRencanaStudi.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
-        showDaftarHadir.setBorder(createMatteBorder(0, 0, 0, 0, COLOR_WHITE));
+        showDaftarHadir.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showTranskripNilai.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showKeuangan.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showJadwal.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
@@ -202,7 +203,7 @@ public class dashboard implements ActionListener,ViewConfig {
         }
         //System.out.println(option);
     }
-    public static void main(String[] args) {
+    public static void main(String[] args){
         dashboard dashboard = new dashboard();
     }
 }
