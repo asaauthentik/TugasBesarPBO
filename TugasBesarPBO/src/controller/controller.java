@@ -10,5 +10,6 @@ package controller;
  * @author 1119002 Albertus Angkuw
  */
 public class controller {
-    
+    //General controller untuk database ada di package database controller, untuk oba running databasebisa dari
+    // testCon.java
 }
