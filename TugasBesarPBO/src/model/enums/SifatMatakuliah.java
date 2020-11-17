@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.enums;
 
 /**
  *
  * @author 1119038 Elangel Neilea Shaday
  */
-public enum JenisMatakuliah {
-    
+public enum SifatMatakuliah {
+    WAJIB,PILIHAN;
 }

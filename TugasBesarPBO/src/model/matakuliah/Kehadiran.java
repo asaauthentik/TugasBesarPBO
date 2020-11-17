@@ -12,13 +12,24 @@ package model.matakuliah;
  */
 
 public class Kehadiran extends Roster{
+    private int NIM;
     private String keterangan;
 
-    public Kehadiran(String keterangan, String tanggal, int jamMulai, int jamSelesai, String ruangan) {
-        super(tanggal, jamMulai, jamSelesai, ruangan);
+    public Kehadiran(int NIM,String keterangan, String tanggal, int jamMulai, int jamSelesai, String ruangan,boolean statusDosen) {
+        super(tanggal, jamMulai, jamSelesai, ruangan, statusDosen);
+        this.NIM = NIM;
         this.keterangan = keterangan;
     }
 
+    public int getNIM() {
+        return NIM;
+    }
+
+    public void setNIM(int NIM) {
+        this.NIM = NIM;
+    }
+
+    
     public String getKeterangan() {
         return keterangan;
     }

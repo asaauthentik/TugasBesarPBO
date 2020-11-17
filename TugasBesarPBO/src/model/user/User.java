@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.user;
 
 /**
  * @author 1119002 Albertus Angkuw
@@ -18,7 +18,8 @@ public abstract class User {
     private String tanggalLahir;
     private String jenisKelamin;
     private String nomorTelepon;
-
+    private int jenisUser;
+    private String pathFoto;
     public User(){
         
     }
