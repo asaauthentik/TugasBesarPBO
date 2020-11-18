@@ -11,6 +11,7 @@ package model.matakuliah;
  * @author 1119038 Elangel Neilea Shaday
  */
 public class Nilai {
+    private int NIM;
     private int nilai1;
     private int nilai2;
     private int nilai3;
@@ -20,7 +21,8 @@ public class Nilai {
     private float nilaiAkhir;
     private String hurufMutu;
 
-    public Nilai(int nilai1, int nilai2, int nilai3, int nilai4, int nilai5, int nilaiUAS, float nilaiAkhir, String hurufMutu) {
+    public Nilai(int nim,int nilai1, int nilai2, int nilai3, int nilai4, int nilai5, int nilaiUAS, float nilaiAkhir, String hurufMutu) {
+        this.NIM = nim;
         this.nilai1 = nilai1;
         this.nilai2 = nilai2;
         this.nilai3 = nilai3;
@@ -31,6 +33,15 @@ public class Nilai {
         this.hurufMutu = hurufMutu;
     }
 
+    public int getNIM() {
+        return NIM;
+    }
+
+    public void setNIM(int NIM) {
+        this.NIM = NIM;
+    }
+
+    
     public int getNilai1() {
         return nilai1;
     }
