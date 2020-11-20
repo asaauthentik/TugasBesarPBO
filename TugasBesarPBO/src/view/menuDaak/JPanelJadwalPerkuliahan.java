@@ -14,6 +14,7 @@ import java.awt.event.FocusListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import view.ViewConfig;
@@ -54,7 +55,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
     String menuNow = null;
     
     public JPanelJadwalPerkuliahan(){
-         setLayout(null);
+        setLayout(null);
         title = new JLabel("Jadwal Perkuliahan Management");
         title.setBounds(20, 0, 400, 60);
         title.setFont(new java.awt.Font("Segoe UI", 1, 20));
@@ -146,9 +147,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
         yearJadwal.setVisible(false);
         add(yearJadwal);
        
-       
-        
-        btnSearchEdit = new JButton("Cari");
+       btnSearchEdit = new JButton("Cari");
         btnSearchEdit.setBounds(420, 100, 100 ,30);
         btnSearchEdit.setContentAreaFilled(true);
         btnSearchEdit.setBackground(BGCOLOR_DEFAULT);
@@ -219,7 +218,11 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
             String  kodeMK = kodeMKJadwal.getText();
             String  semester = (String) optionSemester.getSelectedItem();
             String  tahun = yearJadwal.getText();
-            System.out.println("Nim : " + kodeMK + " Semester : " + semester + " Tahun : " + tahun);
+            if(!checkInput()){
+                JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                return;
+            }
+            
             if(true){      
                 jadwalCreate = new JPanelHelperJadwal("Input");
                 jadwalCreate.setBounds(20,135,668,490);
@@ -243,22 +246,26 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
              String  kodeMK = kodeMKJadwal.getText();
              String  semester = (String) optionSemester.getSelectedItem();
              String  tahun = yearJadwal.getText();
-             System.out.println("Nim : " + kodeMK + " Semester : " + semester + " Tahun : " + tahun );
+             if(!checkInput()){
+                JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                return;
+             }
              //Lakukan pencarian didatabase nanti y :v
              boolean foundTest = true;
+             String ID_Roster = "";
              //Dummy Boy
              
              //End Dummy
              if(foundTest){
                 if(menuNow.equals("Edit Jadwal")){
-                    jadwalEdit = new JPanelHelperJadwal("Edit");
+                    jadwalEdit = new JPanelHelperJadwal("Edit",ID_Roster);
                     jadwalEdit.setBounds(20,135,660,490);
                     jadwalEdit.setVisible(false);
                     add(jadwalEdit);
                     jadwalEdit.setVisible(true);
 
                 }else if(menuNow.equals("Delete Jadwal")){
-                    jadwalDelete = new JPanelHelperJadwal("Delete");
+                    jadwalDelete = new JPanelHelperJadwal("Delete",ID_Roster);
                     jadwalDelete.setBounds(20,135,660,490);
                     jadwalDelete.setVisible(false);
                     add(jadwalDelete);
@@ -315,5 +322,13 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
             btnSearchEdit.setVisible(true);
         }
          
+    }
+    private boolean checkInput(){
+        
+        if(kodeMKJadwal.getText().equals(" Kode MK")  || ((String) optionSemester.getSelectedItem()).equals("-Semester-") || yearJadwal.getText().equals(" Tahun") ){
+            System.out.println("Hellodjw");
+            return false;
+        }
+        return true;
     }
 }

@@ -16,6 +16,7 @@ import java.awt.event.FocusListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
@@ -291,15 +292,27 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
          if(option.equals("Cari")){
              String matakuliahToSearch = searchMatakuliah.getText();
              String tipe = "";
+             if(optionListMatakuliah.getSelectedIndex() == 2){
+                 if(!checkInput("Detail")){
+                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                    return;
+                 }
+                 tipe = "Detail Matakuliah";
+             }else if(optionListMatakuliah.getSelectedIndex() == 1){
+                 if(!checkInput("MK")){
+                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                    return;
+                 }
+                 tipe = "Matakuliah";
+             }
              //Lakukan pencarian didatabase nanti y :v
              boolean foundTest = false;
              //Dummy Boy
              if(matakuliahToSearch.equals("IF-301")){
                  foundTest = true;
-                 tipe = "Matakuliah";
+                 
              }else if(matakuliahToSearch.equals("IF-302") && yearMatakuliah.getText().equals("2020") ) {
                  foundTest = true;
-                 tipe = "Detail Matakuliah";
              }
              //End Dummy
              if(foundTest){
@@ -377,6 +390,19 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
             optionListMatakuliah.setVisible(true);
         }
          
+    }
+    private boolean checkInput(String type){
+        if(type.equals("Detail")){
+            if(searchMatakuliah.getText().equals(" Kode Matakuliah") || yearMatakuliah.getText().equals(" Tahun") || ((String)optionSemester.getSelectedItem()).equals("-Semester-") ){
+                return false;
+            }
+        }else{
+            if(searchMatakuliah.getText().equals(" Kode Matakuliah")){
+                return false;
+            }
+            
+        }    
+        return true;
     }
      
 }

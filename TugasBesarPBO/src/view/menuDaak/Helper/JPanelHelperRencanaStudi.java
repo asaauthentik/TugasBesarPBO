@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.RencanaStudi;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -41,7 +44,16 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
     
     String type;
     int jmlMK;
-    public JPanelHelperRencanaStudi(String type){
+    String idrsm = "";
+    String nim = "";
+    String semester = "" ;
+    int tahun = 0;
+    
+    public JPanelHelperRencanaStudi(String type,String idrsm,String nim, String semester, int tahun){
+        this.idrsm = idrsm;
+        this.nim = nim;
+        this.semester = semester;
+        this.tahun = tahun;
         setLayout(null);
        
         cekMK = new JButton("Cek Data");
@@ -225,9 +237,22 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
             generateInputForm();
         }
         if(action.equals("Simpan")){
-            //Lakukan pengecehkan ke database nama matakuliahnya
+            ArrayList<String> idMK = new ArrayList<>();
             for(int i=0; i<fieldMK.size(); i++){
-                System.out.println( i + " : " + fieldMK.get(i).getText());
+                String kodeMKCheck = fieldMK.get(i).getText();
+                if(false){
+                    JOptionPane.showMessageDialog(labelKodeMK, "Kode MK " + kodeMKCheck + " tidak ditemukan !");
+                    return;
+                }
+                idMK.add(kodeMKCheck);
+                System.out.println( i + " : " + kodeMKCheck);
+            }
+            RencanaStudi newRS = new RencanaStudi(idrsm,semester,tahun,idMK);
+            //Masukan ke db newRs
+            if(true){
+                JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil dimasukan ke database");
+            }else{
+                JOptionPane.showMessageDialog(labelKodeMK, "Data tidak berhasil dimasukan ke database");
             }
         }
         if(action.equals("Cek Data")){
