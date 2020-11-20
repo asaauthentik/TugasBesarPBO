@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -47,12 +48,12 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         JLabel ViewFoto;
         Image img = null;
         try {
-            img = ImageIO.read(new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBVtrw01AM9oJidFPKQbmigHhqll_3ScuACg&usqp=CAU"));
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(JPanelProfile.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(JPanelProfile.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            img = ImageIO.read(new URL("https://3ncrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBVtrw01AM9oJidFPKQbmigHhqll_3ScuACg&usqp=CAU"));
+        } catch (Exception ex) {
+            ImageIcon pathFoto = new ImageIcon(new File("asset/profile-dp.png").getAbsolutePath());
+            img = pathFoto.getImage();
+            System.out.println("Error " + ex.getMessage());
+        } 
         
         Image newPicture1 = img.getScaledInstance(300,300, Image.SCALE_SMOOTH);
         ImageIcon image1 = new ImageIcon(newPicture1);
