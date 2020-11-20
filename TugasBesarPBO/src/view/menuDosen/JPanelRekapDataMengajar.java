@@ -107,7 +107,7 @@ public class JPanelRekapDataMengajar  extends JPanel implements ActionListener, 
             daftarNilai.getColumnModel().getColumn(3).setPreferredWidth(30);
            
         }
-        jScrollPane1.setBounds(15,140,640,460);
+        jScrollPane1.setBounds(15,140,640,260);
         jScrollPane1.setVisible(false);
         add(jScrollPane1);
 
