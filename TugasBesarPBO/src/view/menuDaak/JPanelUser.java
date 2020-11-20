@@ -218,20 +218,20 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
          //Proccces Create
          if(option.equals("Process")){
             if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("Mahasiswa")){      
-                mahasiswaCreate = new JPanelMahasiswa("Input",null);
+                mahasiswaCreate = new JPanelMahasiswa("Input");
                 mahasiswaCreate.setBounds(20,135,668,490);
                 mahasiswaCreate.setVisible(false);
                 add(mahasiswaCreate);
                 mahasiswaCreate.setVisible(true);
                 
             }else if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("Dosen")){
-                dosenCreate = new JPanelDosen("Input",null);
+                dosenCreate = new JPanelDosen("Input");
                 dosenCreate.setBounds(20,135,668,490);
                 dosenCreate.setVisible(false);
                 add(dosenCreate);
                 dosenCreate.setVisible(true);
             }else if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("DAAK")){
-                daakCreate = new JPanelDaak("Input",null);
+                daakCreate = new JPanelDaak("Input");
                 daakCreate.setBounds(20,135,668,490);
                 daakCreate.setVisible(false);
                 add(daakCreate);
@@ -272,14 +272,14 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
              if(foundTest){
                 if(tipe.equals("Mahasiswa")){
                     if(menuNow.equals("Edit")){
-                        mahasiswaEdit = new JPanelMahasiswa("Edit",null);
+                        mahasiswaEdit = new JPanelMahasiswa("Edit");
                         mahasiswaEdit.setBounds(20,135,660,490);
                         mahasiswaEdit.setVisible(false);
                         add(mahasiswaEdit);
                         mahasiswaEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete")){
-                        mahasiswaDelete = new JPanelMahasiswa("Delete",null);
+                        mahasiswaDelete = new JPanelMahasiswa("Delete");
                         mahasiswaDelete.setBounds(20,135,660,490);
                         mahasiswaDelete.setVisible(false);
                         add(mahasiswaDelete);
@@ -287,14 +287,14 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
                     }
                 }else if(tipe.equals("Dosen")){
                     if(menuNow.equals("Edit")){
-                        dosenEdit = new JPanelDosen("Edit",null);
+                        dosenEdit = new JPanelDosen("Edit");
                         dosenEdit.setBounds(20,135,660,490);
                         dosenEdit.setVisible(false);
                         add(dosenEdit);
                         dosenEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete")){
-                        dosenDelete = new JPanelDosen("Delete",null);
+                        dosenDelete = new JPanelDosen("Delete");
                         dosenDelete.setBounds(20,135,660,490);
                         dosenDelete.setVisible(false);
                         add(dosenDelete);
@@ -302,14 +302,14 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
                     }
                 }else if(tipe.equals("Daak")){
                     if(menuNow.equals("Edit")){
-                        daakEdit = new JPanelDaak("Edit",null);
+                        daakEdit = new JPanelDaak("Edit");
                         daakEdit.setBounds(20,135,668,490);
                         daakEdit.setVisible(false);
                         add(daakEdit);
                         daakEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete")){
-                        daakDelete = new JPanelDaak("Delete",null);
+                        daakDelete = new JPanelDaak("Delete");
                         daakDelete.setBounds(20,135,668,490);
                         daakDelete.setVisible(false);
                         add(daakDelete);

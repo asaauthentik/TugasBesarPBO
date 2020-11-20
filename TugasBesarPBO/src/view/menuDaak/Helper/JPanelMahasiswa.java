@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Properties;
 import javax.swing.*;
-import model.Mahasiswa;
+import model.user.Mahasiswa;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -62,9 +62,9 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
     
     Mahasiswa data;
     
-    public JPanelMahasiswa(String type,Mahasiswa data){
+    public JPanelMahasiswa(String type){
         setLayout(null);
-        this.data = data;
+        
         
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
@@ -341,6 +341,11 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
             System.out.println("Ipk : " + ipk);
             System.out.println("Predikat : " + predikat);
             
+//            System.out.println("Tanggal Awal : " + tanggalLahir);
+//            fieldTanggalLahir.getModel().addDay(7);
+//            String tglAkhir = fieldTanggalLahir.getModel().getValue().toString();
+//            System.out.println("Tanggal Ending : " + tglAkhir);
+//            
             //To Sql Controller !
         }else if(action.equals("Hapus")){
             System.out.println("Menggunakan controller unttuk delete");

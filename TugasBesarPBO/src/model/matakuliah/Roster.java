@@ -15,8 +15,10 @@ public class Roster {
     private int jamMulai;
     private int jamSelesai;
     private String ruangan;
-
-    public Roster(String tanggal, int jamMulai, int jamSelesai, String ruangan) {
+    private boolean statusDosen;
+    //True  -> hadir , False -> tidak hadir
+    public Roster(String tanggal, int jamMulai, int jamSelesai, String ruangan, boolean statusDosen) {
+        this.statusDosen = statusDosen;
         this.tanggal = tanggal;
         this.jamMulai = jamMulai;
         this.jamSelesai = jamSelesai;

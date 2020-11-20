@@ -1,0 +1,195 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view.menuDaak.Helper;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Properties;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerListModel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import view.ViewConfig;
+import static view.ViewConfig.BGCOLOR_DEFAULT;
+import static view.ViewConfig.COLOR_WHITE;
+import static view.ViewConfig.FONT_DEFAULT_PLAIN;
+
+/**
+ *
+ * @author S W I F T 3
+ */
+public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewConfig  {
+    private  JLabel labelTanggal;
+    private  JLabel labelJamMulai;
+    private  JLabel labelJamSelesai;
+    private  JLabel labelRuangan;
+    
+       
+    UtilDateModel modelTglLahir;
+    JDatePanelImpl datePanelTglLahir;
+    Properties  propertiesTglLahir;   
+        
+    JDatePickerImpl fieldTanggal;
+    JSpinner fieldJamMulai;
+    String listJam[] = {"","1.00", "1.30", "2.00", "2.30", "3.00", "3.30", "4.00", "4.30", "5.00", "5.30", "6.00", "6.30", "7.00", "7.30", "8.00", "8.30", "9.00", "9.30", "10.00", "10.30", "11.00", "11.30", "12.00", "12.30", "13.00", "13.30", "14.00", "14.30", "15.00", "15.30", "16.00", "16.30", "17.00", "17.30", "18.00", "18.30", "19.00", "19.30", "20.00", "20.30", "21.00", "21.30", "22.00", "22.30", "23.00", "23.30", "24.00", "24.30"};
+    JSpinner fieldJamSelesai;
+    JTextField fieldRuangan;
+    
+    JButton Save;
+    JButton Delete;
+    
+    public JPanelHelperJadwal(String type){
+        setLayout(null);
+       
+        Save = new JButton("Simpan");
+        Save.setBounds(370,445, 100, 30);
+        Save.setContentAreaFilled(true);
+        Save.setBackground(BGCOLOR_DEFAULT);
+        Save.setForeground(COLOR_WHITE);
+        Save.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        Save.setFocusPainted(false);
+        Save.setFont(FONT_DEFAULT_PLAIN);
+        Save.addActionListener(this);
+        Save.setVisible(false);
+        add(Save);
+        
+        Delete = new JButton("Hapus");
+        Delete.setBounds(370,445, 100, 30);
+        Delete.setContentAreaFilled(true);
+        Delete.setBackground(BGCOLOR_DEFAULT);
+        Delete.setForeground(COLOR_WHITE);
+        Delete.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        Delete.setFocusPainted(false);
+        Delete.setFont(FONT_DEFAULT_PLAIN);
+        Delete.addActionListener(this);
+        Delete.setVisible(false);
+        add(Delete);
+        
+        if(type.equals("Input")){
+            generateInputForm();
+            Delete.setVisible(false);
+            Save.setVisible(true);
+        }else if(type.equals("Delete")){
+            generateShowForm();
+            Delete.setVisible(true);
+            Save.setVisible(false);
+        }else if(type.equals("Edit")){
+            generateEditForm();
+            Delete.setVisible(false);
+            Save.setVisible(true);
+        }
+    }
+    
+    private void generateLabel(){
+        
+        
+        labelTanggal = new JLabel("Tanggal :");
+        labelTanggal.setBounds(0,5, 120, 30);
+        labelTanggal.setFont(FONT_DEFAULT_PLAIN );
+        add(labelTanggal);
+        
+        labelJamMulai = new JLabel("Jam Mulai :");
+        labelJamMulai.setBounds(0,45, 120, 30);
+        labelJamMulai.setFont(FONT_DEFAULT_PLAIN );
+        add(labelJamMulai);
+        
+        labelJamSelesai = new JLabel("Jam Selesai :");
+        labelJamSelesai.setBounds(0,85, 120, 30);
+        labelJamSelesai.setFont(FONT_DEFAULT_PLAIN);
+        add(labelJamSelesai);
+        
+        labelRuangan = new JLabel("Ruangan :");
+        labelRuangan.setBounds(0,125, 120, 30);
+        labelRuangan.setFont(FONT_DEFAULT_PLAIN);
+        add(labelRuangan);
+        
+    }
+    
+    private void generateInputForm(){
+        
+        generateLabel();
+        
+        propertiesTglLahir = new Properties();
+        propertiesTglLahir.put("text.today", "Today");
+        propertiesTglLahir.put("text.month", "Month");
+        propertiesTglLahir.put("text.year", "Year");
+        modelTglLahir = new UtilDateModel();
+        datePanelTglLahir = new JDatePanelImpl(modelTglLahir, propertiesTglLahir);
+        fieldTanggal = new JDatePickerImpl(datePanelTglLahir, new DateLabelFormatter());
+        fieldTanggal.setBounds(140,5, 200, 30);
+        fieldTanggal.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldTanggal);
+        
+        fieldJamMulai = new JSpinner(new SpinnerListModel(listJam));
+        fieldJamMulai.setBounds(140,45, 200, 30);
+        fieldJamMulai.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldJamMulai);
+        
+        fieldJamSelesai = new JSpinner(new SpinnerListModel(listJam));
+        fieldJamSelesai.setBounds(140,85, 200, 30);
+        fieldJamSelesai.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldJamSelesai);
+        
+        fieldRuangan = new JTextField();
+        fieldRuangan.setBounds(140,125, 200, 30);
+        fieldRuangan.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldRuangan);
+        
+    }
+    
+    private void generateEditForm(){
+    
+        generateInputForm();
+        modelTglLahir.setSelected(true);
+        modelTglLahir.setDate(2020, 9, 17);
+        fieldJamMulai.setValue(listJam[9]);
+        fieldJamSelesai.setValue(listJam[12]);
+        fieldRuangan.setText("ABC");
+    }
+    
+    private void generateShowForm(){
+        
+        generateEditForm();
+        fieldTanggal.setEnabled(false);
+        fieldTanggal.getComponent(1).setEnabled(false);
+        fieldJamMulai.setEnabled(false); 
+        fieldJamSelesai.setEnabled(false);
+        fieldRuangan.setEditable(false);
+            
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        System.out.println("Action Panel Helper Matakuliah : " + action);
+        if(action.equals("Simpan")){
+            System.out.println("Hasil : ");
+            String tanggal = fieldTanggal.getModel().getValue().toString();
+            String jamMulai = (String) fieldJamMulai.getValue();
+            String jamSelesai = (String) fieldJamSelesai.getValue();
+            String ruangan = fieldRuangan.getText();
+            
+            System.out.println(tanggal);
+            System.out.println(jamMulai);
+            System.out.println(jamSelesai);
+            System.out.println(ruangan);
+            
+            //Tambahakn ke controller database
+        }else if(action.equals("Hapus")){
+            System.out.println("Masuk Hapus ke database");
+            //Hapus ke controller database
+        }
+        
+        
+    }
+       
+}

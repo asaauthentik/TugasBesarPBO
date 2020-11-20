@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import model.Dosen;
+import model.user.Dosen;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -78,10 +78,9 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
     
     Dosen data;
     
-    public JPanelDosen(String type,Dosen data){
+    public JPanelDosen(String type){
         setLayout(null);
-        this.data = data;
-        
+                
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);

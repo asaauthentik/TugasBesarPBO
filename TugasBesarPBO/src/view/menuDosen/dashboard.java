@@ -141,7 +141,7 @@ public class dashboard implements ActionListener,ViewConfig {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
-
+        frame.setLocationRelativeTo(null);
         //End of Inisialisasi Frame
     }
     @Override
