@@ -30,6 +30,7 @@ import static view.ViewConfig.FONT_TITLE;
 /**
  *
  * @author 1119002 Albertus Angkuw
+ * @author 1119006 William Juniar
  */
 public class JPanelJadwalMengajar  extends JPanel implements ActionListener, ViewConfig {
     private final JPanel Header;
