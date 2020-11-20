@@ -31,6 +31,7 @@ import view.menuDaak.Helper.JPanelHelperRencanaStudi;
 /**
  *
  * @author 1119006 William Juniar
+ * @author 1119038 Elangel Neilea Shaday
  */
 public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConfig{
     //Variabel Daftar Hadir Dosen
