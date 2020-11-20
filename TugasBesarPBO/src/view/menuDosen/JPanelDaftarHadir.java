@@ -638,6 +638,4 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     public Dimension getPreferredSize() {
         return DIMENSION_PANEL_CARD;
     }
-    
 }
-    
