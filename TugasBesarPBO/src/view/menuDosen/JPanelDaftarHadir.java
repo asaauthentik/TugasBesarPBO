@@ -57,7 +57,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     
     //Variabel Edit Daftar Hadir Mahasiswa
     private JLabel EditTahunMhs, EditSemesterMhs, EditMatakuliah, Tanggal;
-    private JButton Cari, Simpan, Batal;
+    private JButton Cari, Next, Simpan, Batal;
     private JTextField EditViewTahunMhs;
     private JComboBox EditViewSemesterMhs, EditViewMatkul, ViewTanggal;
     private String EditSemesterValueMhs[] = {"", "Ganjil", "Genap", "Pendek"};
@@ -308,6 +308,18 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         EditViewMatkul.setVisible(false);
         add(EditViewMatkul);
         
+        Next = new JButton("Next");
+        Next.setBounds(530,130,125,30);
+        Next.setContentAreaFilled(true);
+        Next.setBackground(Color.WHITE);
+        Next.setForeground(BGCOLOR_DEFAULT);
+        Next.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        Next.setFocusPainted(false);
+        Next.setFont(FONT_DEFAULT_PLAIN);
+        Next.setVisible(false);
+        Next.addActionListener(this);
+        add(Next);
+        
         Tanggal = new JLabel("Tanggal");
         Tanggal.setBounds(20,145,100,100);
         Tanggal.setVisible(false);
@@ -418,7 +430,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         return true;
     }
     
-    private boolean checkAllDataEdit(){
+    private boolean checkAllDataEdit1(){
         if(EditViewTahunMhs.getText().equals("")){
             return false;
         }
@@ -428,6 +440,10 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         if(EditViewMatkul.getSelectedItem().toString().equals("")){
             return false;
         }
+        return true;
+    }
+    
+    private boolean checkAllDataEdit2(){
         if(ViewTanggal.getSelectedItem().toString().equals("")){
             return false;
         }
@@ -465,6 +481,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             EditViewSemesterMhs.setVisible(false);
             EditMatakuliah.setVisible(false);
             EditViewMatkul.setVisible(false);
+            Next.setVisible(false);
             Tanggal.setVisible(false);
             ViewTanggal.setVisible(false);
             Cari.setVisible(false);
@@ -509,6 +526,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             EditViewSemesterMhs.setVisible(false);
             EditMatakuliah.setVisible(false);
             EditViewMatkul.setVisible(false);
+            Next.setVisible(false);
             Tanggal.setVisible(false);
             ViewTanggal.setVisible(false);
             Cari.setVisible(false);
@@ -537,9 +555,10 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             EditViewSemesterMhs.setVisible(true);
             EditMatakuliah.setVisible(true);
             EditViewMatkul.setVisible(true);
-            Tanggal.setVisible(true);
-            ViewTanggal.setVisible(true);
-            Cari.setVisible(true);
+            Next.setVisible(true);
+            Tanggal.setVisible(false); //tanggal
+            ViewTanggal.setVisible(false); //tanggal
+            Cari.setVisible(false); // search
             daftarHadirDosen.setBackground(COLOR_WHITE);
             daftarHadirDosen.setForeground(BGCOLOR_DEFAULT);
             TahunDosen.setVisible(false);
@@ -559,8 +578,19 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             FindMhs.setVisible(false);
             jScrollPanelMhs.setVisible(false);
         }
+        if(action.equals("Next")){
+            if(checkAllDataEdit1() == false){
+                JOptionPane.showMessageDialog(null,"Silahkan Isi Semua Data!");
+            }else{
+                Next.setBackground(BGCOLOR_DEFAULT);
+                Next.setForeground(COLOR_WHITE);
+                Tanggal.setVisible(true);
+                ViewTanggal.setVisible(true);
+                Cari.setVisible(true);
+            }
+        }
         if(action.equals("Search")){
-            if(checkAllDataEdit() == false){
+            if(checkAllDataEdit2() == false){
                 JOptionPane.showMessageDialog(null,"Silahkan Isi Semua Data!");
             }else{
                 Cari.setBackground(BGCOLOR_DEFAULT);
