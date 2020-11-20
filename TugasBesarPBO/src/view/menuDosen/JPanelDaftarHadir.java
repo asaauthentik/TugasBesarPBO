@@ -117,7 +117,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         showMahasiswa();
         editDaftarMhs();
     }
-    
     private void showDosen(){
         //Input Daftar Hadir Dosen
         TahunDosen = new JLabel("Tahun");
@@ -193,7 +192,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         jScrollPane1Dosen.setVisible(false);
         add(jScrollPane1Dosen);
     }
-    
     private void showMahasiswa(){
         //Input Daftar Hadir Mahasiswa
         TahunMhs = new JLabel("Tahun");
@@ -278,7 +276,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         jScrollPanelMhs.setVisible(false);
         add(jScrollPanelMhs);
     }
-    
     private void editDaftarMhs(){
         //Edit Daftar Hadir Mahasiswa
         EditTahunMhs = new JLabel("Tahun");
@@ -406,7 +403,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         Batal.addActionListener(this);
         add(Batal);
     }
-    
     private boolean checkAllDataDosen(){
         if(ViewTahunDosen.getText().equals("")){
             return false;
@@ -416,7 +412,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         }
         return true;
     }
-    
     private boolean checkAllDataMhs(){
         if(ViewTahunMhs.getText().equals("")){
             return false;
@@ -429,7 +424,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         }
         return true;
     }
-    
     private boolean checkAllDataEdit1(){
         if(EditViewTahunMhs.getText().equals("")){
             return false;
@@ -442,14 +436,12 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         }
         return true;
     }
-    
     private boolean checkAllDataEdit2(){
         if(ViewTanggal.getSelectedItem().toString().equals("")){
             return false;
         }
         return true;
     }
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
@@ -611,7 +603,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             JOptionPane.showMessageDialog(null,"Data tidak ada yang berubah!");
         }
     }
-    
     @Override
     public Dimension getPreferredSize() {
         return DIMENSION_PANEL_CARD;
