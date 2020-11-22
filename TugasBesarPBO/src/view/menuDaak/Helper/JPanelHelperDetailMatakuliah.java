@@ -31,17 +31,17 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
     private  JLabel labelKelas;
     private  JLabel labelJumlahPertemuan;
     
-    JTextField fieldKodeMK;
-    JTextField fieldTahunAjaran;
-    String[] listSemester = {"","Ganjil", "Genap","Pendek"};
-    JComboBox fieldSemester;
-    JTextField fieldKelas;
-    JTextField fieldJumlahPertemuan;
+    private JTextField fieldKodeMK;
+    private JTextField fieldTahunAjaran;
+    private String[] listSemester = {"","Ganjil", "Genap","Pendek"};
+    private JComboBox fieldSemester;
+    private JTextField fieldKelas;
+    private JTextField fieldJumlahPertemuan;
         
-    JButton Save;
-    JButton Delete;
+    private JButton Save;
+    private JButton Delete;
     
-    String idMK;
+    private String idMK;
     public JPanelHelperDetailMatakuliah(String type,String idMK){
         this(type);
         this.idMK = idMK;

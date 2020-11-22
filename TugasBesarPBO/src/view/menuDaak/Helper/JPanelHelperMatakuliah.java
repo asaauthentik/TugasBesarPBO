@@ -35,18 +35,18 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
     private  JLabel labelSifatMK;
     private  JLabel labelSKS;
     
-    JTextField fieldKodeMK;
-    JTextField fieldNamaMK;
-    String listJenisMK[] = {"","Teori", "Praktikum"};
-    JComboBox fieldJenisMK;
-    String listSifatMK[] = {"", "Wajib","Umum"};
-    JComboBox fieldSifatMK;
-    JSpinner fieldSKS;
+    private JTextField fieldKodeMK;
+    private JTextField fieldNamaMK;
+    private String listJenisMK[] = {"","Teori", "Praktikum"};
+    private JComboBox fieldJenisMK;
+    private String listSifatMK[] = {"", "Wajib","Umum"};
+    private JComboBox fieldSifatMK;
+    private JSpinner fieldSKS;
         
-    JButton Save;
-    JButton Delete;
+    private JButton Save;
+    private JButton Delete;
     
-    String kodeMK = "";
+    private String kodeMK = "";
     public JPanelHelperMatakuliah(String type,String kodeMK){
       this(type);
       this.kodeMK = kodeMK;

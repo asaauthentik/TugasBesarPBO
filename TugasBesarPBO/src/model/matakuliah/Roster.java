@@ -21,7 +21,7 @@ public class Roster {
     public Roster(){
         
     }
-    public Roster(String tanggal, int jamMulai, int jamSelesai, String ruangan, boolean statusDosen) {
+    public Roster(String tanggal, String jamMulai, String jamSelesai, String ruangan, boolean statusDosen) {
 
         this.statusDosen = statusDosen;
         this.tanggal = tanggal;
