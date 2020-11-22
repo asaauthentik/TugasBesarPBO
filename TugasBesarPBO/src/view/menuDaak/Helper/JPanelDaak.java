@@ -50,51 +50,51 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
     private  JLabel labelStatusKontrak;
     
     
-    JTextField fieldNim;
-    JTextField fieldNama;
-    JTextField fieldEmail;
-    JPasswordField fieldPassword;
+    private JTextField fieldNim;
+    private JTextField fieldNama;
+    private JTextField fieldEmail;
+    private JPasswordField fieldPassword;
     
      
-    UtilDateModel modelTglLahir;
-    JDatePanelImpl datePanelTglLahir;
-    Properties  propertiesTglLahir;   
-    JDatePickerImpl fieldTanggalLahir;
+    private UtilDateModel modelTglLahir;
+    private JDatePanelImpl datePanelTglLahir;
+    private Properties  propertiesTglLahir;   
+    private JDatePickerImpl fieldTanggalLahir;
         
-    ButtonGroup groupJk;
-    JRadioButton fieldPria;
-    JRadioButton fieldWanita;
-    JTextField fieldTelp;
-    JTextField fieldJabatan;
+    private ButtonGroup groupJk;
+    private JRadioButton fieldPria;
+    private JRadioButton fieldWanita;
+    private JTextField fieldTelp;
+    private JTextField fieldJabatan;
     
-    ButtonGroup groupHARencanaStudi;
-    JRadioButton fieldHARencanaStudiYes;
-    JRadioButton fieldHARencanaStudiNo;
+    private ButtonGroup groupHARencanaStudi;
+    private JRadioButton fieldHARencanaStudiYes;
+    private JRadioButton fieldHARencanaStudiNo;
     
-    ButtonGroup groupHAMatakuliah;
-    JRadioButton fieldHAMatakuliahYes;
-    JRadioButton fieldHAMatakuliahNo;
+    private ButtonGroup groupHAMatakuliah;
+    private JRadioButton fieldHAMatakuliahYes;
+    private JRadioButton fieldHAMatakuliahNo;
     
-    ButtonGroup groupHAKeuangan;
-    JRadioButton fieldHAKeuanganYes;
-    JRadioButton fieldHAKeuanganNo;
+    private ButtonGroup groupHAKeuangan;
+    private JRadioButton fieldHAKeuanganYes;
+    private JRadioButton fieldHAKeuanganNo;
     
-    ButtonGroup groupHAJadwalPerkuliahan;
-    JRadioButton fieldHAJadwalPerkuliahanYes;
-    JRadioButton fieldHAJadwalPerkuliahanNo;
+    private ButtonGroup groupHAJadwalPerkuliahan;
+    private JRadioButton fieldHAJadwalPerkuliahanYes;
+    private JRadioButton fieldHAJadwalPerkuliahanNo;
     
-    ButtonGroup groupHAUser;
-    JRadioButton fieldHAUserYes;
-    JRadioButton fieldHAUserNo;
+    private ButtonGroup groupHAUser;
+    private JRadioButton fieldHAUserYes;
+    private JRadioButton fieldHAUserNo;
     
-    ButtonGroup groupStatusKontrak;
-    JRadioButton fieldStatusKontrakAktif;
-    JRadioButton fieldStatusKontrakNonAktif;
+    private ButtonGroup groupStatusKontrak;
+    private JRadioButton fieldStatusKontrakAktif;
+    private JRadioButton fieldStatusKontrakNonAktif;
     
-    JButton Save;
-    JButton Delete;
+    private JButton Save;
+    private JButton Delete;
     
-    Daak data;
+    private Daak data;
     
     public JPanelDaak(String type){
         setLayout(null);

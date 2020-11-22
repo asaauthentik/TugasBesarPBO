@@ -27,28 +27,28 @@ import view.ViewConfig;
  * @author 1119002 Albertus Angkuw
  */
 public class dashboard implements ActionListener,ViewConfig {
-    CardLayout card;
-    JPanel cardPanel;
-    JPanel sideBar;
+    private CardLayout card;
+    private JPanel cardPanel;
+    private JPanel sideBar;
     //--List Card as Menu
   
     //Menu DAAK
-    JPanelProfile profile;
-    JPanelRencanaStudi rencanaStudi;
-    JPanelMatakuliah matakuliah;
-    JPanelKeuangan keuangan;
-    JPanelUser user;
-    JPanelTable dosen;
-    JPanelMahasiswa mahasiswa;
-    JPanelJadwalPerkuliahan jadwalPerkuliahan;
+    private JPanelProfile profile;
+    private JPanelRencanaStudi rencanaStudi;
+    private JPanelMatakuliah matakuliah;
+    private JPanelKeuangan keuangan;
+    private JPanelUser user;
+    private JPanelTable dosen;
+    private JPanelMahasiswa mahasiswa;
+    private JPanelJadwalPerkuliahan jadwalPerkuliahan;
       
     //List Button
-    JButton showProfile ;
-    JButton showRencanaStudi ;
-    JButton showMatakuliah ;
-    JButton showKeuangan ;
-    JButton showJadwalPerkuliahan;
-    JButton showUser;
+    private JButton showProfile ;
+    private JButton showRencanaStudi ;
+    private JButton showMatakuliah ;
+    private JButton showKeuangan ;
+    private JButton showJadwalPerkuliahan;
+    private JButton showUser;
       
     public dashboard(){
         card = new CardLayout();

@@ -47,36 +47,36 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
     private  JLabel labelStatusDosen;
     
     
-    JTextField fieldNim;
-    JTextField fieldNama;
-    JTextField fieldEmail;
-    JPasswordField fieldPassword;
+    private JTextField fieldNim;
+    private JTextField fieldNama;
+    private JTextField fieldEmail;
+    private JPasswordField fieldPassword;
     
      
-    UtilDateModel modelTglLahir;
-    JDatePanelImpl datePanelTglLahir;
-    Properties  propertiesTglLahir;   
-    JDatePickerImpl fieldTanggalLahir;
+    private UtilDateModel modelTglLahir;
+    private JDatePanelImpl datePanelTglLahir;
+    private Properties  propertiesTglLahir;   
+    private JDatePickerImpl fieldTanggalLahir;
         
-    ButtonGroup groupJk;
-    JRadioButton fieldPria;
-    JRadioButton fieldWanita;
-    JTextField fieldTelp;
-    JTextField fieldProgramStudi;
-    JTextField fieldBidangIlmu;
-    JTextField fieldGelarAkademik;
-    String listIkatanKerja[] = {"","Dosen Tetap", "Dosen Tidak Tetap","Dosen Honorer"};
-    JComboBox fieldIkatanKerja;
-    String listStatusPegawai[] = {"","PNS", "Bukan-PNS"};
-    JComboBox fieldStatusPegawai;
-    ButtonGroup grupStatus;
-    JRadioButton fieldStatusDosenAktif;
-    JRadioButton fieldStatusDosenTidakAktif;
+    private ButtonGroup groupJk;
+    private JRadioButton fieldPria;
+    private JRadioButton fieldWanita;
+    private JTextField fieldTelp;
+    private JTextField fieldProgramStudi;
+    private JTextField fieldBidangIlmu;
+    private JTextField fieldGelarAkademik;
+    private String listIkatanKerja[] = {"","Dosen Tetap", "Dosen Tidak Tetap","Dosen Honorer"};
+    private JComboBox fieldIkatanKerja;
+    private String listStatusPegawai[] = {"","PNS", "Bukan-PNS"};
+    private JComboBox fieldStatusPegawai;
+    private ButtonGroup grupStatus;
+    private JRadioButton fieldStatusDosenAktif;
+    private JRadioButton fieldStatusDosenTidakAktif;
     
-    JButton Save;
-    JButton Delete;
+    private JButton Save;
+    private JButton Delete;
     
-    Dosen data;
+    private Dosen data;
     
     public JPanelDosen(String type){
         setLayout(null);

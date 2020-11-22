@@ -27,30 +27,30 @@ import view.menuDaak.Helper.JPanelHelperJadwal;
  * @author 1119002 Albertus Angkuw
  */
 public class JPanelKeuangan  extends JPanel implements ActionListener,ViewConfig {
-    JLabel title;
-    JButton createJadwal;
-    JButton editJadwal;
-    JButton deleteJadwal;
-    JTextField yearJadwal;
+    private JLabel title;
+    private JButton createJadwal;
+    private JButton editJadwal;
+    private JButton deleteJadwal;
+    private JTextField yearJadwal;
     
-    JButton btnSearchEdit;
-    JButton btnSearchDelete;
-    JButton btnTypeMatakuliah;
+    private JButton btnSearchEdit;
+    private JButton btnSearchDelete;
+    private JButton btnTypeMatakuliah;
     
-    JTextField kodeMKJadwal;
+    private JTextField kodeMKJadwal;
     
-    String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
-    JComboBox optionSemester;
+    private String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
+    private JComboBox optionSemester;
     
-    JPanelHelperJadwal jadwalCreate;
-    JPanelHelperJadwal jadwalEdit;
-    JPanelHelperJadwal jadwalDelete;
+    private JPanelHelperJadwal jadwalCreate;
+    private JPanelHelperJadwal jadwalEdit;
+    private JPanelHelperJadwal jadwalDelete;
     
     
-    JLabel errorMsg ;
-    JButton Cancel;
+    private JLabel errorMsg ;
+    private JButton Cancel;
     
-    String menuNow = null;
+    private String menuNow = null;
     
     
     public JPanelKeuangan(){

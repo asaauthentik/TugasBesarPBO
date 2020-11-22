@@ -33,21 +33,21 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
     private  JLabel labelSKS;
     
     private JTextField fieldJumlahMK;
-    ArrayList<JTextField> fieldMK;
-    ArrayList<JLabel> fieldNamaMK;
-    ArrayList<JLabel> fieldSKS;
+    private ArrayList<JTextField> fieldMK;
+    private ArrayList<JLabel> fieldNamaMK;
+    private ArrayList<JLabel> fieldSKS;
            
-    JButton cekMK;
-    JButton btnJumlahMK;
-    JButton Save;
-    JButton Delete;
+    private JButton cekMK;
+    private JButton btnJumlahMK;
+    private JButton Save;
+    private JButton Delete;
     
-    String type;
-    int jmlMK;
-    String idrsm = "";
-    String nim = "";
-    String semester = "" ;
-    int tahun = 0;
+    private String type;
+    private int jmlMK;
+    private String idrsm = "";
+    private String nim = "";
+    private String semester = "" ;
+    private int tahun = 0;
     
     public JPanelHelperRencanaStudi(String type,String idrsm,String nim, String semester, int tahun){
         this.idrsm = idrsm;

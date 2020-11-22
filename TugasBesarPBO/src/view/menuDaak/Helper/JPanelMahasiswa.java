@@ -36,31 +36,31 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
     private  JLabel labelIpk;
     private  JLabel labelPredikat;
     
-    JTextField fieldNim;
-    JTextField fieldNama;
-    JTextField fieldEmail;
-    JPasswordField fieldPassword;
+    private JTextField fieldNim;
+    private JTextField fieldNama;
+    private JTextField fieldEmail;
+    private JPasswordField fieldPassword;
     
      
-    UtilDateModel modelTglLahir;
-    JDatePanelImpl datePanelTglLahir;
-    Properties  propertiesTglLahir;   
-    JDatePickerImpl fieldTanggalLahir;
+    private UtilDateModel modelTglLahir;
+    private JDatePanelImpl datePanelTglLahir;
+    private Properties  propertiesTglLahir;   
+    private JDatePickerImpl fieldTanggalLahir;
         
-    ButtonGroup groupJk;
-    JRadioButton fieldPria;
-    JRadioButton fieldWanita;
-    JTextField fieldTelp;
-    JTextField fieldJurusan;
-    JTextField fieldTahunMasuk;
-    JTextField fieldTahunLulus;
-    JTextField fieldIpk;
-    JTextField fieldPredikat;
+    private ButtonGroup groupJk;
+    private JRadioButton fieldPria;
+    private JRadioButton fieldWanita;
+    private JTextField fieldTelp;
+    private JTextField fieldJurusan;
+    private JTextField fieldTahunMasuk;
+    private JTextField fieldTahunLulus;
+    private JTextField fieldIpk;
+    private JTextField fieldPredikat;
     
-    JButton Save;
-    JButton Delete;
+    private JButton Save;
+    private JButton Delete;
     
-    Mahasiswa data;
+    private Mahasiswa data;
     
     public JPanelMahasiswa(String type){
         setLayout(null);

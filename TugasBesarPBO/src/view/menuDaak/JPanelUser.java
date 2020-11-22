@@ -26,37 +26,37 @@ import view.menuDaak.Helper.JPanelTable;
  * @author 1119002 Albertus Angkuw
  */
 public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
-    JLabel title;
-    JButton createUser;
-    JButton editUser;
-    JButton deleteUser;
-    JTextField searchUser;
+    private JLabel title;
+    private JButton createUser;
+    private JButton editUser;
+    private JButton deleteUser;
+    private JTextField searchUser;
     
-    JButton btnSearchEdit;
-    JButton btnSearchDelete;
-    JButton btnTypeUser;
+    private JButton btnSearchEdit;
+    private JButton btnSearchDelete;
+    private JButton btnTypeUser;
     
-    String listUser[] = {"","DAAK", "Dosen","Mahasiswa"};
-    JComboBox optionListUser;
+    private String listUser[] = {"","DAAK", "Dosen","Mahasiswa"};
+    private JComboBox optionListUser;
     
-    JPanelMahasiswa mahasiswaCreate;
-    JPanelMahasiswa mahasiswaEdit;
-    JPanelMahasiswa mahasiswaDelete;
+    private JPanelMahasiswa mahasiswaCreate;
+    private JPanelMahasiswa mahasiswaEdit;
+    private JPanelMahasiswa mahasiswaDelete;
     
-    JPanelDosen dosenCreate;
-    JPanelDosen dosenEdit;
-    JPanelDosen dosenDelete;
+    private JPanelDosen dosenCreate;
+    private JPanelDosen dosenEdit;
+    private JPanelDosen dosenDelete;
     
-    JPanelDaak daakCreate;
-    JPanelDaak daakEdit;
-    JPanelDaak daakDelete;
+    private JPanelDaak daakCreate;
+    private JPanelDaak daakEdit;
+    private JPanelDaak daakDelete;
     
-    JPanelTable tableExample;
+    private JPanelTable tableExample;
     
-    JLabel errorMsg ;
-    JButton Cancel;
+    private JLabel errorMsg ;
+    private JButton Cancel;
     
-    String menuNow = null;
+    private String menuNow = null;
     
     public JPanelUser(){
         setLayout(null);
