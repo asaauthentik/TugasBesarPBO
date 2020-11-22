@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.Nilai;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -33,13 +35,12 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
     private final JPanel Header;
     private final JLabel Judul, Tahun, Semester,Matakuliah;
     private final JComboBox ViewSemester,ViewMatakuliah;
-    private final JButton Next;
+    private final JButton Find,Next,Save;
     private final String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
     private final String MatakuliahValue[]= {"", "Algoritma","Kalkulus"};
     private final JTextField ViewTahun;
-    private final JButton Find;
     private final JTable daftarNilai;
-    JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane1;
     public JPanelNilaiMatakuliah(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
@@ -85,6 +86,18 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
         ViewMatakuliah.setBounds(110,140,115,30);
         ViewMatakuliah.setVisible(false);
         add(ViewMatakuliah);
+        
+        Save = new JButton("Save");      
+        Save.setBounds(15,520,125,30);
+        Save.setContentAreaFilled(true);
+        Save.setBackground(Color.WHITE);
+        Save.setForeground(BGCOLOR_DEFAULT);
+        Save.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        Save.setFocusPainted(false);
+        Save.setFont(FONT_DEFAULT_PLAIN);
+        Save.setVisible(false);
+        Save.addActionListener(this);
+        add(Save);
         //Button Lihat Daftar Hadir
         Find = new JButton("Lihat Daftar Nilai");
         Find.setBounds(255,140,125,30);
@@ -100,22 +113,36 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
         //Table Nilai Matakuliah
         daftarNilai = new JTable();
         jScrollPane1 = new JScrollPane();
+        
+
+    }
+    private boolean checkAllData(){
+        if(ViewTahun.getText().equals("")){
+            return false;
+        }
+        if(ViewSemester.getSelectedItem().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+    public void ShowTables(){
+        String DataNilai[][] = new String[][] {
+            {"10001","Albert","77", "88", "99", "100", "86", "90", "96", "A"}, 
+            {"10002","Michael","77", "88", "99", "100", "86", "90", "96", "A"}, 
+            {"10003","William","77", "88", "99", "100", "86", "90", "96", "A"}, 
+            {"10004","Elangel","77", "88", "99", "100", "86", "90", "96", "A"}
+        };
         daftarNilai.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "101", "Algoritma", "77", "88", "99", "100", "86", "90", "96", "A"}, 
-                {"2.", "102", "Kalkulus",  "77", "88", "99", "100", "86", "90", "96", "A"}, 
-                {"3.", "103", "Web Programming",  "77", "88", "99", "100", "86", "90", "96", "A"}, 
-                {"4.", "104", "Web Design",  "77", "88", "99", "100", "86", "90", "96", "A"}
-            }, 
+            DataNilai, 
             new String[] {
-                "No", "Kode MK", "Nama Matakuliah", "N1", "N2", "N3", "N4", "N5", "UAS", "NA", "HM"
+                "NIM","Nama", "N1", "N2", "N3", "N4", "N5", "UAS", "NA", "HM"
             }
         ){
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, true, true, true, true, true, true, false, false
             };
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -128,26 +155,20 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
         });
         jScrollPane1.setViewportView(daftarNilai);
         if (daftarNilai.getColumnModel().getColumnCount() > 0) {
-            daftarNilai.getColumnModel().getColumn(0).setPreferredWidth(30);
-            daftarNilai.getColumnModel().getColumn(1).setPreferredWidth(60);
-            daftarNilai.getColumnModel().getColumn(2).setPreferredWidth(200);
-            daftarNilai.getColumnModel().getColumn(3).setPreferredWidth(30);
-            daftarNilai.getColumnModel().getColumn(4).setPreferredWidth(60);
-            daftarNilai.getColumnModel().getColumn(5).setPreferredWidth(60);
+            daftarNilai.getColumnModel().getColumn(0).setPreferredWidth(40);
+            daftarNilai.getColumnModel().getColumn(1).setPreferredWidth(80);
+            daftarNilai.getColumnModel().getColumn(2).setPreferredWidth(20);
+            daftarNilai.getColumnModel().getColumn(3).setPreferredWidth(20);
+            daftarNilai.getColumnModel().getColumn(4).setPreferredWidth(20);
+            daftarNilai.getColumnModel().getColumn(5).setPreferredWidth(20);
+            daftarNilai.getColumnModel().getColumn(6).setPreferredWidth(20);
+            daftarNilai.getColumnModel().getColumn(7).setPreferredWidth(20);
+            daftarNilai.getColumnModel().getColumn(8).setPreferredWidth(20);
+            daftarNilai.getColumnModel().getColumn(9).setPreferredWidth(20);
         }
         jScrollPane1.setBounds(15,180,640,320);
-        jScrollPane1.setVisible(false);
+        jScrollPane1.setVisible(true);
         add(jScrollPane1);
-
-    }
-    private boolean checkAllData(){
-        if(ViewTahun.getText().equals("")){
-            return false;
-        }
-        if(ViewSemester.getSelectedItem().toString().equals("")){
-            return false;
-        }
-        return true;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -170,14 +191,32 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
                     JOptionPane.showMessageDialog(null,"Silahkan Isi Semua Data!");
                 }
                 else{
-                //Find.setBackground(BGCOLOR_DEFAULT);
-                //Find.setForeground(COLOR_WHITE);
+                    ShowTables();
                 jScrollPane1.setVisible(true);
-                //String printTahun = ViewTahun.getText();
-                //String printSemester = ViewSemester.getSelectedItem().toString();
+                Save.setVisible(true);
+                
+                
                 }
             }
-        
+            if(action.equals("Save")){
+                ArrayList<Nilai> arrDaftarNilai = new ArrayList<>(); 
+                for(int i=0; i<daftarNilai.getModel().getRowCount(); i++){
+                        Nilai nilai = new Nilai();
+                        nilai.setNIM((String) daftarNilai.getModel().getValueAt(i, 1));
+                        nilai.setNilai1(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 2)));
+                        nilai.setNilai2(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 3)));
+                        nilai.setNilai3(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 4)));
+                        nilai.setNilai4(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 5)));
+                        nilai.setNilai5(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 6)));
+                        nilai.setNilaiUAS(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 7)));
+                        nilai.setNilaiAkhir(nilai.hitungNA());
+                        nilai.setHurufMutu(nilai.convertHurufMutu());
+                        arrDaftarNilai.add(nilai);
+                        System.out.println(nilai.toString());
+                        daftarNilai.getModel().setValueAt(nilai.getNilaiAkhir(), i, 8);
+                        daftarNilai.getModel().setValueAt(nilai.getHurufMutu(), i, 9);
+                }
+            }
         
     }
     @Override
