@@ -5,6 +5,8 @@
  */
 package model.user;
 
+import java.util.Date;
+
 /**
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
@@ -17,25 +19,29 @@ public class Daak extends User{
     private String NIK;
     private String jabatan;
     private boolean hakAksesKeuangan;
-    private boolean hakAksesRencanaStudi;
     private boolean hakAksesMatakuliah;
+    private boolean hakAksesJadwalPerkuliahan;
+    private boolean hakAksesRencanaStudi;
     private boolean hakAksesUser;
-    private boolean hakAksesJadwalPerkuliahaan;
     private boolean statusKontrak;
 
-    public Daak(String NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesRencanaStudi, boolean hakAksesMatakuliah, boolean hakAksesUser, boolean hakAksesJadwalPerkuliahaan, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, String tanggalLahir, String jenisKelamin, String nomorTelepon) {
+
+    public Daak(String NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, Date tanggalLahir, String jenisKelamin, String nomorTelepon) {
         super(idUser, namaLengkap, email, password, tanggalLahir, jenisKelamin, nomorTelepon);
         this.NIK = NIK;
         this.jabatan = jabatan;
         this.hakAksesKeuangan = hakAksesKeuangan;
-        this.hakAksesRencanaStudi = hakAksesRencanaStudi;
         this.hakAksesMatakuliah = hakAksesMatakuliah;
+        this.hakAksesJadwalPerkuliahan = hakAksesJadwalPerkuliahan;
+        this.hakAksesRencanaStudi = hakAksesRencanaStudi;
         this.hakAksesUser = hakAksesUser;
-        this.hakAksesJadwalPerkuliahaan = hakAksesJadwalPerkuliahaan;
         this.statusKontrak = statusKontrak;
     }
 
-   
+    public Daak() {
+        super();
+    }
+
     public String getNIK() {
         return NIK;
     }
@@ -43,7 +49,6 @@ public class Daak extends User{
     public void setNIK(String NIK) {
         this.NIK = NIK;
     }
-    
 
     public String getJabatan() {
         return jabatan;
@@ -61,14 +66,6 @@ public class Daak extends User{
         this.hakAksesKeuangan = hakAksesKeuangan;
     }
 
-    public boolean isHakAksesRencanaStudi() {
-        return hakAksesRencanaStudi;
-    }
-
-    public void setHakAksesRencanaStudi(boolean hakAksesRencanaStudi) {
-        this.hakAksesRencanaStudi = hakAksesRencanaStudi;
-    }
-
     public boolean isHakAksesMatakuliah() {
         return hakAksesMatakuliah;
     }
@@ -77,20 +74,29 @@ public class Daak extends User{
         this.hakAksesMatakuliah = hakAksesMatakuliah;
     }
 
+    public boolean isHakAksesJadwalPerkuliahan() {
+        return hakAksesJadwalPerkuliahan;
+    }
+
+    public void setHakAksesJadwalPerkuliahan(boolean hakAksesJadwalPerkuliahan) {
+        this.hakAksesJadwalPerkuliahan = hakAksesJadwalPerkuliahan;
+
+    }
+
+    public boolean isHakAksesRencanaStudi() {
+        return hakAksesRencanaStudi;
+    }
+
+    public void setHakAksesRencanaStudi(boolean hakAksesRencanaStudi) {
+        this.hakAksesRencanaStudi = hakAksesRencanaStudi;
+    }
+
     public boolean isHakAksesUser() {
         return hakAksesUser;
     }
 
     public void setHakAksesUser(boolean hakAksesUser) {
         this.hakAksesUser = hakAksesUser;
-    }
-
-    public boolean isHakAksesJadwalPerkuliahaan() {
-        return hakAksesJadwalPerkuliahaan;
-    }
-
-    public void setHakAksesJadwalPerkuliahaan(boolean hakAksesJadwalPerkuliahaan) {
-        this.hakAksesJadwalPerkuliahaan = hakAksesJadwalPerkuliahaan;
     }
 
     public boolean isStatusKontrak() {
@@ -103,6 +109,10 @@ public class Daak extends User{
 
     @Override
     public String toString() {
-        return "Daak{" + "NIK=" + NIK + ", jabatan=" + jabatan + ", hakAksesKeuangan=" + hakAksesKeuangan + ", hakAksesKemahasiswaan=" + hakAksesRencanaStudi + ", hakAksesPerkuliahan=" + hakAksesMatakuliah + ", hakAksesDosen=" + hakAksesUser + ", hakAksesAdmin=" + hakAksesJadwalPerkuliahaan + ", statusKontrak=" + statusKontrak + '}';
+
+        return super.toString() +  "\n" + "Daak{" + "NIK=" + NIK + ", jabatan=" + jabatan + ", hakAksesKeuangan=" + hakAksesKeuangan + ", hakAksesMatakuliah=" + hakAksesMatakuliah + ", hakAksesJadwalPerkuliahan=" + hakAksesJadwalPerkuliahan + ", hakAksesRencanaStudi=" + hakAksesRencanaStudi + ", hakAksesUser=" + hakAksesUser + ", statusKontrak=" + statusKontrak + '}';
     }
+    
+    
 }
+

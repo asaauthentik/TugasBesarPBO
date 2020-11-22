@@ -14,9 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.matakuliah.DetailMatakuliah;
-import model.matakuliah.Kehadiran;
-import model.matakuliah.Nilai;
-import model.matakuliah.Roster;
 import view.ViewConfig;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
 
@@ -31,24 +28,20 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
     private  JLabel labelKelas;
     private  JLabel labelJumlahPertemuan;
     
-    private JTextField fieldKodeMK;
-    private JTextField fieldTahunAjaran;
-    private String[] listSemester = {"","Ganjil", "Genap","Pendek"};
-    private JComboBox fieldSemester;
-    private JTextField fieldKelas;
-    private JTextField fieldJumlahPertemuan;
+    JTextField fieldKodeMK;
+    JTextField fieldTahunAjaran;
+    String[] listSemester = {"","Ganjil", "Genap","Pendek"};
+    JComboBox fieldSemester;
+    JTextField fieldKelas;
+    JTextField fieldJumlahPertemuan;
         
-    private JButton Save;
-    private JButton Delete;
+    JButton Save;
+    JButton Delete;
+    String idMK = null;
     
-    private String idMK;
     public JPanelHelperDetailMatakuliah(String type,String idMK){
-        this(type);
-        this.idMK = idMK;
-    }
-    public JPanelHelperDetailMatakuliah(String type){
         setLayout(null);
-       
+        this.idMK = idMK;
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);
@@ -177,14 +170,20 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         String action = e.getActionCommand();
         System.out.println("Action Panel Helper Detail Matakuliah : " + action);
         if(action.equals("Simpan")){
-            System.out.println("Hasil : ");
             String kodeMK = fieldKodeMK.getText();
             String tahunAjaran = fieldTahunAjaran.getText();
             String semester = (String) fieldSemester.getItemAt(fieldSemester.getSelectedIndex());
             String kelas = fieldKelas.getText();
             String jumlahPertemuan = fieldJumlahPertemuan.getText();
-            DetailMatakuliah dtlMk = new DetailMatakuliah(idMK,Integer.valueOf(tahunAjaran), semester, kelas.charAt(0) , Integer.valueOf(jumlahPertemuan),kodeMK);
-            System.out.println(dtlMk.toString());
+                       
+            DetailMatakuliah dMK = new DetailMatakuliah();
+            dMK.setKode_MK(kodeMK);
+            dMK.setTahun(Integer.valueOf(tahunAjaran));
+            dMK.setSemester(semester);
+            dMK.setKelas(kelas.charAt(0));
+            dMK.setJumlahPertemuan(Integer.valueOf(jumlahPertemuan));
+            
+            System.out.println(dMK.toString());
             //Tambahakn ke controller database
         }else if(action.equals("Hapus")){
             System.out.println("Masuk Hapus ke database");
