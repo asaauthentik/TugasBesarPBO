@@ -60,6 +60,7 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
     JButton Cancel;
     
     String menuNow = null;
+    
     public JPanelUser(){
         setLayout(null);
         title = new JLabel("User Management");
@@ -259,6 +260,13 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
              String nameToSearch = searchUser.getText();
              User user = userManageController.getUser(nameToSearch);
              String tipe = "";
+
+             if(nameToSearch.equals(" Nama atau Nomor Induk")){
+                 JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                 return;
+             }
+
+
              boolean foundTest = false;
              if(user != null){
                 foundTest = true;

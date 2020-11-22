@@ -9,8 +9,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import model.matakuliah.Kehadiran;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -43,7 +45,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     private JComboBox ViewSemesterDosen;
     private String SemesterValueDosen[] = {"", "Ganjil", "Genap", "Pendek"};
     private JTable tableDaftarHadirDosen;
-    JScrollPane jScrollPane1Dosen;
+    private JScrollPane jScrollPane1Dosen;
     
     //Variabel Daftar Hadir Mahasiswa
     private JLabel TahunMhs, SemesterMhs, Matakuliah;
@@ -53,7 +55,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     private String SemesterValueMhs[] = {"", "Ganjil", "Genap", "Pendek"};
     private String MatkulValue[] = {"", "A", "B", "C"};
     private JTable tableDaftarHadirMhs;
-    JScrollPane jScrollPanelMhs;
+    private JScrollPane jScrollPanelMhs;
     
     //Variabel Edit Daftar Hadir Mahasiswa
     private JLabel EditTahunMhs, EditSemesterMhs, EditMatakuliah, Tanggal;
@@ -64,7 +66,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     private String EditMatkulValue[] = {"", "A", "B", "C"};
     private String TanggalValue[] = {"", "01/10/2020", "02/11/2020", "03//12/2020"};
     private JTable editTableDaftarHadirMhs;
-    JScrollPane editJScrollPanelMhs;
+    private JScrollPane editJScrollPanelMhs;
     
     public JPanelDaftarHadir(){
         Header = new JPanel();
@@ -151,47 +153,10 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         add(FindDosen);
         
         //Table Daftar Hadir
+      
         tableDaftarHadirDosen = new JTable();
         jScrollPane1Dosen = new JScrollPane();
-        tableDaftarHadirDosen.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "101", "Algoritma", "A","12"}, 
-                {"2.", "102", "Kalkulus", "A","11"}, 
-                {"3.", "103", "Web Programming", "B","13"}, 
-                {"4.", "103", "Web Design", "B","13"}
-            }, 
-            new String[] {
-                "No", "Kode MK", "Nama Matakuliah", "Kelas", "Jumlah Kehadiran"
-            }
-        ){
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1Dosen.setViewportView(tableDaftarHadirDosen);
-        if (tableDaftarHadirDosen.getColumnModel().getColumnCount() > 0) {
-            tableDaftarHadirDosen.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tableDaftarHadirDosen.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tableDaftarHadirDosen.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tableDaftarHadirDosen.getColumnModel().getColumn(3).setPreferredWidth(30);
-            tableDaftarHadirDosen.getColumnModel().getColumn(4).setPreferredWidth(60);
-            
-        }
-        jScrollPane1Dosen.setBounds(15,180,640,420);
-        jScrollPane1Dosen.setVisible(false);
-        add(jScrollPane1Dosen);
-    }
+    }    
     private void showMahasiswa(){
         //Input Daftar Hadir Mahasiswa
         TahunMhs = new JLabel("Tahun");
@@ -237,44 +202,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         //Table Daftar Hadir
         tableDaftarHadirMhs = new JTable();
         jScrollPanelMhs = new JScrollPane();
-        tableDaftarHadirMhs.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "101", "Algoritma", "A","12"}, 
-                {"2.", "102", "Kalkulus", "A","11"}, 
-                {"3.", "103", "Web Programming", "B","13"}, 
-                {"4.", "103", "Web Design", "B","13"}
-            }, 
-            new String[] {
-                "No", "Kode MK", "Nama Matakuliah", "Kelas", "Jumlah Kehadiran"
-            }
-        ){
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPanelMhs.setViewportView(tableDaftarHadirMhs);
-        if (tableDaftarHadirMhs.getColumnModel().getColumnCount() > 0) {
-            tableDaftarHadirMhs.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tableDaftarHadirMhs.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tableDaftarHadirMhs.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tableDaftarHadirMhs.getColumnModel().getColumn(3).setPreferredWidth(30);
-            tableDaftarHadirMhs.getColumnModel().getColumn(4).setPreferredWidth(60);
-            
-        }
-        jScrollPanelMhs.setBounds(15,180,640,420);
-        jScrollPanelMhs.setVisible(false);
-        add(jScrollPanelMhs);
+        
     }
     private void editDaftarMhs(){
         //Edit Daftar Hadir Mahasiswa
@@ -341,43 +269,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         //Table Daftar Hadir
         editTableDaftarHadirMhs = new JTable();
         editJScrollPanelMhs = new JScrollPane();
-        editTableDaftarHadirMhs.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "1119002", "Albertus", "A","12"}, 
-                {"2.", "1119006", "William Juniar", "A","11"}, 
-                {"3.", "1119038", "Elangel", "B","13"}
-            }, 
-            new String[] {
-                "No", "NIM", "Nama Mahasiswa", "Kelas", "Jumlah Kehadiran"
-            }
-        ){
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        editJScrollPanelMhs.setViewportView(editTableDaftarHadirMhs);
-        if (editTableDaftarHadirMhs.getColumnModel().getColumnCount() > 0) {
-            editTableDaftarHadirMhs.getColumnModel().getColumn(0).setPreferredWidth(30);
-            editTableDaftarHadirMhs.getColumnModel().getColumn(1).setPreferredWidth(100);
-            editTableDaftarHadirMhs.getColumnModel().getColumn(2).setPreferredWidth(150);
-            editTableDaftarHadirMhs.getColumnModel().getColumn(3).setPreferredWidth(30);
-            editTableDaftarHadirMhs.getColumnModel().getColumn(4).setPreferredWidth(60);
-            
-        }
-        editJScrollPanelMhs.setBounds(15,230,640,325);
-        editJScrollPanelMhs.setVisible(false);
-        add(editJScrollPanelMhs);
+       
         
         Simpan = new JButton("Save");
         Simpan.setBounds(430,570,100,30);
@@ -442,6 +334,137 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         }
         return true;
     }
+    public void ShowTablesDosen(){
+        //Connect Database
+        String DaftarHadirDosen[][] = new String[][] {
+                {"IF-101","Algoritma", "A","14","12"}, 
+                {"IF-301","PBO", "A","14","11"}, 
+                {"IF-201","Web Design", "B","13","13"}, 
+                {"IF-307","Matriks Vektor", "B","15","15"}
+            };
+        tableDaftarHadirDosen.setModel(new DefaultTableModel(
+            DaftarHadirDosen, 
+            new String[] {
+                "Kode MK","Nama Matakuliah","Kelas"," Total Pertemuan", "Jumlah Kehadiran"
+            }
+        ){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1Dosen.setViewportView(tableDaftarHadirDosen);
+        if (tableDaftarHadirDosen.getColumnModel().getColumnCount() > 0) {
+            tableDaftarHadirDosen.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tableDaftarHadirDosen.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tableDaftarHadirDosen.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tableDaftarHadirDosen.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tableDaftarHadirDosen.getColumnModel().getColumn(4).setPreferredWidth(30);
+            
+        }
+        jScrollPane1Dosen.setBounds(15,180,640,420);
+        jScrollPane1Dosen.setVisible(true);
+        add(jScrollPane1Dosen);
+    }
+    public void ShowTablesMahasiswa(){
+        //Connect Database
+        String DaftarHadirMahasiswa[][] = new String[][] {
+                {"1.", "10001", "Albert", "A","12"}, 
+                {"2.", "10002", "Michael", "A","11"}, 
+                {"3.", "10003", "Elangel", "B","13"}, 
+                {"4.", "10003", "William", "B","13"}
+            }; 
+        tableDaftarHadirMhs.setModel(new DefaultTableModel(
+            DaftarHadirMahasiswa,
+            new String[] {
+                "No", "NIM", "Nama Mahasiswa", "Kelas", "Jumlah Kehadiran"
+            }
+        ){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPanelMhs.setViewportView(tableDaftarHadirMhs);
+        if (tableDaftarHadirMhs.getColumnModel().getColumnCount() > 0) {
+            tableDaftarHadirMhs.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tableDaftarHadirMhs.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tableDaftarHadirMhs.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tableDaftarHadirMhs.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tableDaftarHadirMhs.getColumnModel().getColumn(4).setPreferredWidth(60);
+            
+        }
+        jScrollPanelMhs.setBounds(15,180,640,420);
+        jScrollPanelMhs.setVisible(true);
+        add(jScrollPanelMhs);
+    }
+    public void ShowTableEditMahasiswa(){
+        String EditDaftarHadirMahasiswa[][] = new String[][] {
+                {"1.", "1119002", "Albertus", "A",""}, 
+                {"2.", "1119006", "William Juniar", "A",""}, 
+                {"3.", "1119038", "Elangel", "B",""}
+            };
+        editTableDaftarHadirMhs.setModel(new DefaultTableModel(
+            EditDaftarHadirMahasiswa,
+              
+            new String[] {
+                "No", "NIM", "Nama Mahasiswa", "Kelas", "Jumlah Kehadiran"
+            }
+        ){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        editJScrollPanelMhs.setViewportView(editTableDaftarHadirMhs);
+        if (editTableDaftarHadirMhs.getColumnModel().getColumnCount() > 0) {
+            editTableDaftarHadirMhs.getColumnModel().getColumn(0).setPreferredWidth(30);
+            editTableDaftarHadirMhs.getColumnModel().getColumn(1).setPreferredWidth(100);
+            editTableDaftarHadirMhs.getColumnModel().getColumn(2).setPreferredWidth(150);
+            editTableDaftarHadirMhs.getColumnModel().getColumn(3).setPreferredWidth(30);
+            editTableDaftarHadirMhs.getColumnModel().getColumn(4).setPreferredWidth(60);
+            
+        }
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("Hadir");
+        comboBox.addItem("Sakit");
+        comboBox.addItem("Alpha");
+        TableColumn status = editTableDaftarHadirMhs.getColumnModel().getColumn(4);
+        status.setCellEditor(new DefaultCellEditor(comboBox));
+        editJScrollPanelMhs.setBounds(15,230,640,325);
+        editJScrollPanelMhs.setVisible(true);
+        add(editJScrollPanelMhs);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
@@ -487,7 +510,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             }else{
                 FindDosen.setBackground(BGCOLOR_DEFAULT);
                 FindDosen.setForeground(COLOR_WHITE);
-                jScrollPane1Dosen.setVisible(true);
+                ShowTablesDosen();
                 String printTahunDosen = ViewTahunDosen.getText();
                 String printSemesterDosen = ViewSemesterDosen.getSelectedItem().toString();
             }
@@ -532,7 +555,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             }else{
                 FindMhs.setBackground(BGCOLOR_DEFAULT);
                 FindMhs.setForeground(COLOR_WHITE);
-                jScrollPanelMhs.setVisible(true);
+                ShowTablesMahasiswa();
                 String printTahunMhs = ViewTahunMhs.getText();
                 String printSemesterMhs = ViewSemesterMhs.getSelectedItem().toString();
                 String printMatkulMhs = ViewMatkul.getSelectedItem().toString();
@@ -587,7 +610,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             }else{
                 Cari.setBackground(BGCOLOR_DEFAULT);
                 Cari.setForeground(COLOR_WHITE);
-                editJScrollPanelMhs.setVisible(true);
+                ShowTableEditMahasiswa();
                 Simpan.setVisible(true);
                 Batal.setVisible(true);
                 String printEditTahun = EditViewTahunMhs.getText();
@@ -597,6 +620,14 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             }
         }
         if(action.equals("Save")){
+             ArrayList<Kehadiran> arrEditHadirMhs = new ArrayList<>(); 
+                for(int i=0; i<editTableDaftarHadirMhs.getModel().getRowCount(); i++){
+                        Kehadiran kehadiran = new Kehadiran();
+                        kehadiran.setNIM((String) editTableDaftarHadirMhs.getModel().getValueAt(i, 1));
+                        kehadiran.setKeterangan((String)editTableDaftarHadirMhs.getModel().getValueAt(i, 4));
+                        arrEditHadirMhs.add(kehadiran);
+                        System.out.println(kehadiran.toString());
+                }
             JOptionPane.showMessageDialog(null,"Data Berhasil Disimpan!");
         }
         if(action.equals("Cancel")){

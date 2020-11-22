@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
+import model.matakuliah.Roster;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -47,6 +48,11 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
     JButton Save;
     JButton Delete;
     
+    String ID_Roster;
+    public JPanelHelperJadwal(String type,String ID_Roster){
+        this(type);
+        this.ID_Roster = ID_Roster;
+    }
     public JPanelHelperJadwal(String type){
         setLayout(null);
        
@@ -178,11 +184,8 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
             String jamSelesai = (String) fieldJamSelesai.getValue();
             String ruangan = fieldRuangan.getText();
             
-            System.out.println(tanggal);
-            System.out.println(jamMulai);
-            System.out.println(jamSelesai);
-            System.out.println(ruangan);
-            
+            Roster roster = new Roster(tanggal,jamMulai,jamSelesai,ruangan,false);
+            System.out.println(roster.toString());
             //Tambahakn ke controller database
         }else if(action.equals("Hapus")){
             System.out.println("Masuk Hapus ke database");
