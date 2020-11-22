@@ -12,8 +12,8 @@ import javax.swing.*;
  * @author 1119002 Albertus Angkuw
  */
 public class JPanelTable extends JPanel{
-    JTable tabelContoh;
-    JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+    private JTable tabelContoh;
+    private JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
     public JPanelTable(){
         setLayout(null);
         tabelContoh = new javax.swing.JTable();

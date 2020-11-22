@@ -30,35 +30,35 @@ import view.menuDaak.Helper.JPanelHelperMatakuliah;
  * @author 1119002 Albertus Angkuw
  */
 public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConfig{
-    JLabel title;
-    JButton createMatakuliah;
-    JButton editMatakuliah;
-    JButton deleteMatakuliah;
-    JTextField searchMatakuliah;
-    JTextField yearMatakuliah;
+    private JLabel title;
+    private JButton createMatakuliah;
+    private JButton editMatakuliah;
+    private JButton deleteMatakuliah;
+    private JTextField searchMatakuliah;
+    private JTextField yearMatakuliah;
     
-    JButton btnSearchEdit;
-    JButton btnSearchDelete;
-    JButton btnTypeMatakuliah;
+    private JButton btnSearchEdit;
+    private JButton btnSearchDelete;
+    private JButton btnTypeMatakuliah;
     
-    String[] listMatakuliah = {"-Kategori Matakuliah-","Matakuliah", "Detail Matakuliah"};
-    JComboBox optionListMatakuliah;
+    private String[] listMatakuliah = {"-Kategori Matakuliah-","Matakuliah", "Detail Matakuliah"};
+    private JComboBox optionListMatakuliah;
     
-    String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
-    JComboBox optionSemester;
+    private String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
+    private JComboBox optionSemester;
     
-    JPanelHelperMatakuliah matakuliahCreate;
-    JPanelHelperMatakuliah matakuliahEdit;
-    JPanelHelperMatakuliah matakuliahDelete;
+    private JPanelHelperMatakuliah matakuliahCreate;
+    private JPanelHelperMatakuliah matakuliahEdit;
+    private JPanelHelperMatakuliah matakuliahDelete;
     
-    JPanelHelperDetailMatakuliah detailMatakuliahCreate;
-    JPanelHelperDetailMatakuliah detailMatakuliahEdit;
-    JPanelHelperDetailMatakuliah detailMatakuliahDelete;
+    private JPanelHelperDetailMatakuliah detailMatakuliahCreate;
+    private JPanelHelperDetailMatakuliah detailMatakuliahEdit;
+    private JPanelHelperDetailMatakuliah detailMatakuliahDelete;
     
-    JLabel errorMsg ;
-    JButton Cancel;
+    private JLabel errorMsg ;
+    private JButton Cancel;
     
-    String menuNow = null;
+    private String menuNow = null;
     public JPanelMatakuliah(){
         setLayout(null);
         title = new JLabel("Matakuliah Management");

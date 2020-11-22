@@ -30,30 +30,30 @@ import view.menuDaak.Helper.JPanelHelperRencanaStudi;
  * @author 1119002 Albertus Angkuw
  */
 public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewConfig {
-    JLabel title;
-    JButton createRencanaStudi;
-    JButton editRencanaStudi;
-    JButton deleteRencanaStudi;
-    JTextField yearRencanaStudi;
+    private JLabel title;
+    private JButton createRencanaStudi;
+    private JButton editRencanaStudi;
+    private JButton deleteRencanaStudi;
+    private JTextField yearRencanaStudi;
     
-    JButton btnSearchEdit;
-    JButton btnSearchDelete;
-    JButton btnTypeMatakuliah;
+    private JButton btnSearchEdit;
+    private JButton btnSearchDelete;
+    private JButton btnTypeMatakuliah;
     
-    JTextField nimRencanaStudi;
+    private JTextField nimRencanaStudi;
     
-    String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
-    JComboBox optionSemester;
+    private String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
+    private JComboBox optionSemester;
     
-    JPanelHelperRencanaStudi rencanaStudiCreate;
-    JPanelHelperRencanaStudi rencanaStudiEdit;
-    JPanelHelperRencanaStudi rencanaStudiDelete;
+    private JPanelHelperRencanaStudi rencanaStudiCreate;
+    private JPanelHelperRencanaStudi rencanaStudiEdit;
+    private JPanelHelperRencanaStudi rencanaStudiDelete;
     
     
-    JLabel errorMsg ;
-    JButton Cancel;
+    private JLabel errorMsg ;
+    private JButton Cancel;
     
-    String menuNow = null;
+    private String menuNow = null;
     public JPanelRencanaStudi(){
         setLayout(null);
         title = new JLabel("Rencana Studi Management");

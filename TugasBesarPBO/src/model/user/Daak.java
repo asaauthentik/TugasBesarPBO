@@ -25,7 +25,9 @@ public class Daak extends User{
     private boolean hakAksesUser;
     private boolean statusKontrak;
 
-    public Daak(String NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesMatakuliah, boolean hakAksesJadwalPerkuliahan, boolean hakAksesRencanaStudi, boolean hakAksesUser, boolean statusKontrak) {
+
+    public Daak(String NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesKemahasiswaan, boolean hakAksesPerkuliahan, boolean hakAksesDosen, boolean hakAksesAdmin, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, Date tanggalLahir, String jenisKelamin, String nomorTelepon) {
+        super(idUser, namaLengkap, email, password, tanggalLahir, jenisKelamin, nomorTelepon);
         this.NIK = NIK;
         this.jabatan = jabatan;
         this.hakAksesKeuangan = hakAksesKeuangan;
@@ -90,6 +92,7 @@ public class Daak extends User{
 
     public void setHakAksesJadwalPerkuliahan(boolean hakAksesJadwalPerkuliahan) {
         this.hakAksesJadwalPerkuliahan = hakAksesJadwalPerkuliahan;
+
     }
 
     public boolean isHakAksesRencanaStudi() {
@@ -118,9 +121,10 @@ public class Daak extends User{
 
     @Override
     public String toString() {
-        return "Daak{" + "NIK=" + NIK + ", jabatan=" + jabatan + ", hakAksesKeuangan=" + hakAksesKeuangan + ", hakAksesMatakuliah=" + hakAksesMatakuliah + ", hakAksesJadwalPerkuliahan=" + hakAksesJadwalPerkuliahan + ", hakAksesRencanaStudi=" + hakAksesRencanaStudi + ", hakAksesUser=" + hakAksesUser + ", statusKontrak=" + statusKontrak + '}';
+
+        return super.toString() +  "\n" + "Daak{" + "NIK=" + NIK + ", jabatan=" + jabatan + ", hakAksesKeuangan=" + hakAksesKeuangan + ", hakAksesMatakuliah=" + hakAksesMatakuliah + ", hakAksesJadwalPerkuliahan=" + hakAksesJadwalPerkuliahan + ", hakAksesRencanaStudi=" + hakAksesRencanaStudi + ", hakAksesUser=" + hakAksesUser + ", statusKontrak=" + statusKontrak + '}';
     }
-
     
-
+    
 }
+
