@@ -10,13 +10,16 @@ package model.matakuliah;
  * @author 1119006 William Juniar
  * @author 1119038 Elangel Neilea Shaday
  */
-public abstract class Matakuliah {
+public class Matakuliah {
     private String kode_MK;
     private String nama_MK;
     private String jenis_MK;
     private String sifat_MK;
     private int sks;
 
+    public Matakuliah(String kode_MK){
+        this.kode_MK = kode_MK;
+    }
     public Matakuliah(String kode_MK, String nama_MK, String jenis_MK, String sifat_MK, int sks) {
         this.kode_MK = kode_MK;
         this.nama_MK = nama_MK;

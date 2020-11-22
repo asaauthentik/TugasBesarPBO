@@ -8,6 +8,7 @@ package view.menuDaak.Helper;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import model.matakuliah.DetailMatakuliah;
 import model.user.Daak;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -456,7 +458,7 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
             if(data != null){
                 //data = new Daak();
             }
-            String nim = fieldNim.getText();
+            String nik = fieldNim.getText();
             String nama = fieldNama.getText();
             String email = fieldEmail.getText();
             String password = new String(fieldPassword.getPassword());
@@ -468,7 +470,7 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
                 jk = "Perempuan";
             }
             String telepon =  fieldTelp.getText();
-            String programstudi =fieldJabatan.getText();
+            String jabatan =fieldJabatan.getText();
             
             boolean HARencanaStudi = false;
             if(fieldHARencanaStudiYes.isSelected()){
@@ -495,25 +497,26 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
                 HAJadwalPerkuliahan = true;
             }
             
-            boolean HAStatusKontrak = false;
+            boolean statusKontrak = false;
             if(fieldStatusKontrakAktif.isSelected()){
-                HAStatusKontrak = true;
+                statusKontrak = true;
             }
-            System.out.println("Nid : " + nim);
+            System.out.println("Nik : " + nik);
             System.out.println("Nama : " + nama);
             System.out.println("Email : " + email);
             System.out.println("Password : " + password);
             System.out.println("Tanggal Lahir : " + tanggalLahir);
             System.out.println("JK : " + jk);
             System.out.println("Telepon : " + telepon);
-            System.out.println("Program Studi : " + programstudi);
+            System.out.println("Program Studi : " + jabatan);
             System.out.println("A Rencana Studi : " + HARencanaStudi);
             System.out.println("A Matakuliah : " + HAMatakuliah);
             System.out.println("A Keuangan : " + HAKeuangan);
             System.out.println("A User : " + HAUser);
             System.out.println("A Jadwal Kuliah : " + HAJadwalPerkuliahan);
-            System.out.println("A StatusKontrak : " + HAStatusKontrak);
+            System.out.println("A StatusKontrak : " + statusKontrak);
             
+            Daak newDaak = new Daak(nik, jabatan, HAKeuangan,HARencanaStudi,HAMatakuliah, HAUser,  HAJadwalPerkuliahan, statusKontrak, "", nama, email, password, tanggalLahir, jk , telepon);
             //To Sql Controller !
         }else if(action.equals("Hapus")){
             System.out.println("Menggunakan controller unttuk delete");

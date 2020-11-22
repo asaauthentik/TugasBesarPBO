@@ -17,6 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import model.matakuliah.Matakuliah;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -45,6 +46,11 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
     JButton Save;
     JButton Delete;
     
+    String kodeMK = "";
+    public JPanelHelperMatakuliah(String type,String kodeMK){
+      this(type);
+      this.kodeMK = kodeMK;
+    }
     
     public JPanelHelperMatakuliah(String type){
         setLayout(null);
@@ -89,7 +95,6 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
     }
     
     private void generateLabel(){
-        
         
         labelKodeMK = new JLabel("Kode Matakuliah  :");
         labelKodeMK.setBounds(0,5, 120, 30);
@@ -186,11 +191,8 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
             String jenisMK = (String) fieldJenisMK.getItemAt(fieldJenisMK.getSelectedIndex());
             String sifatMK = (String) fieldSifatMK.getItemAt(fieldSifatMK.getSelectedIndex());
             int sksMK = (int) fieldSKS.getValue();
-            System.out.println(kodeMK);
-            System.out.println(namaMK);
-            System.out.println(jenisMK);
-            System.out.println(sifatMK);
-            System.out.println(sksMK);
+            Matakuliah mk = new Matakuliah(kodeMK,namaMK,jenisMK, sifatMK,sksMK);
+            System.out.println(mk.toString());
             //Tambahakn ke controller database
         }else if(action.equals("Hapus")){
             System.out.println("Masuk Hapus ke database");
