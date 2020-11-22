@@ -10,5 +10,5 @@ package model.enums;
  * @author 1119038 Elangel Neilea Shaday
  */
 public enum SifatMatakuliah {
-    WAJIB,PILIHAN;
+    WAJIB,PILIHAN,UMUM;
 }

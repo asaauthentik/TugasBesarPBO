@@ -261,13 +261,13 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
              return;
             }
             if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Matakuliah")){      
-                matakuliahCreate = new JPanelHelperMatakuliah("Input");
+                matakuliahCreate = new JPanelHelperMatakuliah("Input","");
                 matakuliahCreate.setBounds(20,135,668,490);
                 matakuliahCreate.setVisible(false);
                 add(matakuliahCreate);
                 matakuliahCreate.setVisible(true);
             }else if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Detail Matakuliah")){      
-                detailMatakuliahCreate = new JPanelHelperDetailMatakuliah("Input");
+                detailMatakuliahCreate = new JPanelHelperDetailMatakuliah("Input","");
                 detailMatakuliahCreate.setBounds(20,135,668,490);
                 detailMatakuliahCreate.setVisible(false);
                 add(detailMatakuliahCreate);
@@ -305,14 +305,14 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
              if(foundTest){
                 if(tipe.equals("Matakuliah")){
                     if(menuNow.equals("Edit Matakuliah")){
-                        matakuliahEdit = new JPanelHelperMatakuliah("Edit");
+                        matakuliahEdit = new JPanelHelperMatakuliah("Edit","kodeMKss");
                         matakuliahEdit.setBounds(20,135,660,490);
                         matakuliahEdit.setVisible(false);
                         add(matakuliahEdit);
                         matakuliahEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete Matakuliah")){
-                        matakuliahDelete = new JPanelHelperMatakuliah("Delete");
+                        matakuliahDelete = new JPanelHelperMatakuliah("Delete","kodeMKSs");
                         matakuliahDelete.setBounds(20,135,660,490);
                         matakuliahDelete.setVisible(false);
                         add(matakuliahDelete);
@@ -320,14 +320,14 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
                     }
                 }else if(tipe.equals("Detail Matakuliah")){
                     if(menuNow.equals("Edit Matakuliah")){
-                        detailMatakuliahEdit = new JPanelHelperDetailMatakuliah("Edit");
+                        detailMatakuliahEdit = new JPanelHelperDetailMatakuliah("Edit","IDMKDUm");
                         detailMatakuliahEdit.setBounds(20,135,660,490);
                         detailMatakuliahEdit.setVisible(false);
                         add(detailMatakuliahEdit);
                         detailMatakuliahEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete Matakuliah")){
-                        detailMatakuliahDelete = new JPanelHelperDetailMatakuliah("Delete");
+                        detailMatakuliahDelete = new JPanelHelperDetailMatakuliah("Delete","IDMKDUm");
                         detailMatakuliahDelete.setBounds(20,135,660,490);
                         detailMatakuliahDelete.setVisible(false);
                         add(detailMatakuliahDelete);

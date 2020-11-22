@@ -10,5 +10,7 @@ package model.enums;
  * @author 1119038 Elangel Neilea Shaday
  */
 public enum JenisMatakuliah {
+    PRAKTIKUM,TEORI;
     
+
 }

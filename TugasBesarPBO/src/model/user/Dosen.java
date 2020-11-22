@@ -7,6 +7,7 @@ package model.user;
 
 import model.matakuliah.DetailMatakuliah;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author 1119002 Albertus Angkuw
@@ -23,7 +24,7 @@ public class Dosen extends User {
     private boolean statusDosen;
     private ArrayList<DetailMatakuliah> Matakuliah;
 
-    public Dosen(String NIM, String programStudi, String bidangIlmu, String gelarAkademik, String statusPegawai, String statusIkatanKerja, boolean statusDosen, ArrayList<DetailMatakuliah> Matakuliah, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+    public Dosen(String NIM, String programStudi, String bidangIlmu, String gelarAkademik, String statusPegawai, String statusIkatanKerja, boolean statusDosen, ArrayList<DetailMatakuliah> Matakuliah, String idUser, String namaLengkap, String email, String password, Date tglLahir, String jenisKelamin, String notelp) {
         super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
         this.NIM = NIM;
         this.programStudi = programStudi;
@@ -33,6 +34,10 @@ public class Dosen extends User {
         this.statusIkatanKerja = statusIkatanKerja;
         this.statusDosen = statusDosen;
         this.Matakuliah = Matakuliah;
+    }
+
+    public Dosen() {
+        super();
     }
 
 
@@ -102,6 +107,6 @@ public class Dosen extends User {
 
     @Override
     public String toString() {
-        return "Dosen{" + "NIM=" + NIM + ", programStudi=" + programStudi + ", bidangIlmu=" + bidangIlmu + ", gelarAkademik=" + gelarAkademik + ", statusPegawai=" + statusPegawai + ", statusIkatanKerja=" + statusIkatanKerja + ", statusDosen=" + statusDosen + ", Matakuliah=" + Matakuliah + '}';
+        return super.toString() +  "\n" + "Dosen{" + "NIM=" + NIM + ", programStudi=" + programStudi + ", bidangIlmu=" + bidangIlmu + ", gelarAkademik=" + gelarAkademik + ", statusPegawai=" + statusPegawai + ", statusIkatanKerja=" + statusIkatanKerja + ", statusDosen=" + statusDosen + ", Matakuliah=" + Matakuliah + '}';
     }
 }

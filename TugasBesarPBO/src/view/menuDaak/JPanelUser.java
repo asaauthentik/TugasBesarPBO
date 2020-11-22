@@ -6,7 +6,8 @@
 package view.menuDaak;
 
 
-import view.menuDaak.Helper.JPanelMahasiswa;
+import controller.DatabaseController.ContollerDaak.userManageController;
+import view.menuDaak.Helper.JPanelHelperMahasiswa;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,10 +17,12 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.JButton;
 import javax.swing.*;
+import model.user.*;
+import model.user.User;
 import view.ViewConfig;
 import static view.ViewConfig.*;
-import view.menuDaak.Helper.JPanelDaak;
-import view.menuDaak.Helper.JPanelDosen;
+import view.menuDaak.Helper.JPanelHelperDaak;
+import view.menuDaak.Helper.JPanelHelperDosen;
 import view.menuDaak.Helper.JPanelTable;
 /**
  *
@@ -39,17 +42,17 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
     String listUser[] = {"","DAAK", "Dosen","Mahasiswa"};
     JComboBox optionListUser;
     
-    JPanelMahasiswa mahasiswaCreate;
-    JPanelMahasiswa mahasiswaEdit;
-    JPanelMahasiswa mahasiswaDelete;
+    JPanelHelperMahasiswa mahasiswaCreate;
+    JPanelHelperMahasiswa mahasiswaEdit;
+    JPanelHelperMahasiswa mahasiswaDelete;
     
-    JPanelDosen dosenCreate;
-    JPanelDosen dosenEdit;
-    JPanelDosen dosenDelete;
+    JPanelHelperDosen dosenCreate;
+    JPanelHelperDosen dosenEdit;
+    JPanelHelperDosen dosenDelete;
     
-    JPanelDaak daakCreate;
-    JPanelDaak daakEdit;
-    JPanelDaak daakDelete;
+    JPanelHelperDaak daakCreate;
+    JPanelHelperDaak daakEdit;
+    JPanelHelperDaak daakDelete;
     
     JPanelTable tableExample;
     
@@ -218,20 +221,20 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
          //Proccces Create
          if(option.equals("Process")){
             if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("Mahasiswa")){      
-                mahasiswaCreate = new JPanelMahasiswa("Input");
+                mahasiswaCreate = new JPanelHelperMahasiswa("Input",null);
                 mahasiswaCreate.setBounds(20,135,668,490);
                 mahasiswaCreate.setVisible(false);
                 add(mahasiswaCreate);
                 mahasiswaCreate.setVisible(true);
                 
             }else if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("Dosen")){
-                dosenCreate = new JPanelDosen("Input");
+                dosenCreate = new JPanelHelperDosen("Input",null);
                 dosenCreate.setBounds(20,135,668,490);
                 dosenCreate.setVisible(false);
                 add(dosenCreate);
                 dosenCreate.setVisible(true);
             }else if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("DAAK")){
-                daakCreate = new JPanelDaak("Input");
+                daakCreate = new JPanelHelperDaak("Input",null);
                 daakCreate.setBounds(20,135,668,490);
                 daakCreate.setVisible(false);
                 add(daakCreate);
@@ -254,32 +257,34 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
          //Proccces Edit / Delete
          if(option.equals("Cari")){
              String nameToSearch = searchUser.getText();
+             User user = userManageController.getUser(nameToSearch);
              String tipe = "";
-             //Lakukan pencarian didatabase nanti y :v
              boolean foundTest = false;
-             //DUmmy Boy
-             if(nameToSearch.equals("Albert")){
-                 foundTest = true;
-                 tipe = "Mahasiswa";
-             }else if( nameToSearch.equals("AlbertDosen")){
-                 foundTest = true;
-                 tipe = "Dosen";
-             }else if( nameToSearch.equals("AlbertDaak")){
-                 foundTest = true;
-                 tipe = "Daak";
+             if(user != null){
+                foundTest = true;
+                System.out.println(" Test : " + user.getJenisUser());
+                if(user.getJenisUser() == 1){
+                    tipe = "Daak";
+                }else if(user.getJenisUser() == 2){
+                    tipe = "Dosen";
+                }else if(user.getJenisUser() == 3){
+                    tipe = "Mahasiswa";
+                }else{
+                    foundTest = false;
+                }
              }
-             //End Dummy
+               
              if(foundTest){
                 if(tipe.equals("Mahasiswa")){
                     if(menuNow.equals("Edit")){
-                        mahasiswaEdit = new JPanelMahasiswa("Edit");
+                        mahasiswaEdit = new JPanelHelperMahasiswa("Edit",(Mahasiswa) user);
                         mahasiswaEdit.setBounds(20,135,660,490);
                         mahasiswaEdit.setVisible(false);
                         add(mahasiswaEdit);
                         mahasiswaEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete")){
-                        mahasiswaDelete = new JPanelMahasiswa("Delete");
+                        mahasiswaDelete = new JPanelHelperMahasiswa("Delete",(Mahasiswa) user);
                         mahasiswaDelete.setBounds(20,135,660,490);
                         mahasiswaDelete.setVisible(false);
                         add(mahasiswaDelete);
@@ -287,29 +292,31 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
                     }
                 }else if(tipe.equals("Dosen")){
                     if(menuNow.equals("Edit")){
-                        dosenEdit = new JPanelDosen("Edit");
+                        dosenEdit = new JPanelHelperDosen("Edit",(Dosen) user);
                         dosenEdit.setBounds(20,135,660,490);
                         dosenEdit.setVisible(false);
                         add(dosenEdit);
                         dosenEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete")){
-                        dosenDelete = new JPanelDosen("Delete");
+                        dosenDelete = new JPanelHelperDosen("Delete",(Dosen) user);
                         dosenDelete.setBounds(20,135,660,490);
                         dosenDelete.setVisible(false);
                         add(dosenDelete);
                         dosenDelete.setVisible(true);
                     }
                 }else if(tipe.equals("Daak")){
+                    System.out.println("Menu now " + menuNow);
                     if(menuNow.equals("Edit")){
-                        daakEdit = new JPanelDaak("Edit");
+                        daakEdit = new JPanelHelperDaak("Edit",(Daak) user);
                         daakEdit.setBounds(20,135,668,490);
                         daakEdit.setVisible(false);
                         add(daakEdit);
                         daakEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete")){
-                        daakDelete = new JPanelDaak("Delete");
+                        System.out.println("Tes1");
+                        daakDelete = new JPanelHelperDaak("Delete", (Daak) user);
                         daakDelete.setBounds(20,135,668,490);
                         daakDelete.setVisible(false);
                         add(daakDelete);

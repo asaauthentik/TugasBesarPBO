@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.matakuliah.DetailMatakuliah;
 import view.ViewConfig;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
 
@@ -35,10 +36,11 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         
     JButton Save;
     JButton Delete;
+    String idMK = null;
     
-    public JPanelHelperDetailMatakuliah(String type){
+    public JPanelHelperDetailMatakuliah(String type,String idMK){
         setLayout(null);
-       
+        this.idMK = idMK;
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);
@@ -169,17 +171,20 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         String action = e.getActionCommand();
         System.out.println("Action Panel Helper Detail Matakuliah : " + action);
         if(action.equals("Simpan")){
-            System.out.println("Hasil : ");
             String kodeMK = fieldKodeMK.getText();
             String tahunAjaran = fieldTahunAjaran.getText();
             String semester = (String) fieldSemester.getItemAt(fieldSemester.getSelectedIndex());
             String kelas = fieldKelas.getText();
             String jumlahPertemuan = fieldJumlahPertemuan.getText();
-            System.out.println(kodeMK);
-            System.out.println(tahunAjaran);
-            System.out.println(semester);
-            System.out.println(kelas);
-            System.out.println(jumlahPertemuan);
+                       
+            DetailMatakuliah dMK = new DetailMatakuliah();
+            dMK.setKode_MK(kodeMK);
+            dMK.setTahun(Integer.valueOf(tahunAjaran));
+            dMK.setSemester(semester);
+            dMK.setKelas(kelas.charAt(0));
+            dMK.setJumlahPertemuan(Integer.valueOf(jumlahPertemuan));
+            
+            System.out.println(dMK.toString());
             //Tambahakn ke controller database
         }else if(action.equals("Hapus")){
             System.out.println("Masuk Hapus ke database");

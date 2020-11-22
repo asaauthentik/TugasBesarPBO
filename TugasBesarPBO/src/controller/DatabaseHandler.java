@@ -27,7 +27,7 @@ public class DatabaseHandler {
         try {
             Class.forName(driver).newInstance();
             con = DriverManager.getConnection(url, username, password);
-            JOptionPane.showMessageDialog(null, "Succes login");
+            //JOptionPane.showMessageDialog(null, "Succes login");
         } catch (Exception ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getLocalizedMessage());

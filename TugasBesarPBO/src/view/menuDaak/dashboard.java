@@ -7,7 +7,7 @@ package view.menuDaak;
 
 
 import view.menuDaak.Helper.JPanelTable;
-import view.menuDaak.Helper.JPanelMahasiswa;
+import view.menuDaak.Helper.JPanelHelperMahasiswa;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -39,7 +39,7 @@ public class dashboard implements ActionListener,ViewConfig {
     JPanelKeuangan keuangan;
     JPanelUser user;
     JPanelTable dosen;
-    JPanelMahasiswa mahasiswa;
+    JPanelHelperMahasiswa mahasiswa;
     JPanelJadwalPerkuliahan jadwalPerkuliahan;
       
     //List Button
