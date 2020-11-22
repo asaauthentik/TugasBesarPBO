@@ -58,6 +58,7 @@ public class JPanelHelperDosen extends JPanel implements ActionListener, ViewCon
     JPasswordField fieldPassword;
     
      
+
     private UtilDateModel modelTglLahir;
     private JDatePanelImpl datePanelTglLahir;
     private Properties  propertiesTglLahir;   
@@ -77,7 +78,7 @@ public class JPanelHelperDosen extends JPanel implements ActionListener, ViewCon
     private ButtonGroup grupStatus;
     private JRadioButton fieldStatusDosenAktif;
     private JRadioButton fieldStatusDosenTidakAktif;
-    
+
     JTextArea fieldFoto;
     JButton Save;
     JButton Delete;

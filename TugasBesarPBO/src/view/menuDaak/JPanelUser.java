@@ -53,7 +53,8 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
     private JPanelDaak daakCreate;
     private JPanelDaak daakEdit;
     private JPanelDaak daakDelete;
-    
+
+     
     private JPanelTable tableExample;
     
     private JLabel errorMsg ;
@@ -260,11 +261,13 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
              String nameToSearch = searchUser.getText();
              User user = userManageController.getUser(nameToSearch);
              String tipe = "";
+
              if(nameToSearch.equals(" Nama atau Nomor Induk")){
                  JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
                  return;
              }
-             //Lakukan pencarian didatabase nanti y :v
+
+
              boolean foundTest = false;
              if(user != null){
                 foundTest = true;

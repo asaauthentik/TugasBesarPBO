@@ -21,7 +21,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 import model.matakuliah.DetailMatakuliah;
+
 import model.user.Daak;
 import model.user.Mahasiswa;
 import model.user.User;
@@ -54,7 +56,6 @@ public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConf
     private  JLabel labelHakAksesUser;
     private  JLabel labelStatusKontrak;
     private  JLabel labelFoto;
-    
     
     private JTextField fieldNim;
     private JTextField fieldNama;
@@ -96,7 +97,8 @@ public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConf
     private ButtonGroup groupStatusKontrak;
     private JRadioButton fieldStatusKontrakAktif;
     private JRadioButton fieldStatusKontrakNonAktif;
-    
+
+     
     JTextArea fieldFoto;
     JButton Save;
     JButton Delete;
@@ -511,6 +513,7 @@ public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConf
                 HAJadwalPerkuliahan = true;
             }
             
+
             boolean statusKontrak = false;
             if(fieldStatusKontrakAktif.isSelected()){
                 statusKontrak = true;

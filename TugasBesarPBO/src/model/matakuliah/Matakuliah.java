@@ -20,10 +20,7 @@ public class Matakuliah {
     private SifatMatakuliah sifat_MK;
     private int sks;
 
-    public Matakuliah(String kode_MK){
-        this.kode_MK = kode_MK;
-    }
-    public Matakuliah(String kode_MK, String nama_MK, String jenis_MK, String sifat_MK, int sks) {
+    public Matakuliah(String kode_MK, String nama_MK,JenisMatakuliah jenis_MK,SifatMatakuliah sifat_MK, int sks) {
         this.kode_MK = kode_MK;
         this.nama_MK = nama_MK;
         this.jenis_MK = jenis_MK;

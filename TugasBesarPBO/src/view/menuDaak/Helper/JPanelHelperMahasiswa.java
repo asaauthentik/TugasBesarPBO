@@ -40,6 +40,7 @@ public class JPanelHelperMahasiswa extends JPanel implements ActionListener, Vie
     private  JLabel labelPredikat;
     private  JLabel labelFoto;
     
+
     private JTextField fieldNim;
     private JTextField fieldNama;
     private JTextField fieldEmail;
@@ -65,6 +66,7 @@ public class JPanelHelperMahasiswa extends JPanel implements ActionListener, Vie
     private JButton Delete;
     
     private Mahasiswa data;
+
     
     String idUser = null;
     Mahasiswa mhs = null;
