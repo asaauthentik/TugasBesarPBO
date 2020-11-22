@@ -37,7 +37,7 @@ public class JPanelRekapDataMengajar  extends JPanel implements ActionListener, 
     private final JTextField ViewTahun;
     private final JButton Find;
     private final JTable daftarNilai;
-    JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane1;
     public JPanelRekapDataMengajar(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
