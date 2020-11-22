@@ -38,18 +38,6 @@ public class Daak extends User{
         this.statusKontrak = statusKontrak;
     }
 
-    public Daak(String NIK, String jabatan, boolean hakAksesKeuangan, boolean hakAksesMatakuliah, boolean hakAksesJadwalPerkuliahan, boolean hakAksesRencanaStudi, boolean hakAksesUser, boolean statusKontrak, String idUser, String namaLengkap, String email, String password, Date tanggalLahir, String jenisKelamin, String nomorTelepon) {
-        super(idUser, namaLengkap, email, password, tanggalLahir, jenisKelamin, nomorTelepon);
-        this.NIK = NIK;
-        this.jabatan = jabatan;
-        this.hakAksesKeuangan = hakAksesKeuangan;
-        this.hakAksesMatakuliah = hakAksesMatakuliah;
-        this.hakAksesJadwalPerkuliahan = hakAksesJadwalPerkuliahan;
-        this.hakAksesRencanaStudi = hakAksesRencanaStudi;
-        this.hakAksesUser = hakAksesUser;
-        this.statusKontrak = statusKontrak;
-    }
-
     public Daak() {
         super();
     }

@@ -42,17 +42,17 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
     private String listUser[] = {"","DAAK", "Dosen","Mahasiswa"};
     private JComboBox optionListUser;
     
-    private JPanelMahasiswa mahasiswaCreate;
-    private JPanelMahasiswa mahasiswaEdit;
-    private JPanelMahasiswa mahasiswaDelete;
+    private JPanelHelperMahasiswa mahasiswaCreate;
+    private JPanelHelperMahasiswa mahasiswaEdit;
+    private JPanelHelperMahasiswa mahasiswaDelete;
     
-    private JPanelDosen dosenCreate;
-    private JPanelDosen dosenEdit;
-    private JPanelDosen dosenDelete;
+    private JPanelHelperDosen dosenCreate;
+    private JPanelHelperDosen dosenEdit;
+    private JPanelHelperDosen dosenDelete;
     
-    private JPanelDaak daakCreate;
-    private JPanelDaak daakEdit;
-    private JPanelDaak daakDelete;
+    private JPanelHelperDaak daakCreate;
+    private JPanelHelperDaak daakEdit;
+    private JPanelHelperDaak daakDelete;
 
      
     private JPanelTable tableExample;

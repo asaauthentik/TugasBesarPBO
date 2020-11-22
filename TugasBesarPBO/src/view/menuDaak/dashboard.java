@@ -39,7 +39,6 @@ public class dashboard implements ActionListener,ViewConfig {
     private JPanelKeuangan keuangan;
     private JPanelUser user;
     private JPanelTable dosen;
-    private JPanelMahasiswa mahasiswa;
     private JPanelJadwalPerkuliahan jadwalPerkuliahan;
       
     //List Button
