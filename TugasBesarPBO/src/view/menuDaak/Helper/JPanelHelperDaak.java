@@ -57,7 +57,7 @@ public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConf
     private  JLabel labelStatusKontrak;
     private  JLabel labelFoto;
     
-    private JTextField fieldNim;
+    private JTextField fieldNik;
     private JTextField fieldNama;
     private JTextField fieldEmail;
     private JPasswordField fieldPassword;
@@ -536,7 +536,7 @@ public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConf
             newDaak.setHakAksesMatakuliah(HAMatakuliah);
             newDaak.setHakAksesRencanaStudi(HARencanaStudi);
             newDaak.setHakAksesUser(HAUser);
-            newDaak.setStatusKontrak(HAStatusKontrak);
+            newDaak.setStatusKontrak(statusKontrak);
             newDaak.setPathFoto(urlFoto);
             newDaak.setJenisUser(1);
             if(daak == null){

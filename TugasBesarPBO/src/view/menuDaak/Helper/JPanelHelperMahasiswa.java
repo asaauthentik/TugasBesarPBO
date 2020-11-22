@@ -62,14 +62,13 @@ public class JPanelHelperMahasiswa extends JPanel implements ActionListener, Vie
     private JTextField fieldIpk;
     private JTextField fieldPredikat;
     
+    JTextArea fieldFoto;
     private JButton Save;
     private JButton Delete;
     
-    private Mahasiswa data;
+    private Mahasiswa mhs = null;
 
     
-    String idUser = null;
-    Mahasiswa mhs = null;
     public JPanelHelperMahasiswa(String type,Mahasiswa mhs){
         setLayout(null);
         this.mhs = mhs;
