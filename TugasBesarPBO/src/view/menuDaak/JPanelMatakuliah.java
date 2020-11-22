@@ -16,6 +16,7 @@ import java.awt.event.FocusListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
@@ -29,35 +30,35 @@ import view.menuDaak.Helper.JPanelHelperMatakuliah;
  * @author 1119002 Albertus Angkuw
  */
 public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConfig{
-    JLabel title;
-    JButton createMatakuliah;
-    JButton editMatakuliah;
-    JButton deleteMatakuliah;
-    JTextField searchMatakuliah;
-    JTextField yearMatakuliah;
+    private JLabel title;
+    private JButton createMatakuliah;
+    private JButton editMatakuliah;
+    private JButton deleteMatakuliah;
+    private JTextField searchMatakuliah;
+    private JTextField yearMatakuliah;
     
-    JButton btnSearchEdit;
-    JButton btnSearchDelete;
-    JButton btnTypeMatakuliah;
+    private JButton btnSearchEdit;
+    private JButton btnSearchDelete;
+    private JButton btnTypeMatakuliah;
     
-    String[] listMatakuliah = {"-Kategori Matakuliah-","Matakuliah", "Detail Matakuliah"};
-    JComboBox optionListMatakuliah;
+    private String[] listMatakuliah = {"-Kategori Matakuliah-","Matakuliah", "Detail Matakuliah"};
+    private JComboBox optionListMatakuliah;
     
-    String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
-    JComboBox optionSemester;
+    private String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
+    private JComboBox optionSemester;
     
-    JPanelHelperMatakuliah matakuliahCreate;
-    JPanelHelperMatakuliah matakuliahEdit;
-    JPanelHelperMatakuliah matakuliahDelete;
+    private JPanelHelperMatakuliah matakuliahCreate;
+    private JPanelHelperMatakuliah matakuliahEdit;
+    private JPanelHelperMatakuliah matakuliahDelete;
     
-    JPanelHelperDetailMatakuliah detailMatakuliahCreate;
-    JPanelHelperDetailMatakuliah detailMatakuliahEdit;
-    JPanelHelperDetailMatakuliah detailMatakuliahDelete;
+    private JPanelHelperDetailMatakuliah detailMatakuliahCreate;
+    private JPanelHelperDetailMatakuliah detailMatakuliahEdit;
+    private JPanelHelperDetailMatakuliah detailMatakuliahDelete;
     
-    JLabel errorMsg ;
-    JButton Cancel;
+    private JLabel errorMsg ;
+    private JButton Cancel;
     
-    String menuNow = null;
+    private String menuNow = null;
     public JPanelMatakuliah(){
         setLayout(null);
         title = new JLabel("Matakuliah Management");
@@ -291,15 +292,27 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
          if(option.equals("Cari")){
              String matakuliahToSearch = searchMatakuliah.getText();
              String tipe = "";
+             if(optionListMatakuliah.getSelectedIndex() == 2){
+                 if(!checkInput("Detail")){
+                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                    return;
+                 }
+                 tipe = "Detail Matakuliah";
+             }else if(optionListMatakuliah.getSelectedIndex() == 1){
+                 if(!checkInput("MK")){
+                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                    return;
+                 }
+                 tipe = "Matakuliah";
+             }
              //Lakukan pencarian didatabase nanti y :v
              boolean foundTest = false;
              //Dummy Boy
              if(matakuliahToSearch.equals("IF-301")){
                  foundTest = true;
-                 tipe = "Matakuliah";
+                 
              }else if(matakuliahToSearch.equals("IF-302") && yearMatakuliah.getText().equals("2020") ) {
                  foundTest = true;
-                 tipe = "Detail Matakuliah";
              }
              //End Dummy
              if(foundTest){
@@ -377,6 +390,19 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
             optionListMatakuliah.setVisible(true);
         }
          
+    }
+    private boolean checkInput(String type){
+        if(type.equals("Detail")){
+            if(searchMatakuliah.getText().equals(" Kode Matakuliah") || yearMatakuliah.getText().equals(" Tahun") || ((String)optionSemester.getSelectedItem()).equals("-Semester-") ){
+                return false;
+            }
+        }else{
+            if(searchMatakuliah.getText().equals(" Kode Matakuliah")){
+                return false;
+            }
+            
+        }    
+        return true;
     }
      
 }

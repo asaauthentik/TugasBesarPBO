@@ -91,7 +91,6 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
     
     private void generateLabel(){
         
-        
         labelKodeMK = new JLabel("Kode Matakuliah  :");
         labelKodeMK.setBounds(0,5, 120, 30);
         labelKodeMK.setFont(FONT_DEFAULT_PLAIN );

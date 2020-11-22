@@ -18,24 +18,15 @@ public class RencanaStudi {
     private String id_RSM;
     private String semesterAjaran;
     private int tahunAjaran;
-    private ArrayList<DetailMatakuliah> id_Matkul;
+    private ArrayList<String> id_Mk;
 
-    public RencanaStudi(String id_RSM, String semesterAjaran, int tahunAjaran, ArrayList<DetailMatakuliah> id_Matkul) {
+    public RencanaStudi(String id_RSM, String semesterAjaran, int tahunAjaran, ArrayList<String> id_Mk) {
         this.id_RSM = id_RSM;
         this.semesterAjaran = semesterAjaran;
         this.tahunAjaran = tahunAjaran;
-        this.id_Matkul = id_Matkul;
+        this.id_Mk = id_Mk;
     }
 
-    public ArrayList<DetailMatakuliah> getId_Matkul() {
-        return id_Matkul;
-    }
-
-    public void setId_Matkul(ArrayList<DetailMatakuliah> id_Matkul) {
-        this.id_Matkul = id_Matkul;
-    }
-
-    
     public String getId_RSM() {
         return id_RSM;
     }
@@ -60,56 +51,15 @@ public class RencanaStudi {
         this.tahunAjaran = tahunAjaran;
     }
 
-    @Override
-    public String toString() {
-        return "RencanaStudi{" + "id_RSM=" + id_RSM + ", semesterAjaran=" + semesterAjaran + ", tahunAjaran=" + tahunAjaran + ", id_Matkul=" + id_Matkul + '}';
-    }
-    //Matakuliah diambil banyak
-    private String idRsm;
-    public ArrayList<String> id_Mtk;
-    private String semester;
-    private int tahun;
-
-    public RencanaStudi(String idRsm, ArrayList<String> id_Mtk, String semester, int tahun) {
-        this.idRsm = idRsm;
-        this.id_Mtk = id_Mtk;
-        this.semester = semester;
-        this.tahun = tahun;
+    public ArrayList<String> getId_Mk() {
+        return id_Mk;
     }
 
-    public String getIdRsm() {
-        return idRsm;
-    }
-
-    public void setIdRsm(String idRsm) {
-        this.idRsm = idRsm;
-    }
-
-    public ArrayList<String> getId_Mtk() {
-        return id_Mtk;
-    }
-
-    public void setId_Mtk(ArrayList<String> id_Mtk) {
-        this.id_Mtk = id_Mtk;
-    }
-
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
-
-    public int getTahun() {
-        return tahun;
-    }
-
-    public void setTahun(int tahun) {
-        this.tahun = tahun;
+    public void setId_Mk(ArrayList<String> id_Mk) {
+        this.id_Mk = id_Mk;
     }
     
-   
+    
    
 
 }

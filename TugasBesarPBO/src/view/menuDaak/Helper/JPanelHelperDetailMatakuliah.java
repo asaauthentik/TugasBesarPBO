@@ -7,6 +7,7 @@ package view.menuDaak.Helper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -162,8 +163,6 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         fieldSemester.setEnabled(false);
         fieldKelas.setEnabled(false);
         fieldJumlahPertemuan.setEditable(false);
-        
-        
     }
     
     @Override

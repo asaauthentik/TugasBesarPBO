@@ -28,6 +28,15 @@ public class DetailMatakuliah extends Matakuliah{
     public DetailMatakuliah(String id_MK, int tahun, String semester, char kelas, int jumlahPertemuan, ArrayList<Nilai> nilaiMahasiswa, ArrayList<Roster> jadwal, ArrayList<Kehadiran> kehadiranMahasiswa, String kode_MK) {
         super();
         super.setKode_MK(kode_MK);
+        super(kode_MK);
+        this.id_MK = id_MK;
+        this.tahun = tahun;
+        this.semester = semester;
+        this.kelas = kelas;
+        this.jumlahPertemuan = jumlahPertemuan;
+    }
+    public DetailMatakuliah(String id_MK, int tahun, String semester, char kelas, int jumlahPertemuan, ArrayList<Nilai> nilaiMahasiswa, ArrayList<Roster> jadwal, ArrayList<Kehadiran> kehadiranMahasiswa, String kode_MK, String nama_MK, String jenis_MK, String sifat_MK, int sks) {
+        super(kode_MK, nama_MK, jenis_MK, sifat_MK, sks);
         this.id_MK = id_MK;
         this.tahun = tahun;
         this.semester = semester;

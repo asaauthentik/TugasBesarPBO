@@ -40,30 +40,31 @@ public class JPanelHelperMahasiswa extends JPanel implements ActionListener, Vie
     private  JLabel labelPredikat;
     private  JLabel labelFoto;
     
-    JTextField fieldNim;
-    JTextField fieldNama;
-    JTextField fieldEmail;
-    JPasswordField fieldPassword;
+    private JTextField fieldNim;
+    private JTextField fieldNama;
+    private JTextField fieldEmail;
+    private JPasswordField fieldPassword;
     
      
-    UtilDateModel modelTglLahir;
-    JDatePanelImpl datePanelTglLahir;
-    Properties  propertiesTglLahir;   
-    JDatePickerImpl fieldTanggalLahir;
+    private UtilDateModel modelTglLahir;
+    private JDatePanelImpl datePanelTglLahir;
+    private Properties  propertiesTglLahir;   
+    private JDatePickerImpl fieldTanggalLahir;
         
-    ButtonGroup groupJk;
-    JRadioButton fieldPria;
-    JRadioButton fieldWanita;
-    JTextField fieldTelp;
-    JTextField fieldJurusan;
-    JTextField fieldTahunMasuk;
-    JTextField fieldTahunLulus;
-    JTextField fieldIpk;
-    JTextField fieldPredikat;
-    JTextArea fieldFoto;    
-    JButton Save;
-    JButton Delete;
+    private ButtonGroup groupJk;
+    private JRadioButton fieldPria;
+    private JRadioButton fieldWanita;
+    private JTextField fieldTelp;
+    private JTextField fieldJurusan;
+    private JTextField fieldTahunMasuk;
+    private JTextField fieldTahunLulus;
+    private JTextField fieldIpk;
+    private JTextField fieldPredikat;
     
+    private JButton Save;
+    private JButton Delete;
+    
+    private Mahasiswa data;
     
     String idUser = null;
     Mahasiswa mhs = null;
