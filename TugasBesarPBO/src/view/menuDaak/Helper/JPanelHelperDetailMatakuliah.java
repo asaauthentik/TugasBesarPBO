@@ -7,11 +7,16 @@ package view.menuDaak.Helper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Kehadiran;
+import model.matakuliah.Nilai;
+import model.matakuliah.Roster;
 import view.ViewConfig;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
 
@@ -36,6 +41,11 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
     JButton Save;
     JButton Delete;
     
+    String idMK;
+    public JPanelHelperDetailMatakuliah(String type,String idMK){
+        this(type);
+        this.idMK = idMK;
+    }
     public JPanelHelperDetailMatakuliah(String type){
         setLayout(null);
        
@@ -160,8 +170,6 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         fieldSemester.setEnabled(false);
         fieldKelas.setEnabled(false);
         fieldJumlahPertemuan.setEditable(false);
-        
-        
     }
     
     @Override
@@ -175,11 +183,8 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
             String semester = (String) fieldSemester.getItemAt(fieldSemester.getSelectedIndex());
             String kelas = fieldKelas.getText();
             String jumlahPertemuan = fieldJumlahPertemuan.getText();
-            System.out.println(kodeMK);
-            System.out.println(tahunAjaran);
-            System.out.println(semester);
-            System.out.println(kelas);
-            System.out.println(jumlahPertemuan);
+            DetailMatakuliah dtlMk = new DetailMatakuliah(idMK,Integer.valueOf(tahunAjaran), semester, kelas.charAt(0) , Integer.valueOf(jumlahPertemuan),kodeMK);
+            System.out.println(dtlMk.toString());
             //Tambahakn ke controller database
         }else if(action.equals("Hapus")){
             System.out.println("Masuk Hapus ke database");
