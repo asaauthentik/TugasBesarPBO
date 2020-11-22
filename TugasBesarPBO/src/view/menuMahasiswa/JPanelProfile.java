@@ -10,6 +10,14 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import view.ViewConfig;
 import static view.ViewConfig.*;
@@ -36,11 +44,18 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         add(Header);
         setLayout(null);
         //Foto
-        String pathFileFoto = "C:\\Users\\Rog\\Pictures\\Foto\\Elangel.jpg";
+        //String pathFileFoto = "C:\\Users\\Rog\\Pictures\\Foto\\Elangel.jpg";
         JLabel ViewFoto;
-        ImageIcon pathFoto = new ImageIcon(pathFileFoto);
-        Image pathPictureFoto = pathFoto.getImage();
-        Image newPicture1 = pathPictureFoto.getScaledInstance(300,300, Image.SCALE_SMOOTH);
+        Image img = null;
+        try {
+            img = ImageIO.read(new URL("https://3ncrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBVtrw01AM9oJidFPKQbmigHhqll_3ScuACg&usqp=CAU"));
+        } catch (Exception ex) {
+            ImageIcon pathFoto = new ImageIcon(new File("asset/profile-dp.png").getAbsolutePath());
+            img = pathFoto.getImage();
+            System.out.println("Error " + ex.getMessage());
+        } 
+        
+        Image newPicture1 = img.getScaledInstance(300,300, Image.SCALE_SMOOTH);
         ImageIcon image1 = new ImageIcon(newPicture1);
         ViewFoto = new JLabel(image1);
         ViewFoto.setBounds(50,100,270,300);

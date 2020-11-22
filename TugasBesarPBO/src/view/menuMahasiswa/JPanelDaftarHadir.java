@@ -29,9 +29,8 @@ import static view.ViewConfig.FONT_TITLE;
  */
 public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewConfig{
     private final JPanel Header;
-    private final JLabel Judul, Matkul, Tahun, Semester;
-    private final JComboBox ViewMatkul, ViewSemester;
-    private final String MatkulValue[] = {"", "A", "B", "C"};
+    private final JLabel Judul, Tahun, Semester;
+    private final JComboBox ViewSemester;
     private final String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
     private final JTextField ViewTahun;
     private final JButton Find;
@@ -48,27 +47,21 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
         add(Header);
         setLayout(null);
         
-        Matkul = new JLabel("Matakuliah");
-        Matkul.setBounds(15,50,90,100);
-        add(Matkul);
-        ViewMatkul = new JComboBox(MatkulValue);
-        ViewMatkul.setBounds(100,90,200,25);
-        add(ViewMatkul);
         Tahun = new JLabel("Tahun");
-        Tahun.setBounds(320,50,100,100);
+        Tahun.setBounds(40,50,100,100);
         add(Tahun);
         ViewTahun = new JTextField();
-        ViewTahun.setBounds(380,90,80,25);
+        ViewTahun.setBounds(85,90,50,25);
         add(ViewTahun);
         Semester = new JLabel("Semester");
-        Semester.setBounds(480,50,100,100);
+        Semester.setBounds(145,50,100,100);
         add(Semester);
         ViewSemester = new JComboBox(SemesterValue);
-        ViewSemester.setBounds(555,90,100,25);
+        ViewSemester.setBounds(210,90,100,25);
         add(ViewSemester);
         //Button Lihat Daftar Hadir
         Find = new JButton("Lihat Daftar Hadir");
-        Find.setBounds(15,130,640,30);
+        Find.setBounds(330,88,300,30);
         Find.setContentAreaFilled(true);
         Find.setBackground(Color.WHITE);
         Find.setForeground(BGCOLOR_DEFAULT);
@@ -115,14 +108,11 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
             daftarHadir.getColumnModel().getColumn(4).setPreferredWidth(60);
             
         }
-        jScrollPane1.setBounds(15,180,640,420);
+        jScrollPane1.setBounds(15,140,640,460);
         jScrollPane1.setVisible(false);
         add(jScrollPane1);
     }
     private boolean checkAllData(){
-        if(ViewMatkul.getSelectedItem().toString().equals("")){
-            return false;
-        }
         if(ViewTahun.getText().equals("")){
             return false;
         }
@@ -142,7 +132,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
                 Find.setBackground(BGCOLOR_DEFAULT);
                 Find.setForeground(COLOR_WHITE);
                 jScrollPane1.setVisible(true);
-                String printMatkul = ViewMatkul.getSelectedItem().toString();
                 String printTahun = ViewTahun.getText();
                 String printSemester = ViewSemester.getSelectedItem().toString();
             }

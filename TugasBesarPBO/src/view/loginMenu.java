@@ -1,0 +1,114 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import static view.ViewConfig.BGCOLOR_DEFAULT;
+import static view.ViewConfig.FONT_DEFAULT_PLAIN;
+
+/**
+ *
+ * @author 1119038 Elangel Neilea Shaday
+ */
+public class loginMenu implements ActionListener,ViewConfig{
+    private JFrame Frame;
+    private JPanel Menu;
+    private JLabel Email, Password;
+    private JTextField ViewEmail, ViewPassword;
+    private JButton Login;
+    
+    public loginMenu(){
+        Frame = new JFrame("Login");
+        
+        Menu = new JPanel();
+        Menu.setBounds(0,0,500,600);
+        Menu.setBackground(BGCOLOR_DEFAULT);
+        Menu.setLayout(null);
+        Frame.add(Menu);
+        
+        //Foto
+        String pathFileFoto = "C:\\Users\\Rog\\Pictures\\Foto\\Elangel.jpg";
+        JLabel ViewFoto;
+        ImageIcon pathFoto = new ImageIcon(pathFileFoto);
+        Image pathPictureFoto = pathFoto.getImage();
+        Image newPicture1 = pathPictureFoto.getScaledInstance(150,150, Image.SCALE_SMOOTH);
+        ImageIcon image1 = new ImageIcon(newPicture1);
+        ViewFoto = new JLabel(image1);
+        ViewFoto.setBounds(160,50,170,170);
+        Menu.add(ViewFoto);
+        
+        Email = new JLabel("Email");
+        Email.setBounds(225,245,100,30);
+        Email.setForeground(COLOR_WHITE);
+        Email.setFont(FONT_TITLE);
+        Menu.add(Email);
+        ViewEmail = new JTextField();
+        ViewEmail.setBounds(100,290,300,30);
+        Menu.add(ViewEmail);
+        
+        Password = new JLabel("Password");
+        Password.setBounds(210,335,100,30);
+        Password.setForeground(COLOR_WHITE);
+        Password.setFont(FONT_TITLE);
+        Menu.add(Password);
+        ViewPassword = new JTextField();
+        ViewPassword.setBounds(100,380,300,30);
+        Menu.add(ViewPassword);
+        
+        Login = new JButton("Login");
+        Login.setBounds(210,435,90,30);
+        Login.setContentAreaFilled(true);
+        Login.setBackground(Color.WHITE);
+        Login.setForeground(BGCOLOR_DEFAULT);
+        Login.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
+        Login.setFocusPainted(false);
+        Login.setFont(FONT_DEFAULT_PLAIN);
+        Login.addActionListener(this);
+        Menu.add(Login);
+        
+        Frame.setSize(500,580);
+        Frame.setLocationRelativeTo(null);
+        Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Frame.setVisible(true);
+        Frame.setResizable(false);
+    }
+    
+    private boolean checkAllData(){
+        if(ViewEmail.getText().equals("")){
+            return false;
+        }
+        if(ViewPassword.getText().equals("")){
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        if(action.equals("Login")){
+            if(checkAllData() == true){
+                JOptionPane.showMessageDialog(null,"Berhasil Login!");
+            }else{
+                JOptionPane.showMessageDialog(null,"Silahkan Masukkan Data dengan Benar!");
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        loginMenu menu = new loginMenu();
+    }
+}

@@ -13,10 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import view.ViewConfig;
 /**
@@ -141,7 +138,7 @@ public class dashboard implements ActionListener,ViewConfig {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
-
+        frame.setLocationRelativeTo(null);
         //End of Inisialisasi Frame
     }
     @Override
