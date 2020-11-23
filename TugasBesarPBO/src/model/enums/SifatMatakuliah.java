@@ -11,4 +11,5 @@ package model.enums;
  */
 public enum SifatMatakuliah {
     WAJIB,PILIHAN,UMUM;
+    public static final SifatMatakuliah values[] = values();
 }

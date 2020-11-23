@@ -5,12 +5,14 @@
  */
 package view.menuDaak.Helper;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.matakuliah.DetailMatakuliah;
@@ -27,6 +29,7 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
     private  JLabel labelSemester;
     private  JLabel labelKelas;
     private  JLabel labelJumlahPertemuan;
+    private  JLabel labelDosen;
     
     JTextField fieldKodeMK;
     JTextField fieldTahunAjaran;
@@ -34,14 +37,15 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
     JComboBox fieldSemester;
     JTextField fieldKelas;
     JTextField fieldJumlahPertemuan;
+    JTextField fieldNID;
         
     JButton Save;
     JButton Delete;
-    String idMK = null;
-    
-    public JPanelHelperDetailMatakuliah(String type,String idMK){
+    DetailMatakuliah detailMK = null;
+     
+    public JPanelHelperDetailMatakuliah(String type,DetailMatakuliah detailMK){
         setLayout(null);
-        this.idMK = idMK;
+        this.detailMK = detailMK;
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);
@@ -106,6 +110,11 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         labelJumlahPertemuan.setBounds(0,165, 130, 30);
         labelJumlahPertemuan.setFont(FONT_DEFAULT_PLAIN);
         add(labelJumlahPertemuan);
+        
+        labelDosen = new JLabel("Dosen Pengajar :");
+        labelDosen.setBounds(0,205, 130, 30);
+        labelDosen.setFont(FONT_DEFAULT_PLAIN);
+        add(labelDosen);
        
     }
     
@@ -138,6 +147,11 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         fieldJumlahPertemuan.setFont(FONT_DEFAULT_PLAIN);
         add(fieldJumlahPertemuan);
         
+        fieldNID = new JTextField();
+        fieldNID.setBounds(140,205, 70, 30);
+        fieldNID.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldNID);
+        
         
       
     }
@@ -146,11 +160,12 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
     
         generateInputForm();
         
-        fieldKodeMK.setText("IF-301");
-        fieldTahunAjaran.setText("2020");
-        fieldSemester.setSelectedIndex(1);
-        fieldKelas.setText("A");
-        fieldJumlahPertemuan.setText("14");
+        fieldKodeMK.setText(detailMK.getId_MK());
+        fieldTahunAjaran.setText(String.valueOf(detailMK.getTahun()));
+        fieldSemester.setSelectedItem(detailMK.getSemester());
+        fieldKelas.setText(String.valueOf(detailMK.getKelas()));
+        fieldJumlahPertemuan.setText(String.valueOf(detailMK.getJumlahPertemuan()));
+        fieldNID.setText(detailMK.getNid());
     
     }
     
@@ -163,6 +178,7 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
         fieldSemester.setEnabled(false);
         fieldKelas.setEnabled(false);
         fieldJumlahPertemuan.setEditable(false);
+        fieldNID.setEditable(false);
     }
     
     @Override
@@ -175,19 +191,36 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
             String semester = (String) fieldSemester.getItemAt(fieldSemester.getSelectedIndex());
             String kelas = fieldKelas.getText();
             String jumlahPertemuan = fieldJumlahPertemuan.getText();
-                       
+            String dosen = fieldNID.getText();
             DetailMatakuliah dMK = new DetailMatakuliah();
             dMK.setKode_MK(kodeMK);
             dMK.setTahun(Integer.valueOf(tahunAjaran));
             dMK.setSemester(semester);
             dMK.setKelas(kelas.charAt(0));
             dMK.setJumlahPertemuan(Integer.valueOf(jumlahPertemuan));
+            dMK.setNid(dosen);
             
-            System.out.println(dMK.toString());
-            //Tambahakn ke controller database
+            if(detailMK == null){
+                if(matakuliahManageController.insertDetailMatakuliah(dMK)){
+                   JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
+                }else{
+                   JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
+                }
+            }else{
+                dMK.setId_MK(detailMK.getId_MK());
+                if(matakuliahManageController.updateDetailMatakuliah(dMK)){
+                   JOptionPane.showMessageDialog(null, "Berhasil Mengupdate  ke Database");
+                }else{
+                   JOptionPane.showMessageDialog(null, "Gagal Mengupdate  ke Database");
+                }
+            }
+            
         }else if(action.equals("Hapus")){
-            System.out.println("Masuk Hapus ke database");
-            //Hapus ke controller database
+            if(matakuliahManageController.deleteDetailMatakuliah(detailMK.getKode_MK(),detailMK.getTahun(),detailMK.getSemester())){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
+            }else{
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");
+            }
         }
         
     }

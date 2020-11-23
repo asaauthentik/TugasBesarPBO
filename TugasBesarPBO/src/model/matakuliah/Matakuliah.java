@@ -55,13 +55,21 @@ public class Matakuliah {
     public void setJenis_MK(JenisMatakuliah jenis_MK) {
         this.jenis_MK = jenis_MK;
     }
-
+    
+    public void setJenis_MK(int jenis_MK) {
+        this.jenis_MK = JenisMatakuliah.values[jenis_MK];
+    }
+    
     public SifatMatakuliah getSifat_MK() {
         return sifat_MK;
     }
 
     public void setSifat_MK(SifatMatakuliah sifat_MK) {
         this.sifat_MK = sifat_MK;
+    }
+    
+    public void setSifat_MK(int sifat_MK) {
+        this.sifat_MK = SifatMatakuliah.values[sifat_MK];
     }
 
     public int getSks() {
