@@ -6,6 +6,7 @@
 package view.menuDaak;
 
 
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -221,17 +222,15 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
             String  semester = (String) optionSemester.getSelectedItem();
             String  tahun = yearRencanaStudi.getText();
             if(!checkInput()){
-                 JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
-                 return;
+                JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                return;
             }
-            //Melakukan pencarian nim ! di database 
-            if(true){      
-                rencanaStudiCreate = new JPanelHelperRencanaStudi("Input",nim,semester,Integer.valueOf(tahun));
-                rencanaStudiCreate.setBounds(20,135,668,490);
-                rencanaStudiCreate.setVisible(false);
-                add(rencanaStudiCreate);
-                rencanaStudiCreate.setVisible(true);
-            }
+            rencanaStudiCreate = new JPanelHelperRencanaStudi("Input",nim,semester,Integer.valueOf(tahun));
+            rencanaStudiCreate.setBounds(20,135,668,490);
+            rencanaStudiCreate.setVisible(false);
+            add(rencanaStudiCreate);
+            rencanaStudiCreate.setVisible(true);
+
             Cancel.setVisible(true);
             return;
          }
@@ -247,24 +246,28 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
          if(option.equals("Cari")){
              String  nim = nimRencanaStudi.getText();
              String  semester = (String) optionSemester.getSelectedItem();
-             String  tahun = yearRencanaStudi.getText();
+             int  tahun = Integer.valueOf(yearRencanaStudi.getText());
              String  idrsm = "";
              if(!checkInput()){
                  JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
                  return;
              }
-             boolean foundTest = true;
+             boolean foundTest = false;
+             RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(nim, tahun, semester);
              //Lakukan pencarian didatabase nanti
+             if(rsm != null){
+                 foundTest = true;
+             }
              if(foundTest){
                 if(menuNow.equals("Edit Rencana Studi")){
-                    rencanaStudiEdit = new JPanelHelperRencanaStudi("Edit",null,nim);
+                    rencanaStudiEdit = new JPanelHelperRencanaStudi("Edit",rsm,nim);
                     rencanaStudiEdit.setBounds(20,135,660,490);
                     rencanaStudiEdit.setVisible(false);
                     add(rencanaStudiEdit);
                     rencanaStudiEdit.setVisible(true);
 
                 }else if(menuNow.equals("Delete Rencana Studi")){
-                    rencanaStudiDelete = new JPanelHelperRencanaStudi("Delete",null,nim);
+                    rencanaStudiDelete = new JPanelHelperRencanaStudi("Delete",rsm,nim);
                     rencanaStudiDelete.setBounds(20,135,660,490);
                     rencanaStudiDelete.setVisible(false);
                     add(rencanaStudiDelete);
