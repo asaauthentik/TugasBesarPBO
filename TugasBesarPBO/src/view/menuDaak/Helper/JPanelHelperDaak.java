@@ -5,19 +5,28 @@
  */
 package view.menuDaak.Helper;
 
+import controller.DatabaseController.ContollerDaak.userManageController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import model.matakuliah.DetailMatakuliah;
+
 import model.user.Daak;
+import model.user.Mahasiswa;
+import model.user.User;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -30,7 +39,7 @@ import static view.ViewConfig.FONT_DEFAULT_PLAIN;
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
+public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConfig {
  
     private  JLabel labelNik;
     private  JLabel labelNama;
@@ -46,57 +55,59 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
     private  JLabel labelHakAksesJadwalPerkuliahan;
     private  JLabel labelHakAksesUser;
     private  JLabel labelStatusKontrak;
+    private  JLabel labelFoto;
     
-    
-    JTextField fieldNim;
-    JTextField fieldNama;
-    JTextField fieldEmail;
-    JPasswordField fieldPassword;
+    private JTextField fieldNik;
+    private JTextField fieldNama;
+    private JTextField fieldEmail;
+    private JPasswordField fieldPassword;
     
      
-    UtilDateModel modelTglLahir;
-    JDatePanelImpl datePanelTglLahir;
-    Properties  propertiesTglLahir;   
-    JDatePickerImpl fieldTanggalLahir;
+    private UtilDateModel modelTglLahir;
+    private JDatePanelImpl datePanelTglLahir;
+    private Properties  propertiesTglLahir;   
+    private JDatePickerImpl fieldTanggalLahir;
         
-    ButtonGroup groupJk;
-    JRadioButton fieldPria;
-    JRadioButton fieldWanita;
-    JTextField fieldTelp;
-    JTextField fieldJabatan;
+    private ButtonGroup groupJk;
+    private JRadioButton fieldPria;
+    private JRadioButton fieldWanita;
+    private JTextField fieldTelp;
+    private JTextField fieldJabatan;
     
-    ButtonGroup groupHARencanaStudi;
-    JRadioButton fieldHARencanaStudiYes;
-    JRadioButton fieldHARencanaStudiNo;
+    private ButtonGroup groupHARencanaStudi;
+    private JRadioButton fieldHARencanaStudiYes;
+    private JRadioButton fieldHARencanaStudiNo;
     
-    ButtonGroup groupHAMatakuliah;
-    JRadioButton fieldHAMatakuliahYes;
-    JRadioButton fieldHAMatakuliahNo;
+    private ButtonGroup groupHAMatakuliah;
+    private JRadioButton fieldHAMatakuliahYes;
+    private JRadioButton fieldHAMatakuliahNo;
     
-    ButtonGroup groupHAKeuangan;
-    JRadioButton fieldHAKeuanganYes;
-    JRadioButton fieldHAKeuanganNo;
+    private ButtonGroup groupHAKeuangan;
+    private JRadioButton fieldHAKeuanganYes;
+    private JRadioButton fieldHAKeuanganNo;
     
-    ButtonGroup groupHAJadwalPerkuliahan;
-    JRadioButton fieldHAJadwalPerkuliahanYes;
-    JRadioButton fieldHAJadwalPerkuliahanNo;
+    private ButtonGroup groupHAJadwalPerkuliahan;
+    private JRadioButton fieldHAJadwalPerkuliahanYes;
+    private JRadioButton fieldHAJadwalPerkuliahanNo;
     
-    ButtonGroup groupHAUser;
-    JRadioButton fieldHAUserYes;
-    JRadioButton fieldHAUserNo;
+    private ButtonGroup groupHAUser;
+    private JRadioButton fieldHAUserYes;
+    private JRadioButton fieldHAUserNo;
     
-    ButtonGroup groupStatusKontrak;
-    JRadioButton fieldStatusKontrakAktif;
-    JRadioButton fieldStatusKontrakNonAktif;
-    
+    private ButtonGroup groupStatusKontrak;
+    private JRadioButton fieldStatusKontrakAktif;
+    private JRadioButton fieldStatusKontrakNonAktif;
+
+     
+    JTextArea fieldFoto;
     JButton Save;
     JButton Delete;
     
-    Daak data;
-    
-    public JPanelDaak(String type){
+    Daak daak = null;
+    public JPanelHelperDaak(String type,Daak daak){
         setLayout(null);
-                
+        this.daak = daak;
+        
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);
@@ -212,16 +223,20 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
         labelStatusKontrak.setFont(FONT_DEFAULT_PLAIN);
         add(labelStatusKontrak);
         
+        labelFoto = new JLabel("URL Foto Profile :");
+        labelFoto.setBounds(340,85, 120, 30);
+        labelFoto.setFont(FONT_DEFAULT_PLAIN);
+        add(labelFoto);
     }
     
     private void generateInputForm(){
         
         generateLabel();
         
-        fieldNim = new JTextField();
-        fieldNim.setBounds(120,5, 200, 30);
-        fieldNim.setFont(FONT_DEFAULT_PLAIN);
-        add(fieldNim);
+        fieldNik = new JTextField();
+        fieldNik.setBounds(120,5, 200, 30);
+        fieldNik.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldNik);
         
         fieldNama = new JTextField();
         fieldNama.setBounds(120,45, 200, 30);
@@ -358,69 +373,75 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
         groupStatusKontrak = new ButtonGroup();
         groupStatusKontrak.add(fieldStatusKontrakAktif);
         groupStatusKontrak.add(fieldStatusKontrakNonAktif);
-               
+        
+        fieldFoto = new JTextArea();
+        fieldFoto.setLineWrap(true);
+        fieldFoto.setBounds(340,125, 300, 100);
+        fieldFoto.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldFoto);
     }
     
     private void generateEditForm(){
         
         generateInputForm();
               
-        fieldNim.setText("1119002");
-        fieldNama.setText("Albertus Angkuw");
-        fieldEmail.setText("angkuwjr@yahoo.com");
-        fieldPassword.setText("hidei");
+        fieldNik.setText(daak.getNIK());
+        fieldNama.setText(daak.getNamaLengkap());
+        fieldEmail.setText(daak.getEmail());
+        fieldPassword.setText("");
         modelTglLahir.setSelected(true);
-        modelTglLahir.setDate(2001, 9, 17);
-        if("P".equals("Pria")){
+        modelTglLahir.setValue(daak.getTanggalLahir());
+        if(daak.getJenisKelamin().equals("Laki-Laki")){
            fieldPria.setSelected(true);
         }else{
            fieldWanita.setSelected(true); 
         }
-        fieldTelp.setText("087884825093");
-        fieldJabatan.setText("Informatika");
+        fieldTelp.setText(daak.getNomorTelepon());
+        fieldJabatan.setText(daak.getJabatan());
                 
-        if(true){
+        if(daak.isHakAksesRencanaStudi()){
            fieldHARencanaStudiYes.setSelected(true);
         }else{
            fieldHARencanaStudiNo.setSelected(true); 
         }
         
-        if(false){
+        if(daak.isHakAksesMatakuliah()){
            fieldHAMatakuliahYes.setSelected(true);
         }else{
            fieldHAMatakuliahNo.setSelected(true); 
         }
         
-        if(true){
+        if(daak.isHakAksesKeuangan()){
            fieldHAKeuanganYes.setSelected(true);
         }else{
            fieldHAKeuanganNo.setSelected(true); 
         }
         
-        if(false){
+        if(daak.isHakAksesUser()){
            fieldHAUserYes.setSelected(true);
         }else{
            fieldHAUserNo.setSelected(true); 
         }
         
-        if(true){
+        if(daak.isHakAksesJadwalPerkuliahan()){
            fieldHAJadwalPerkuliahanYes.setSelected(true);
         }else{
            fieldHAJadwalPerkuliahanNo.setSelected(true); 
         }
         
-        if(false){
+        if(daak.isStatusKontrak()){
            fieldStatusKontrakAktif.setSelected(true);
         }else{
            fieldStatusKontrakNonAktif.setSelected(true); 
         }
+        fieldFoto.setText(daak.getPathFoto());
     }
     
     private void generateShowForm(){
         
         generateEditForm();
               
-        fieldNim.setEditable(false);
+        fieldNik.setEditable(false);
         fieldNama.setEditable(false);
         fieldEmail.setEditable(false);
         fieldPassword.setEditable(false);
@@ -445,7 +466,7 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
         fieldHAJadwalPerkuliahanNo.setEnabled(false);
         fieldStatusKontrakAktif.setEnabled(false);
         fieldStatusKontrakNonAktif.setEnabled(false);
-        
+        fieldFoto.setEditable(false);
     }
   
     @Override
@@ -453,14 +474,11 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
         String action = e.getActionCommand();
         System.out.println("Action Panel Helper Dosen : " + action);
         if(action.equals("Simpan")){
-            if(data != null){
-                //data = new Daak();
-            }
-            String nim = fieldNim.getText();
+            String nik = fieldNik.getText();
             String nama = fieldNama.getText();
             String email = fieldEmail.getText();
             String password = new String(fieldPassword.getPassword());
-            String tanggalLahir = fieldTanggalLahir.getModel().getValue().toString();
+            Date tanggalLahir = (Date) fieldTanggalLahir.getModel().getValue();
             String jk = "";
             if(fieldPria.isSelected()){
                 jk = "Laki-Laki";
@@ -468,7 +486,7 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
                 jk = "Perempuan";
             }
             String telepon =  fieldTelp.getText();
-            String programstudi =fieldJabatan.getText();
+            String jabatan =fieldJabatan.getText();
             
             boolean HARencanaStudi = false;
             if(fieldHARencanaStudiYes.isSelected()){
@@ -495,28 +513,53 @@ public class JPanelDaak extends JPanel implements ActionListener, ViewConfig {
                 HAJadwalPerkuliahan = true;
             }
             
-            boolean HAStatusKontrak = false;
+
+            boolean statusKontrak = false;
             if(fieldStatusKontrakAktif.isSelected()){
-                HAStatusKontrak = true;
+                statusKontrak = true;
             }
-            System.out.println("Nid : " + nim);
-            System.out.println("Nama : " + nama);
-            System.out.println("Email : " + email);
-            System.out.println("Password : " + password);
-            System.out.println("Tanggal Lahir : " + tanggalLahir);
-            System.out.println("JK : " + jk);
-            System.out.println("Telepon : " + telepon);
-            System.out.println("Program Studi : " + programstudi);
-            System.out.println("A Rencana Studi : " + HARencanaStudi);
-            System.out.println("A Matakuliah : " + HAMatakuliah);
-            System.out.println("A Keuangan : " + HAKeuangan);
-            System.out.println("A User : " + HAUser);
-            System.out.println("A Jadwal Kuliah : " + HAJadwalPerkuliahan);
-            System.out.println("A StatusKontrak : " + HAStatusKontrak);
+            String urlFoto = fieldFoto.getText();
             
-            //To Sql Controller !
+            Daak newDaak = new Daak();
+            
+            
+            newDaak.setNIK(nik);
+            newDaak.setNamaLengkap(nama); 
+            newDaak.setEmail(email);
+            newDaak.setPassword(password);
+            newDaak.setTanggalLahir(tanggalLahir);
+            newDaak.setJenisKelamin(jk);
+            newDaak.setNomorTelepon(telepon);
+            newDaak.setJabatan(jabatan);
+            newDaak.setHakAksesJadwalPerkuliahan(HAJadwalPerkuliahan); 
+            newDaak.setHakAksesKeuangan(HAKeuangan);
+            newDaak.setHakAksesMatakuliah(HAMatakuliah);
+            newDaak.setHakAksesRencanaStudi(HARencanaStudi);
+            newDaak.setHakAksesUser(HAUser);
+            newDaak.setStatusKontrak(statusKontrak);
+            newDaak.setPathFoto(urlFoto);
+            newDaak.setJenisUser(1);
+            if(daak == null){
+                newDaak.setIdUser();
+                if(userManageController.insertNewUser((User) newDaak)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
+                }
+            }else{
+                newDaak.setIdUser(daak.getIdUser());
+                if(userManageController.updateDaak(newDaak)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Mengupdate ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Mengupdate ke Database");
+                }
+            }
         }else if(action.equals("Hapus")){
-            System.out.println("Menggunakan controller unttuk delete");
+            if(userManageController.deleteDaak(daak.getIdUser())){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
+            }else{
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");
+            }
         }
         
     }

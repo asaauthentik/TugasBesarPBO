@@ -6,6 +6,7 @@
 package model.user;
 
 import java.util.ArrayList;
+import java.util.Date;
 import model.matakuliah.RencanaStudi;
 import model.transaksi.Transaksi;
 
@@ -15,7 +16,7 @@ import model.transaksi.Transaksi;
  * @author 1119038 Elangel Neilea Shaday
  */
 public class Mahasiswa extends User {
-    private int NIM;
+    private String NIM;
     private String jurusan;
     private int tahunMasuk;
     private int tahunLulus;
@@ -29,7 +30,7 @@ public class Mahasiswa extends User {
         super();
     }
 
-    public Mahasiswa(int NIM, String jurusan, int tahunMasuk, int tahunLulus, float ipk, String predikat, ArrayList<RencanaStudi> rencanaStudi, ArrayList<Transaksi> transaksiMahasiswa, String idUser, String namaLengkap, String email, String password, String tglLahir, String jenisKelamin, String notelp) {
+    public Mahasiswa(String NIM, String jurusan, int tahunMasuk, int tahunLulus, float ipk, String predikat, ArrayList<RencanaStudi> rencanaStudi, ArrayList<Transaksi> transaksiMahasiswa, String idUser, String namaLengkap, String email, String password, Date tglLahir, String jenisKelamin, String notelp) {
         super(idUser, namaLengkap, email, password, tglLahir, jenisKelamin, notelp);
         this.NIM = NIM;
         this.jurusan = jurusan;
@@ -41,11 +42,11 @@ public class Mahasiswa extends User {
         this.transaksiMahasiswa = transaksiMahasiswa;
     }
 
-    public int getNIM() {
+    public String getNIM() {
         return NIM;
     }
 
-    public void setNIM(int NIM) {
+    public void setNIM(String NIM) {
         this.NIM = NIM;
     }
 
@@ -109,7 +110,7 @@ public class Mahasiswa extends User {
 
     @Override
     public String toString() {
-        return "Mahasiswa{" + "NIM=" + NIM + ", jurusan=" + jurusan + ", tahunMasuk=" + tahunMasuk + ", tahunLulus=" + tahunLulus + ", ipk=" + ipk + ", predikat=" + predikat + ", rencanaStudi=" + rencanaStudi + ", transaksiMahasiswa=" + transaksiMahasiswa + '}';
+        return super.toString() +  "\n" + "Mahasiswa{" + "NIM=" + NIM + ", jurusan=" + jurusan + ", tahunMasuk=" + tahunMasuk + ", tahunLulus=" + tahunLulus + ", ipk=" + ipk + ", predikat=" + predikat + ", rencanaStudi=" + rencanaStudi + ", transaksiMahasiswa=" + transaksiMahasiswa + '}';
     }
     
     public float hitungIPK(){

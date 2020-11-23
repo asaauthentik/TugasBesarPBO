@@ -30,6 +30,7 @@ import static view.ViewConfig.FONT_TITLE;
 /**
  *
  * @author 1119002 Albertus Angkuw
+ * @author 1119006 William Juniar
  */
 public class JPanelJadwalMengajar  extends JPanel implements ActionListener, ViewConfig {
     private final JPanel Header;
@@ -39,11 +40,11 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
     private final JTextField ViewTahun;
     private final JButton Find;
     private final JTable daftarJadwal;
-    UtilDateModel modelTanggal1, modelTanggal2;
-    Properties p1, p2;
-    JDatePanelImpl datePanel1, datePanel2;
-    JDatePickerImpl tanggal, tanggalAkhir;
-    JScrollPane jScrollPane1;
+    private UtilDateModel modelTanggal1, modelTanggal2;
+    private Properties p1, p2;
+    private JDatePanelImpl datePanel1, datePanel2;
+    private JDatePickerImpl tanggal, tanggalAkhir;
+    private JScrollPane jScrollPane1;
     public JPanelJadwalMengajar(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
@@ -188,8 +189,7 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
                 String printSemester = ViewSemester.getSelectedItem().toString();
                 String printTahun = ViewTahun.getText();
                 Date printTanggal = (Date) tanggal.getModel().getValue();
-                tanggal.getModel().addDay(7);
-                Date printTanggalAkhir = (Date) tanggal.getModel().getValue();
+                Date printTanggalAkhir = (Date) tanggalAkhir.getModel().getValue();
                 System.out.println(printTanggal);
                 System.out.println(printTanggalAkhir.getTime());
             }

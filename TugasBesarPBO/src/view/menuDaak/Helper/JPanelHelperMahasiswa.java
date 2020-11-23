@@ -5,12 +5,15 @@
  */
 package view.menuDaak.Helper;
 
+import controller.DatabaseController.ContollerDaak.userManageController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Properties;
 import javax.swing.*;
+import model.user.Dosen;
 import model.user.Mahasiswa;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -22,7 +25,7 @@ import view.ViewConfig;
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfig {
+public class JPanelHelperMahasiswa extends JPanel implements ActionListener, ViewConfig {
     private  JLabel labelNim;
     private  JLabel labelNama;
     private  JLabel labelEmail;
@@ -35,36 +38,40 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
     private  JLabel labelTahunLulus;
     private  JLabel labelIpk;
     private  JLabel labelPredikat;
+    private  JLabel labelFoto;
     
-    JTextField fieldNim;
-    JTextField fieldNama;
-    JTextField fieldEmail;
-    JPasswordField fieldPassword;
+
+    private JTextField fieldNim;
+    private JTextField fieldNama;
+    private JTextField fieldEmail;
+    private JPasswordField fieldPassword;
     
      
-    UtilDateModel modelTglLahir;
-    JDatePanelImpl datePanelTglLahir;
-    Properties  propertiesTglLahir;   
-    JDatePickerImpl fieldTanggalLahir;
+    private UtilDateModel modelTglLahir;
+    private JDatePanelImpl datePanelTglLahir;
+    private Properties  propertiesTglLahir;   
+    private JDatePickerImpl fieldTanggalLahir;
         
-    ButtonGroup groupJk;
-    JRadioButton fieldPria;
-    JRadioButton fieldWanita;
-    JTextField fieldTelp;
-    JTextField fieldJurusan;
-    JTextField fieldTahunMasuk;
-    JTextField fieldTahunLulus;
-    JTextField fieldIpk;
-    JTextField fieldPredikat;
+    private ButtonGroup groupJk;
+    private JRadioButton fieldPria;
+    private JRadioButton fieldWanita;
+    private JTextField fieldTelp;
+    private JTextField fieldJurusan;
+    private JTextField fieldTahunMasuk;
+    private JTextField fieldTahunLulus;
+    private JTextField fieldIpk;
+    private JTextField fieldPredikat;
     
-    JButton Save;
-    JButton Delete;
+    JTextArea fieldFoto;
+    private JButton Save;
+    private JButton Delete;
     
-    Mahasiswa data;
+    private Mahasiswa mhs = null;
+
     
-    public JPanelMahasiswa(String type){
+    public JPanelHelperMahasiswa(String type,Mahasiswa mhs){
         setLayout(null);
-        
+        this.mhs = mhs;
         
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
@@ -170,6 +177,11 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
         labelPredikat.setFont(FONT_DEFAULT_PLAIN);
         add(labelPredikat);
         
+        labelFoto = new JLabel("URL Foto Profile :");
+        labelFoto.setBounds(340,5, 120, 30);
+        labelFoto.setFont(FONT_DEFAULT_PLAIN);
+        add(labelFoto);
+        
     }
     
     private void generateInputForm(){
@@ -250,29 +262,36 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
         fieldPredikat.setFont(FONT_DEFAULT_PLAIN);
         add(fieldPredikat);
         
+        fieldFoto = new JTextArea();
+        fieldFoto.setLineWrap(true);
+        fieldFoto.setBounds(340,45, 300, 100);
+        fieldFoto.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldFoto);
+        
     }
     
     private void generateEditForm(){
         
         generateInputForm();
               
-        fieldNim.setText("1119002");
-        fieldNama.setText("Albertus Angkuw");
-        fieldEmail.setText("angkuwjr@yahoo.com");
-        fieldPassword.setText("hidei");
+        fieldNim.setText(mhs.getNIM());
+        fieldNama.setText(mhs.getNamaLengkap());
+        fieldEmail.setText(mhs.getEmail());
+        fieldPassword.setText("");
         modelTglLahir.setSelected(true);
-        modelTglLahir.setDate(2001, 9, 17);
-        if("P".equals("Pria")){
+        modelTglLahir.setValue(mhs.getTanggalLahir());
+        if(mhs.getJenisKelamin().equals("Laki-Laki")){
            fieldPria.setSelected(true);
         }else{
            fieldWanita.setSelected(true); 
         }
-        fieldTelp.setText("087884825093");
-        fieldJurusan.setText("Informatika");
-        fieldTahunMasuk.setText("2019");
-        fieldTahunLulus.setText("2022");
-        fieldIpk.setText("3.9");
-        fieldPredikat.setText("");
+        fieldTelp.setText(mhs.getNomorTelepon());
+        fieldJurusan.setText(mhs.getJurusan());
+        fieldTahunMasuk.setText(String.valueOf(mhs.getTahunMasuk()));
+        fieldTahunLulus.setText(String.valueOf(mhs.getTahunLulus()));
+        fieldIpk.setText(String.valueOf(mhs.getIpk()));
+        fieldPredikat.setText(mhs.getPredikat());
+        fieldFoto.setText(mhs.getPathFoto());
         
         
         
@@ -298,6 +317,7 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
         fieldTahunLulus.setEditable(false);
         fieldIpk.setEditable(false);
         fieldPredikat.setEditable(false);
+        fieldFoto.setEditable(false);
         Save.setVisible(false);
         
     }
@@ -307,14 +327,11 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
         String action = e.getActionCommand();
         System.out.println("Action Panel Helper Mahasiswa : " + action);
         if(action.equals("Simpan")){
-            if(data != null){
-                data = new Mahasiswa();
-            }
             String nim = fieldNim.getText();
             String nama = fieldNama.getText();
             String email = fieldEmail.getText();
             String password = new String(fieldPassword.getPassword());
-            String tanggalLahir = fieldTanggalLahir.getModel().getValue().toString();
+            Date tanggalLahir = (Date) fieldTanggalLahir.getModel().getValue();
             String jk = "";
             if(fieldPria.isSelected()){
                 jk = "Laki-Laki";
@@ -327,28 +344,47 @@ public class JPanelMahasiswa extends JPanel implements ActionListener, ViewConfi
             String tahunLulus = fieldTahunLulus.getText();
             String ipk = fieldIpk.getText();
             String predikat = fieldPredikat.getText();
+            String urlFoto = fieldFoto.getText();
             
-            System.out.println("Nim : " + nim);
-            System.out.println("Nama : " + nama);
-            System.out.println("Email : " + email);
-            System.out.println("Password : " + password);
-            System.out.println("Tanggal Lahir : " + tanggalLahir);
-            System.out.println("JK : " + jk);
-            System.out.println("Telepon : " + telepon);
-            System.out.println("Jurusan : " + jurusan);
-            System.out.println("Tahun Masuk : " + tahunMasuk);
-            System.out.println("Tahun Luslus : " + tahunLulus);
-            System.out.println("Ipk : " + ipk);
-            System.out.println("Predikat : " + predikat);
+            Mahasiswa newMhs = new Mahasiswa();
+            newMhs.setNIM(nim);
+            newMhs.setNamaLengkap(nama); 
+            newMhs.setEmail(email);
+            newMhs.setPassword(password);
+            newMhs.setTanggalLahir(tanggalLahir);
+            newMhs.setJenisKelamin(jk);
+            newMhs.setNomorTelepon(telepon);
+            newMhs.setJurusan(jurusan);
+            newMhs.setTahunMasuk(Integer.valueOf(tahunMasuk));
+            newMhs.setTahunLulus(Integer.valueOf(tahunLulus));
+            newMhs.setIpk(Float.valueOf(ipk));
+            newMhs.setPredikat(predikat);
+            newMhs.setPathFoto(urlFoto);
+            newMhs.setJenisUser(3);
             
-//            System.out.println("Tanggal Awal : " + tanggalLahir);
-//            fieldTanggalLahir.getModel().addDay(7);
-//            String tglAkhir = fieldTanggalLahir.getModel().getValue().toString();
-//            System.out.println("Tanggal Ending : " + tglAkhir);
-//            
+            if(mhs == null){
+                newMhs.setIdUser();
+                if(userManageController.insertNewUser(newMhs)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
+                }
+            }else{
+                newMhs.setIdUser(mhs.getIdUser());
+                if(userManageController.updateMahasiswa(newMhs)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Mengupdate ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Mengupdate ke Database");
+                }
+            }
+           
             //To Sql Controller !
         }else if(action.equals("Hapus")){
-            System.out.println("Menggunakan controller unttuk delete");
+            if(userManageController.deleteMahasiswa(mhs.getIdUser())){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
+            }else{
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");
+            }
         }
         
     }

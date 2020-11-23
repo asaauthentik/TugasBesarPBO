@@ -6,6 +6,7 @@
 package view.menuDaak;
 
 
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +17,9 @@ import java.awt.event.FocusListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import model.matakuliah.RencanaStudi;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -29,30 +32,30 @@ import view.menuDaak.Helper.JPanelHelperRencanaStudi;
  * @author 1119002 Albertus Angkuw
  */
 public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewConfig {
-    JLabel title;
-    JButton createRencanaStudi;
-    JButton editRencanaStudi;
-    JButton deleteRencanaStudi;
-    JTextField yearRencanaStudi;
+    private JLabel title;
+    private JButton createRencanaStudi;
+    private JButton editRencanaStudi;
+    private JButton deleteRencanaStudi;
+    private JTextField yearRencanaStudi;
     
-    JButton btnSearchEdit;
-    JButton btnSearchDelete;
-    JButton btnTypeMatakuliah;
+    private JButton btnSearchEdit;
+    private JButton btnSearchDelete;
+    private JButton btnTypeMatakuliah;
     
-    JTextField nimRencanaStudi;
+    private JTextField nimRencanaStudi;
     
-    String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
-    JComboBox optionSemester;
+    private String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
+    private JComboBox optionSemester;
     
-    JPanelHelperRencanaStudi rencanaStudiCreate;
-    JPanelHelperRencanaStudi rencanaStudiEdit;
-    JPanelHelperRencanaStudi rencanaStudiDelete;
+    private JPanelHelperRencanaStudi rencanaStudiCreate;
+    private JPanelHelperRencanaStudi rencanaStudiEdit;
+    private JPanelHelperRencanaStudi rencanaStudiDelete;
     
     
-    JLabel errorMsg ;
-    JButton Cancel;
+    private JLabel errorMsg ;
+    private JButton Cancel;
     
-    String menuNow = null;
+    private String menuNow = null;
     public JPanelRencanaStudi(){
         setLayout(null);
         title = new JLabel("Rencana Studi Management");
@@ -215,18 +218,19 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
          //Proccces Create
          
          if(option.equals("Process")){
-            //Melakukan pencarian nim ! di database 
             String  nim = nimRencanaStudi.getText();
             String  semester = (String) optionSemester.getSelectedItem();
             String  tahun = yearRencanaStudi.getText();
-            System.out.println("Nim : " + nim + " Semester : " + semester + " Tahun : " + tahun);
-            if(true){      
-                rencanaStudiCreate = new JPanelHelperRencanaStudi("Input");
-                rencanaStudiCreate.setBounds(20,135,668,490);
-                rencanaStudiCreate.setVisible(false);
-                add(rencanaStudiCreate);
-                rencanaStudiCreate.setVisible(true);
+            if(!checkInput()){
+                JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                return;
             }
+            rencanaStudiCreate = new JPanelHelperRencanaStudi("Input",nim,semester,Integer.valueOf(tahun));
+            rencanaStudiCreate.setBounds(20,135,668,490);
+            rencanaStudiCreate.setVisible(false);
+            add(rencanaStudiCreate);
+            rencanaStudiCreate.setVisible(true);
+
             Cancel.setVisible(true);
             return;
          }
@@ -242,23 +246,28 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
          if(option.equals("Cari")){
              String  nim = nimRencanaStudi.getText();
              String  semester = (String) optionSemester.getSelectedItem();
-             String  tahun = yearRencanaStudi.getText();
-             System.out.println("Nim : " + nim + " Semester : " + semester + " Tahun : " + tahun );
-             //Lakukan pencarian didatabase nanti y :v
-             boolean foundTest = true;
-             //Dummy Boy
-             
-             //End Dummy
+             int  tahun = Integer.valueOf(yearRencanaStudi.getText());
+             String  idrsm = "";
+             if(!checkInput()){
+                 JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                 return;
+             }
+             boolean foundTest = false;
+             RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(nim, tahun, semester);
+             //Lakukan pencarian didatabase nanti
+             if(rsm != null){
+                 foundTest = true;
+             }
              if(foundTest){
                 if(menuNow.equals("Edit Rencana Studi")){
-                    rencanaStudiEdit = new JPanelHelperRencanaStudi("Edit");
+                    rencanaStudiEdit = new JPanelHelperRencanaStudi("Edit",rsm,nim);
                     rencanaStudiEdit.setBounds(20,135,660,490);
                     rencanaStudiEdit.setVisible(false);
                     add(rencanaStudiEdit);
                     rencanaStudiEdit.setVisible(true);
 
                 }else if(menuNow.equals("Delete Rencana Studi")){
-                    rencanaStudiDelete = new JPanelHelperRencanaStudi("Delete");
+                    rencanaStudiDelete = new JPanelHelperRencanaStudi("Delete",rsm,nim);
                     rencanaStudiDelete.setBounds(20,135,660,490);
                     rencanaStudiDelete.setVisible(false);
                     add(rencanaStudiDelete);
@@ -315,5 +324,8 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
             btnSearchEdit.setVisible(true);
         }
          
+    }
+    private boolean checkInput(){
+        return !(yearRencanaStudi.getText().equals("") || "".equals(nimRencanaStudi.getText()) || ((String) optionSemester.getSelectedItem()).equals("-Semester-"));
     }
 }

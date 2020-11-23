@@ -5,6 +5,7 @@
  */
 package view.menuDaak.Helper;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Properties;
@@ -12,11 +13,15 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import model.enums.JenisMatakuliah;
+import model.enums.SifatMatakuliah;
+import model.matakuliah.Matakuliah;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -36,19 +41,17 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
     
     JTextField fieldKodeMK;
     JTextField fieldNamaMK;
-    String listJenisMK[] = {"","Teori", "Praktikum"};
     JComboBox fieldJenisMK;
-    String listSifatMK[] = {"", "Wajib","Umum"};
     JComboBox fieldSifatMK;
     JSpinner fieldSKS;
         
     JButton Save;
     JButton Delete;
+    Matakuliah matakuliah = null;
     
-    
-    public JPanelHelperMatakuliah(String type){
+    public JPanelHelperMatakuliah(String type,Matakuliah kodeMK){
         setLayout(null);
-       
+        this.matakuliah = kodeMK;
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);
@@ -89,7 +92,6 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
     }
     
     private void generateLabel(){
-        
         
         labelKodeMK = new JLabel("Kode Matakuliah  :");
         labelKodeMK.setBounds(0,5, 120, 30);
@@ -132,12 +134,12 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
         fieldNamaMK.setFont(FONT_DEFAULT_PLAIN);
         add(fieldNamaMK);
         
-        fieldJenisMK = new JComboBox(listJenisMK);
+        fieldJenisMK = new JComboBox(JenisMatakuliah.values());
         fieldJenisMK.setBounds(140,85, 200, 30);
         fieldJenisMK.setFont(FONT_DEFAULT_PLAIN);
         add(fieldJenisMK);
         
-        fieldSifatMK = new JComboBox(listSifatMK);
+        fieldSifatMK = new JComboBox(SifatMatakuliah.values());
         fieldSifatMK.setBounds(140,125, 200, 30);
         fieldSifatMK.setFont(FONT_DEFAULT_PLAIN);
         add(fieldSifatMK);
@@ -155,11 +157,11 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
     
         generateInputForm();
         
-        fieldKodeMK.setText("IF-301");
-        fieldNamaMK.setText("PBO");
-        fieldJenisMK.setSelectedIndex(1);
-        fieldSifatMK.setSelectedIndex(1);
-        fieldSKS.setValue(3);
+        fieldKodeMK.setText(matakuliah.getKode_MK());
+        fieldNamaMK.setText(matakuliah.getNama_MK());
+        fieldJenisMK.setSelectedIndex(matakuliah.getJenis_MK().ordinal());
+        fieldSifatMK.setSelectedIndex(matakuliah.getSifat_MK().ordinal());
+        fieldSKS.setValue(matakuliah.getSks());
     
     }
     
@@ -180,21 +182,40 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
         String action = e.getActionCommand();
         System.out.println("Action Panel Helper Matakuliah : " + action);
         if(action.equals("Simpan")){
-            System.out.println("Hasil : ");
-            String kodeMK = fieldKodeMK.getText();
+            String kode_MK = fieldKodeMK.getText();
             String namaMK = fieldNamaMK.getText();
-            String jenisMK = (String) fieldJenisMK.getItemAt(fieldJenisMK.getSelectedIndex());
-            String sifatMK = (String) fieldSifatMK.getItemAt(fieldSifatMK.getSelectedIndex());
+            JenisMatakuliah jenisMK = (JenisMatakuliah) fieldJenisMK.getItemAt(fieldJenisMK.getSelectedIndex());
+            SifatMatakuliah sifatMK = (SifatMatakuliah) fieldSifatMK.getItemAt(fieldSifatMK.getSelectedIndex());
             int sksMK = (int) fieldSKS.getValue();
-            System.out.println(kodeMK);
-            System.out.println(namaMK);
-            System.out.println(jenisMK);
-            System.out.println(sifatMK);
-            System.out.println(sksMK);
-            //Tambahakn ke controller database
+           
+            Matakuliah  mk = new Matakuliah();
+            
+            mk.setKode_MK(kode_MK);
+            mk.setNama_MK(namaMK);
+            mk.setJenis_MK(jenisMK);
+            mk.setSifat_MK(sifatMK);
+            mk.setSks(sksMK);
+            
+            if(matakuliah == null){
+                if(matakuliahManageController.insertMatakuliah(mk)){
+                   JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
+                }else{
+                   JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
+                }
+            }else{
+                 mk.setKode_MK(matakuliah.getKode_MK());
+                if(matakuliahManageController.updateMatakuliah(mk)){
+                   JOptionPane.showMessageDialog(null, "Berhasil Mengupdate  ke Database");
+                }else{
+                   JOptionPane.showMessageDialog(null, "Gagal Mengupdate  ke Database");
+                }
+            }
         }else if(action.equals("Hapus")){
-            System.out.println("Masuk Hapus ke database");
-            //Hapus ke controller database
+            if(matakuliahManageController.deleteMatakuliah(matakuliah.getKode_MK())){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
+            }else{
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");
+            }
         }
         
         

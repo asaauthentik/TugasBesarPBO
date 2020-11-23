@@ -5,18 +5,23 @@
  */
 package view.menuDaak.Helper;
 
+import controller.DatabaseController.ContollerDaak.userManageController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.user.Daak;
 import model.user.Dosen;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -30,7 +35,7 @@ import static view.ViewConfig.FONT_DEFAULT_PLAIN;
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
+public class JPanelHelperDosen extends JPanel implements ActionListener, ViewConfig {
  
     private  JLabel labelNid;
     private  JLabel labelNama;
@@ -45,42 +50,46 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
     private  JLabel labelStatusPegawai;
     private  JLabel labelIkatanKerja;
     private  JLabel labelStatusDosen;
+    private  JLabel labelFoto;
     
-    
-    JTextField fieldNim;
+    JTextField fieldNid;
     JTextField fieldNama;
     JTextField fieldEmail;
     JPasswordField fieldPassword;
     
      
-    UtilDateModel modelTglLahir;
-    JDatePanelImpl datePanelTglLahir;
-    Properties  propertiesTglLahir;   
-    JDatePickerImpl fieldTanggalLahir;
+
+    private UtilDateModel modelTglLahir;
+    private JDatePanelImpl datePanelTglLahir;
+    private Properties  propertiesTglLahir;   
+    private JDatePickerImpl fieldTanggalLahir;
         
-    ButtonGroup groupJk;
-    JRadioButton fieldPria;
-    JRadioButton fieldWanita;
-    JTextField fieldTelp;
-    JTextField fieldProgramStudi;
-    JTextField fieldBidangIlmu;
-    JTextField fieldGelarAkademik;
-    String listIkatanKerja[] = {"","Dosen Tetap", "Dosen Tidak Tetap","Dosen Honorer"};
-    JComboBox fieldIkatanKerja;
-    String listStatusPegawai[] = {"","PNS", "Bukan-PNS"};
-    JComboBox fieldStatusPegawai;
-    ButtonGroup grupStatus;
-    JRadioButton fieldStatusDosenAktif;
-    JRadioButton fieldStatusDosenTidakAktif;
-    
+    private ButtonGroup groupJk;
+    private JRadioButton fieldPria;
+    private JRadioButton fieldWanita;
+    private JTextField fieldTelp;
+    private JTextField fieldProgramStudi;
+    private JTextField fieldBidangIlmu;
+    private JTextField fieldGelarAkademik;
+    private String listIkatanKerja[] = {"","Dosen Tetap", "Dosen Tidak Tetap","Dosen Honorer"};
+    private JComboBox fieldIkatanKerja;
+    private String listStatusPegawai[] = {"","PNS", "Bukan-PNS"};
+    private JComboBox fieldStatusPegawai;
+    private ButtonGroup grupStatus;
+    private JRadioButton fieldStatusDosenAktif;
+    private JRadioButton fieldStatusDosenTidakAktif;
+
+    JTextArea fieldFoto;
     JButton Save;
     JButton Delete;
     
-    Dosen data;
     
-    public JPanelDosen(String type){
+    String idUser = null;
+    Dosen dosen = null;
+    public JPanelHelperDosen(String type,Dosen dosen){
         setLayout(null);
-                
+        this.dosen = dosen;
+        this.idUser = idUser;        
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);
@@ -190,16 +199,20 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
         labelIkatanKerja.setFont(FONT_DEFAULT_PLAIN);
         add(labelIkatanKerja);
         
+        labelFoto = new JLabel("URL Foto Profile :");
+        labelFoto.setBounds(340,45, 120, 30);
+        labelFoto.setFont(FONT_DEFAULT_PLAIN);
+        add(labelFoto);
     }
     
     private void generateInputForm(){
         
         generateLabel();
         
-        fieldNim = new JTextField();
-        fieldNim.setBounds(120,5, 200, 30);
-        fieldNim.setFont(FONT_DEFAULT_PLAIN);
-        add(fieldNim);
+        fieldNid = new JTextField();
+        fieldNid.setBounds(120,5, 200, 30);
+        fieldNid.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldNid);
         
         fieldNama = new JTextField();
         fieldNama.setBounds(120,45, 200, 30);
@@ -284,41 +297,50 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
         fieldIkatanKerja.setBounds(480,5, 150, 30);
         fieldIkatanKerja.setFont(FONT_DEFAULT_PLAIN);
         add(fieldIkatanKerja);
+        
+        fieldFoto = new JTextArea();
+        fieldFoto.setLineWrap(true);
+        fieldFoto.setBounds(340,85, 300, 100);
+        fieldFoto.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldFoto);
     }
     
     private void generateEditForm(){
         
         generateInputForm();
               
-        fieldNim.setText("1119002");
-        fieldNama.setText("Albertus Angkuw");
-        fieldEmail.setText("angkuwjr@yahoo.com");
-        fieldPassword.setText("hidei");
+        fieldNid.setText(dosen.getNID());
+        fieldNama.setText(dosen.getNamaLengkap());
+        fieldEmail.setText(dosen.getEmail());
+        fieldPassword.setText("");
         modelTglLahir.setSelected(true);
-        modelTglLahir.setDate(2001, 9, 17);
-        if("P".equals("Pria")){
+        modelTglLahir.setValue(dosen.getTanggalLahir());
+        if(dosen.getJenisKelamin().equals("Laki-Laki")){
            fieldPria.setSelected(true);
         }else{
            fieldWanita.setSelected(true); 
         }
-        fieldTelp.setText("087884825093");
-        fieldProgramStudi.setText("Informatika");
-        fieldBidangIlmu.setText("Teknik");
-        fieldGelarAkademik.setText("M.Tc");
-        fieldStatusPegawai.setSelectedIndex(1);
-        fieldIkatanKerja.setSelectedIndex(2);
-        fieldStatusDosenAktif.setSelected(true);
-        
-        
-        
-        
+        fieldTelp.setText(dosen.getNomorTelepon());
+        fieldProgramStudi.setText(dosen.getProgramStudi());
+        fieldBidangIlmu.setText(dosen.getBidangIlmu());
+        fieldGelarAkademik.setText(dosen.getGelarAkademik());
+        fieldStatusPegawai.setSelectedItem(dosen.getStatusPegawai());
+        fieldIkatanKerja.setSelectedItem(dosen.getStatusIkatanKerja());
+        if(dosen.isStatusDosen()){
+            fieldStatusDosenAktif.setSelected(true);
+             fieldStatusDosenTidakAktif.setSelected(false);
+        }else{
+           fieldStatusDosenAktif.setSelected(false);
+             fieldStatusDosenTidakAktif.setSelected(true);
+        }
+        fieldFoto.setText(dosen.getPathFoto());
     }
     
     private void generateShowForm(){
         
         generateEditForm();
               
-        fieldNim.setEditable(false);
+        fieldNid.setEditable(false);
         fieldNama.setEditable(false);
         fieldEmail.setEditable(false);
         fieldPassword.setEditable(false);
@@ -338,7 +360,7 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
         fieldIkatanKerja.setEnabled(false);
         fieldStatusDosenAktif.setEnabled(false);
         fieldStatusDosenTidakAktif.setEnabled(false);
-        
+        fieldFoto.setEditable(false);
         
     }
   
@@ -347,14 +369,11 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
         String action = e.getActionCommand();
         System.out.println("Action Panel Helper Dosen : " + action);
         if(action.equals("Simpan")){
-            if(data != null){
-                //data = new dosen();
-            }
-            String nim = fieldNim.getText();
+            String nid = fieldNid.getText();
             String nama = fieldNama.getText();
             String email = fieldEmail.getText();
             String password = new String(fieldPassword.getPassword());
-            String tanggalLahir = fieldTanggalLahir.getModel().getValue().toString();
+            Date tanggalLahir = (Date) fieldTanggalLahir.getModel().getValue();
             String jk = "";
             if(fieldPria.isSelected()){
                 jk = "Laki-Laki";
@@ -367,30 +386,53 @@ public class JPanelDosen extends JPanel implements ActionListener, ViewConfig {
             String gelarAkademik = fieldGelarAkademik.getText();
             String statusPegawai = (String) fieldStatusPegawai.getItemAt(fieldStatusPegawai.getSelectedIndex()) ;
             String statusIkatanKerja = (String) fieldIkatanKerja.getItemAt(fieldIkatanKerja.getSelectedIndex()) ;
-            String statusDosen = "";
+            boolean statusDosen = false;
             if(fieldStatusDosenAktif.isSelected()){
-                statusDosen = "Aktif";
-            }else if(fieldStatusDosenTidakAktif.isSelected()){
-                statusDosen = "Tidak Aktif";
+                statusDosen = true;
+            }
+            String urlFoto = fieldFoto.getText();
+            
+            Dosen newDosen = new Dosen();
+            
+            newDosen.setNID(nid);
+            newDosen.setNamaLengkap(nama); 
+            newDosen.setEmail(email);
+            newDosen.setPassword(password);
+            newDosen.setTanggalLahir(tanggalLahir);
+            newDosen.setJenisKelamin(jk);
+            newDosen.setNomorTelepon(telepon);
+            newDosen.setBidangIlmu(bidangIlmu); 
+            newDosen.setGelarAkademik(gelarAkademik);
+            newDosen.setProgramStudi(programstudi);
+            newDosen.setStatusIkatanKerja(statusIkatanKerja);
+            newDosen.setStatusPegawai(statusPegawai);
+            newDosen.setStatusDosen(statusDosen);
+            newDosen.setPathFoto(urlFoto);
+            newDosen.setJenisUser(2);
+           
+            if(dosen == null){
+                newDosen.setIdUser();
+                if(userManageController.insertNewUser(newDosen)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
+                }
+            }else{
+                newDosen.setIdUser(dosen.getIdUser());
+                if(userManageController.updateDosen(newDosen)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Mengupdate ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Mengupdate ke Database");
+                }
             }
             
-            System.out.println("Nid : " + nim);
-            System.out.println("Nama : " + nama);
-            System.out.println("Email : " + email);
-            System.out.println("Password : " + password);
-            System.out.println("Tanggal Lahir : " + tanggalLahir);
-            System.out.println("JK : " + jk);
-            System.out.println("Telepon : " + telepon);
-            System.out.println("Program Studi : " + programstudi);
-            System.out.println("Bidang Ilmu : " + bidangIlmu);
-            System.out.println("Gelar Akademik : " + gelarAkademik);
-            System.out.println("Status Pegawai : " + statusPegawai);
-            System.out.println("Ikatan Pekerjaan : " + statusIkatanKerja);
-            System.out.println("Status Dosen : " + statusDosen);
-            
-            //To Sql Controller !
+          
         }else if(action.equals("Hapus")){
-            System.out.println("Menggunakan controller unttuk delete");
+            if(userManageController.deleteDosen(dosen.getIdUser())){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
+            }else{
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");
+            }
         }
         
     }

@@ -18,20 +18,34 @@ public class DetailMatakuliah extends Matakuliah{
     private String semester;
     private char kelas;
     private int jumlahPertemuan;
+    private String nid;
     private ArrayList<Nilai> nilaiMahasiswa;
     private ArrayList<Roster> jadwal;
     private ArrayList<Kehadiran> kehadiranMahasiswa;
 
-    public DetailMatakuliah(String id_MK, int tahun, String semester, char kelas, int jumlahPertemuan, ArrayList<Nilai> nilaiMahasiswa, ArrayList<Roster> jadwal, ArrayList<Kehadiran> kehadiranMahasiswa, String kode_MK, String nama_MK, String jenis_MK, String sifat_MK, int sks) {
-        super(kode_MK, nama_MK, jenis_MK, sifat_MK, sks);
+    public DetailMatakuliah(){
+        super();
+
+    }
+
+    public DetailMatakuliah(String id_MK, int tahun, String semester, char kelas, int jumlahPertemuan, String nid, ArrayList<Nilai> nilaiMahasiswa, ArrayList<Roster> jadwal, ArrayList<Kehadiran> kehadiranMahasiswa) {
         this.id_MK = id_MK;
         this.tahun = tahun;
         this.semester = semester;
         this.kelas = kelas;
         this.jumlahPertemuan = jumlahPertemuan;
+        this.nid = nid;
         this.nilaiMahasiswa = nilaiMahasiswa;
         this.jadwal = jadwal;
         this.kehadiranMahasiswa = kehadiranMahasiswa;
+    }
+    
+    public String getNid() {
+        return nid;
+    }
+
+    public void setNid(String nid) {
+        this.nid = nid;
     }
 
     public String getId_MK() {
