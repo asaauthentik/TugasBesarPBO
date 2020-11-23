@@ -20,6 +20,9 @@ public class RencanaStudi {
     private int tahunAjaran;
     private ArrayList<String> id_Mk;
 
+    public RencanaStudi(){
+        
+    }
     public RencanaStudi(String id_RSM, String semesterAjaran, int tahunAjaran, ArrayList<String> id_Mk) {
         this.id_RSM = id_RSM;
         this.semesterAjaran = semesterAjaran;
@@ -31,6 +34,9 @@ public class RencanaStudi {
         return id_RSM;
     }
 
+    public void createId_RSM(String nim) {
+        this.id_RSM = tahunAjaran + semesterAjaran.substring(0, 1) + nim;
+    }
     public void setId_RSM(String id_RSM) {
         this.id_RSM = id_RSM;
     }
