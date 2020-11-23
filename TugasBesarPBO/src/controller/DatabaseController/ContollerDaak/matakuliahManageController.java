@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import model.enums.JenisMatakuliah;
+import model.enums.SifatMatakuliah;
 import model.matakuliah.DetailMatakuliah;
 import model.matakuliah.Matakuliah;
 import model.user.Daak;
@@ -117,8 +119,8 @@ public class matakuliahManageController {
                 matakuliah = new Matakuliah();
                 matakuliah.setKode_MK(rs.getString(1));
                 matakuliah.setNama_MK(rs.getString(2));
-                matakuliah.dbJenis_MK(rs.getInt(3));
-                matakuliah.dbSifat_MK(rs.getInt(4));
+                matakuliah.setJenis_MK(JenisMatakuliah.values[rs.getInt(3)]);
+                matakuliah.setSifat_MK(SifatMatakuliah.values[rs.getInt(4)]);
                 matakuliah.setSks(rs.getInt(5));
             }
             System.out.println("Log DB Get Matakuliah : Success");
