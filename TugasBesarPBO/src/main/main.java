@@ -16,7 +16,6 @@ import view.*;
  */
 public class main {
     public static void main(String[] args) {
-        //for codeql
-        //new dashboard();
+        loginMenu login = new loginMenu();
     }
 }

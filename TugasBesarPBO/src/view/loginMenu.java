@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.DatabaseController.loginController;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import model.user.User;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
 
@@ -27,7 +30,8 @@ public class loginMenu implements ActionListener,ViewConfig{
     private JFrame Frame;
     private JPanel Menu;
     private JLabel Email, Password;
-    private JTextField ViewEmail, ViewPassword;
+    private JTextField ViewEmail;
+    private JPasswordField ViewPassword;
     private JButton Login;
     
     public loginMenu(){
@@ -64,7 +68,7 @@ public class loginMenu implements ActionListener,ViewConfig{
         Password.setForeground(COLOR_WHITE);
         Password.setFont(FONT_TITLE);
         Menu.add(Password);
-        ViewPassword = new JTextField();
+        ViewPassword = new JPasswordField();
         ViewPassword.setBounds(100,380,300,30);
         Menu.add(ViewPassword);
         
@@ -101,7 +105,15 @@ public class loginMenu implements ActionListener,ViewConfig{
         String action = e.getActionCommand();
         if(action.equals("Login")){
             if(checkAllData() == true){
-                JOptionPane.showMessageDialog(null,"Berhasil Login!");
+                String email = ViewEmail.getText();
+                String password = String.valueOf(ViewPassword.getPassword());
+                
+                User user = loginController.searchUser(email, password);
+                if(user != null){
+                    JOptionPane.showMessageDialog(null,"Berhasil Login!");
+                }else{
+                    JOptionPane.showMessageDialog(null,"Data tidak ditemukan!");
+                }
             }else{
                 JOptionPane.showMessageDialog(null,"Silahkan Masukkan Data dengan Benar!");
             }
