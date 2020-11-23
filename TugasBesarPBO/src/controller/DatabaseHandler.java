@@ -13,15 +13,15 @@ import javax.swing.JOptionPane;
  *
  * @author S W I F T 3
  */
-public class DatabaseHandler {
+public class DatabaseHandler implements DatabaseConfig {
     
     public Connection con;
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String database = "tubespbo";
-    private String host = "den1.mysql5.gear.host";
+    private String database = DATABASE;
+    private String host = HOST;
     private String url = "jdbc:mysql://" + host + "/" + database;
-    private String username = "tubespbo";
-    private String password = "Ys82KQU9G_?8";
+    private String username = USERNAME;
+    private String password = PASSWORD;
 
     private Connection logOn() {
         try {

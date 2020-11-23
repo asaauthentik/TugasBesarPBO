@@ -35,7 +35,7 @@ public class RencanaStudi {
     }
 
     public void createId_RSM(String nim) {
-        this.id_RSM = tahunAjaran + semesterAjaran.substring(0, 1) + nim;
+        this.id_RSM = tahunAjaran + semesterAjaran.substring(0, 2).toUpperCase() + nim;
     }
     public void setId_RSM(String id_RSM) {
         this.id_RSM = id_RSM;
