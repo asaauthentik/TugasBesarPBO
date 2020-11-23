@@ -260,7 +260,8 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
             DetailMatakuliah detailMK = getDetailMatakuliah(RSM.getId_Mk().get(i));
             fieldMK.get(i).setText(detailMK.getKode_MK());
         }
-        checkMK();
+        System.out.println(semester + " test  "+ tahun);
+        //checkMK();
         
     }
     
@@ -334,6 +335,14 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
                 }
             }
         }
+        if(action.equals("Hapus")){
+            if(rencanaStudiManageController.deleteRencanaStudi(RSM.getId_RSM())){
+                    JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil dihapus di database");
+            }else{
+                    JOptionPane.showMessageDialog(labelKodeMK, "Data gagal dihapus di database");
+            }
+        }
+    
         if(action.equals("Cek Data")){
             checkMK();
         }
