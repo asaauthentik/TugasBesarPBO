@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import model.matakuliah.DetailMatakuliah;
 import model.matakuliah.Matakuliah;
 import model.user.Daak;
@@ -149,6 +150,32 @@ public class matakuliahManageController {
             e.printStackTrace();
         }
         return detailMK;
+    }
+    
+    public static ArrayList getArrayDetailMatakuliah(String kode,int tahun,String semester){
+        conn.connect();
+        String query = "SELECT * FROM detail_matakuliah WHERE Kode_MK='" + kode + "'"
+                + "&& Tahun='"+ tahun + "' && Semester='"+ semester + "'" ;
+        ArrayList<DetailMatakuliah> arrDetailMK = new ArrayList<>();
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                DetailMatakuliah detailMK = new DetailMatakuliah();
+                detailMK.setId_MK(rs.getString(1)); 
+                detailMK.setNid(rs.getString(2));
+                detailMK.setKode_MK(rs.getString(3));
+                detailMK.setKelas(rs.getString(4).charAt(0));
+                detailMK.setJumlahPertemuan(rs.getInt(5));
+                detailMK.setTahun(rs.getInt(6));
+                detailMK.setSemester(rs.getString(7));
+                arrDetailMK.add(detailMK);
+            }
+            System.out.println("Log DB Get Detail Matakuliah : Success");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrDetailMK;
     }
     
     public static boolean deleteMatakuliah(String kodeMK) {

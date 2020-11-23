@@ -209,9 +209,14 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
             daakDelete.setVisible(false); 
          }
             
+         if(errorMsg != null){
+             errorMsg.setVisible(false);
+         }
          
-         errorMsg.setVisible(false);
-         Cancel.setVisible(false);
+         if(Cancel != null){
+             Cancel.setVisible(false);
+         }
+         
          //Proccces Create
          if(option.equals("Process")){
             if(optionListUser.getItemAt(optionListUser.getSelectedIndex()).equals("Mahasiswa")){      
