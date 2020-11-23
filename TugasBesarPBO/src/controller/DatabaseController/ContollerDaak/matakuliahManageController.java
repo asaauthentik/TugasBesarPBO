@@ -117,8 +117,8 @@ public class matakuliahManageController {
                 matakuliah = new Matakuliah();
                 matakuliah.setKode_MK(rs.getString(1));
                 matakuliah.setNama_MK(rs.getString(2));
-                matakuliah.setJenis_MK(rs.getInt(3));
-                matakuliah.setSifat_MK(rs.getInt(4));
+                matakuliah.dbJenis_MK(rs.getInt(3));
+                matakuliah.dbSifat_MK(rs.getInt(4));
                 matakuliah.setSks(rs.getInt(5));
             }
             System.out.println("Log DB Get Matakuliah : Success");
