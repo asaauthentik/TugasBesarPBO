@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import model.matakuliah.RencanaStudi;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -225,7 +226,7 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
             }
             //Melakukan pencarian nim ! di database 
             if(true){      
-                rencanaStudiCreate = new JPanelHelperRencanaStudi("Input","",nim,semester,Integer.valueOf(tahun));
+                rencanaStudiCreate = new JPanelHelperRencanaStudi("Input",nim,semester,Integer.valueOf(tahun));
                 rencanaStudiCreate.setBounds(20,135,668,490);
                 rencanaStudiCreate.setVisible(false);
                 add(rencanaStudiCreate);
@@ -256,14 +257,14 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
              //Lakukan pencarian didatabase nanti
              if(foundTest){
                 if(menuNow.equals("Edit Rencana Studi")){
-                    rencanaStudiEdit = new JPanelHelperRencanaStudi("Edit",idrsm,nim,semester,Integer.valueOf(tahun));
+                    rencanaStudiEdit = new JPanelHelperRencanaStudi("Edit",null,nim);
                     rencanaStudiEdit.setBounds(20,135,660,490);
                     rencanaStudiEdit.setVisible(false);
                     add(rencanaStudiEdit);
                     rencanaStudiEdit.setVisible(true);
 
                 }else if(menuNow.equals("Delete Rencana Studi")){
-                    rencanaStudiDelete = new JPanelHelperRencanaStudi("Delete",idrsm,nim,semester,Integer.valueOf(tahun));
+                    rencanaStudiDelete = new JPanelHelperRencanaStudi("Delete",null,nim);
                     rencanaStudiDelete.setBounds(20,135,660,490);
                     rencanaStudiDelete.setVisible(false);
                     add(rencanaStudiDelete);

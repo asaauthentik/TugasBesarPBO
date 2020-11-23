@@ -5,6 +5,8 @@
  */
 package view.menuDaak.Helper;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Matakuliah;
 import model.matakuliah.RencanaStudi;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
@@ -36,6 +39,8 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
     private ArrayList<JTextField> fieldMK;
     private ArrayList<JLabel> fieldNamaMK;
     private ArrayList<JLabel> fieldSKS;
+    private ArrayList<JTextField> fieldKelas;
+    private ArrayList<JLabel>kelas;
            
     private JButton cekMK;
     private JButton btnJumlahMK;
@@ -44,17 +49,46 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
     
     private String type;
     private int jmlMK;
-    private String idrsm = "";
+    private RencanaStudi RSM = null;
     private String nim = "";
     private String semester = "" ;
     private int tahun = 0;
     
-    public JPanelHelperRencanaStudi(String type,String idrsm,String nim, String semester, int tahun){
-        this.idrsm = idrsm;
+    //Untuk Add
+    public JPanelHelperRencanaStudi(String type,String nim, String semester, int tahun){
+        setupPanel();
         this.nim = nim;
         this.semester = semester;
         this.tahun = tahun;
-        setLayout(null);
+        this.type = type;
+        generateNumberMK();
+        cekMK.setVisible(true);
+        Delete.setVisible(false);
+        Save.setVisible(true);
+    }
+    //Untuk Edit dan Delete
+    public JPanelHelperRencanaStudi(String type,RencanaStudi RSM,String nim){
+        setupPanel();
+        this.RSM = RSM;
+        this.nim = nim;
+        this.type = type;
+        this.semester = RSM.getSemesterAjaran();
+        this.tahun = RSM.getTahunAjaran();
+        if(type.equals("Delete")){
+            generateShowForm();
+            cekMK.setVisible(false);
+            Delete.setVisible(true);
+            Save.setVisible(false);
+        }else if(type.equals("Edit")){
+            generateEditForm();
+            cekMK.setVisible(true);
+            Delete.setVisible(false);
+            Save.setVisible(true);
+        }
+        
+    }
+    private void setupPanel(){
+         setLayout(null);
        
         cekMK = new JButton("Cek Data");
         cekMK.setBounds(260,445, 100, 30);
@@ -92,24 +126,8 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
         Delete.setVisible(false);
         add(Delete);
         
-        if(type.equals("Input")){
-            generateNumberMK();
-            cekMK.setVisible(true);
-            Delete.setVisible(false);
-            Save.setVisible(true);
-        }else if(type.equals("Delete")){
-            generateShowForm();
-            cekMK.setVisible(false);
-            Delete.setVisible(true);
-            Save.setVisible(false);
-        }else if(type.equals("Edit")){
-            generateEditForm();
-            cekMK.setVisible(true);
-            Delete.setVisible(false);
-            Save.setVisible(true);
-        }
-        this.type = type;
-    }    
+    }   
+    
     private void generateNumberMK(){
         labelJumlahMK = new JLabel("Jumlah Matakuliah");
         labelJumlahMK.setBounds(0,5, 120, 30);
@@ -158,6 +176,20 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
         add(labelSKS);
         labelSKS.setVisible(true);
         
+        labelSKS = new JLabel("Kelas");
+        labelSKS.setFont(FONT_DEFAULT_PLAIN);
+        labelSKS.setBounds(310,marginTop, 70, 30);
+        labelSKS.setVisible(false);
+        add(labelSKS);
+        labelSKS.setVisible(true);
+        
+        labelSKS = new JLabel("Daftar Kelas");
+        labelSKS.setFont(FONT_DEFAULT_PLAIN);
+        labelSKS.setBounds(310,marginTop, 70, 30);
+        labelSKS.setVisible(false);
+        add(labelSKS);
+        labelSKS.setVisible(true);
+        
     }
     
     private void generateInputForm(){
@@ -167,7 +199,8 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
         fieldMK = new ArrayList<JTextField>();
         fieldNamaMK = new ArrayList<JLabel>();
         fieldSKS = new ArrayList<JLabel>();
-        
+        fieldKelas = new ArrayList<JTextField>();
+        kelas = new ArrayList<JLabel>();
         int marginTop = 85;
         for(int i=0; i<jmlMK; i++){
             JTextField temp = new JTextField();
@@ -193,6 +226,22 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
             add(temp2);
             temp2.setVisible(true);
             fieldSKS.add(temp2);
+            
+            JTextField temp3 = new JTextField();
+            temp3.setBounds(400,marginTop, 70, 30);
+            temp3.setFont(FONT_DEFAULT_PLAIN);
+            temp3.setVisible(false);
+            add(temp3);
+            temp3.setVisible(true);
+            fieldKelas.add(temp3);
+            
+            JLabel temp4 = new JLabel("-");
+            temp4.setBounds(490,marginTop, 100, 30);
+            temp4.setFont(FONT_DEFAULT_PLAIN);
+            temp4.setVisible(false);
+            add(temp4);
+            temp4.setVisible(true);
+            kelas.add(temp4);
                        
             marginTop += 40;
         }
@@ -201,7 +250,7 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
     
     private void generateEditForm(){
         //Check Database 
-        jmlMK = 6;
+        jmlMK = RSM.getId_Mk().size();
         generateNumberMK();
         fieldJumlahMK.setText(String.valueOf(jmlMK));
         generateInputForm();
@@ -237,29 +286,59 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
             generateInputForm();
         }
         if(action.equals("Simpan")){
+            if(!checkMK()){
+                JOptionPane.showMessageDialog(labelKodeMK, "Terdapat Kode Matakuliah yang tidak ditemukan !");
+                return;
+            }
             ArrayList<String> idMK = new ArrayList<>();
+            
             for(int i=0; i<fieldMK.size(); i++){
                 String kodeMKCheck = fieldMK.get(i).getText();
-                if(false){
-                    JOptionPane.showMessageDialog(labelKodeMK, "Kode MK " + kodeMKCheck + " tidak ditemukan !");
-                    return;
-                }
-                idMK.add(kodeMKCheck);
-                System.out.println( i + " : " + kodeMKCheck);
+                DetailMatakuliah mk = matakuliahManageController.getDetailMatakuliah(kodeMKCheck, tahun, semester);
+                idMK.add(mk.getId_MK());
             }
-            RencanaStudi newRS = new RencanaStudi(idrsm,semester,tahun,idMK);
-            //Masukan ke db newRs
-            if(true){
-                JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil dimasukan ke database");
+            if(RSM == null){
+                RencanaStudi newRS = new RencanaStudi();
+                newRS.setSemesterAjaran(semester);
+                newRS.setTahunAjaran(tahun);
+                newRS.createId_RSM(nim);
+                newRS.setId_Mk(idMK);
+                if(rencanaStudiManageController.insertRencanaStudi(newRS, nim)){
+                    JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil dimasukan ke database");
+                }else{
+                    JOptionPane.showMessageDialog(labelKodeMK, "Data gagal dimasukan ke database");
+                }
             }else{
+                //update
+                //rencanaStudiManageController.insertRencanaStudi(newRS, nim);
                 JOptionPane.showMessageDialog(labelKodeMK, "Data tidak berhasil dimasukan ke database");
             }
         }
         if(action.equals("Cek Data")){
-            //Lakukan pengecehkan ke database nama matakuliahnya
-            for(int i=0; i<fieldMK.size(); i++){
-                fieldNamaMK.get(i).setText("Matakuliah ke-" + i);
-            }
+            checkMK();
+        }
+    }
+    private boolean checkMK(){
+        int errorCount = 0;
+        for(int i=0; i<fieldMK.size(); i++){
+                String kodeMK = fieldMK.get(i).getText();
+                ArrayList<DetailMatakuliah> mk =  matakuliahManageController.getArrayDetailMatakuliah(kodeMK, tahun, semester);
+                if(!mk.isEmpty()){
+                    for(int j=0; j<mk.size(); j++){
+                        fieldNamaMK.get(i).setText(mk.get(j).getNama_MK());
+                        fieldSKS.get(i).setText(String.valueOf(mk.get(j).getSks()));
+                    }
+                    
+                }else{
+                    fieldNamaMK.get(i).setText("-Tidak ditemukan !-");
+                    errorCount++;
+                }
+                
+        }
+        if(errorCount > 0){
+            return false;
+        }else{
+            return true;
         }
     }
 }
