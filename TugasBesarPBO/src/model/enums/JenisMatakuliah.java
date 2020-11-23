@@ -11,6 +11,6 @@ package model.enums;
  */
 public enum JenisMatakuliah {
     PRAKTIKUM,TEORI;
-    
+    public static final JenisMatakuliah values[] = values();
 
 }
