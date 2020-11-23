@@ -6,6 +6,7 @@
 package view.menuDaak;
 
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,6 +19,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Matakuliah;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -262,13 +265,13 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
              return;
             }
             if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Matakuliah")){      
-                matakuliahCreate = new JPanelHelperMatakuliah("Input","");
+                matakuliahCreate = new JPanelHelperMatakuliah("Input",null);
                 matakuliahCreate.setBounds(20,135,668,490);
                 matakuliahCreate.setVisible(false);
                 add(matakuliahCreate);
                 matakuliahCreate.setVisible(true);
             }else if(optionListMatakuliah.getItemAt(optionListMatakuliah.getSelectedIndex()).equals("Detail Matakuliah")){      
-                detailMatakuliahCreate = new JPanelHelperDetailMatakuliah("Input","");
+                detailMatakuliahCreate = new JPanelHelperDetailMatakuliah("Input",null);
                 detailMatakuliahCreate.setBounds(20,135,668,490);
                 detailMatakuliahCreate.setVisible(false);
                 add(detailMatakuliahCreate);
@@ -288,44 +291,51 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
             return;
          }
          
+         Matakuliah tempMK = null;
          //Proccces Edit / Delete
          if(option.equals("Cari")){
              String matakuliahToSearch = searchMatakuliah.getText();
              String tipe = "";
-             if(optionListMatakuliah.getSelectedIndex() == 2){
-                 if(!checkInput("Detail")){
-                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
-                    return;
-                 }
-                 tipe = "Detail Matakuliah";
-             }else if(optionListMatakuliah.getSelectedIndex() == 1){
-                 if(!checkInput("MK")){
-                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
-                    return;
-                 }
-                 tipe = "Matakuliah";
-             }
-             //Lakukan pencarian didatabase nanti y :v
              boolean foundTest = false;
-             //Dummy Boy
-             if(matakuliahToSearch.equals("IF-301")){
-                 foundTest = true;
-                 
-             }else if(matakuliahToSearch.equals("IF-302") && yearMatakuliah.getText().equals("2020") ) {
-                 foundTest = true;
+             if(optionListMatakuliah.getSelectedIndex() == 2){
+                if(!checkInput("Detail")){
+                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                    return;
+                }
+                int tahun = Integer.valueOf(yearMatakuliah.getText()); 
+                String semester =(String) optionSemester.getSelectedItem();
+                tempMK = matakuliahManageController.getDetailMatakuliah(matakuliahToSearch, tahun, semester);
+                if( tempMK != null){
+                    foundTest = true;
+                }else{
+                    foundTest = false;
+                }
+                tipe = "Detail Matakuliah";
+             }else if(optionListMatakuliah.getSelectedIndex() == 1){
+                if(!checkInput("MK")){
+                    JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
+                    return;
+                }
+                tempMK = matakuliahManageController.getMatakuliah(matakuliahToSearch);
+                if( tempMK != null){
+                    foundTest = true;
+                }else{
+                    foundTest = false;
+                }
+                tipe = "Matakuliah";
              }
-             //End Dummy
+             
              if(foundTest){
                 if(tipe.equals("Matakuliah")){
                     if(menuNow.equals("Edit Matakuliah")){
-                        matakuliahEdit = new JPanelHelperMatakuliah("Edit","kodeMKss");
+                        matakuliahEdit = new JPanelHelperMatakuliah("Edit",tempMK);
                         matakuliahEdit.setBounds(20,135,660,490);
                         matakuliahEdit.setVisible(false);
                         add(matakuliahEdit);
                         matakuliahEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete Matakuliah")){
-                        matakuliahDelete = new JPanelHelperMatakuliah("Delete","kodeMKSs");
+                        matakuliahDelete = new JPanelHelperMatakuliah("Delete",tempMK);
                         matakuliahDelete.setBounds(20,135,660,490);
                         matakuliahDelete.setVisible(false);
                         add(matakuliahDelete);
@@ -333,14 +343,14 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
                     }
                 }else if(tipe.equals("Detail Matakuliah")){
                     if(menuNow.equals("Edit Matakuliah")){
-                        detailMatakuliahEdit = new JPanelHelperDetailMatakuliah("Edit","IDMKDUm");
+                        detailMatakuliahEdit = new JPanelHelperDetailMatakuliah("Edit",(DetailMatakuliah) tempMK);
                         detailMatakuliahEdit.setBounds(20,135,660,490);
                         detailMatakuliahEdit.setVisible(false);
                         add(detailMatakuliahEdit);
                         detailMatakuliahEdit.setVisible(true);
 
                     }else if(menuNow.equals("Delete Matakuliah")){
-                        detailMatakuliahDelete = new JPanelHelperDetailMatakuliah("Delete","IDMKDUm");
+                        detailMatakuliahDelete = new JPanelHelperDetailMatakuliah("Delete",(DetailMatakuliah) tempMK);
                         detailMatakuliahDelete.setBounds(20,135,660,490);
                         detailMatakuliahDelete.setVisible(false);
                         add(detailMatakuliahDelete);

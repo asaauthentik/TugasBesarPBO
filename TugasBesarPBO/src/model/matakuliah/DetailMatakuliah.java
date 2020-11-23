@@ -18,6 +18,7 @@ public class DetailMatakuliah extends Matakuliah{
     private String semester;
     private char kelas;
     private int jumlahPertemuan;
+    private String nid;
     private ArrayList<Nilai> nilaiMahasiswa;
     private ArrayList<Roster> jadwal;
     private ArrayList<Kehadiran> kehadiranMahasiswa;
@@ -35,7 +36,14 @@ public class DetailMatakuliah extends Matakuliah{
         this.kelas = kelas;
         this.jumlahPertemuan = jumlahPertemuan;
     }
-    
+
+    public String getNid() {
+        return nid;
+    }
+
+    public void setNid(String nid) {
+        this.nid = nid;
+    }
 
     public String getId_MK() {
         return id_MK;

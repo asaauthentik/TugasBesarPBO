@@ -23,7 +23,7 @@ import view.ViewConfig;
 import static view.ViewConfig.*;
 import view.menuDaak.Helper.JPanelHelperDaak;
 import view.menuDaak.Helper.JPanelHelperDosen;
-import view.menuDaak.Helper.JPanelTable;
+
 /**
  *
  * @author 1119002 Albertus Angkuw
@@ -54,9 +54,6 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
     private JPanelHelperDaak daakEdit;
     private JPanelHelperDaak daakDelete;
 
-     
-    private JPanelTable tableExample;
-    
     private JLabel errorMsg ;
     private JButton Cancel;
     
@@ -155,12 +152,7 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
         btnTypeUser.addActionListener(this);
         add(btnTypeUser);
       
-        errorMsg = new JLabel();
-        tableExample = new JPanelTable();
-        tableExample.setBounds(20,135,480,490);
-        //tableExample.setVisible(true);
-        //add(tableExample);
-               
+                      
         Cancel = new JButton("Cancel");
         Cancel.setBounds(500,580, 100, 30);
         Cancel.setContentAreaFilled(true);

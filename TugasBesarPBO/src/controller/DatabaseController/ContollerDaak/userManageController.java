@@ -140,7 +140,7 @@ public class userManageController {
     
     public static boolean updateUser(User data) {
         conn.connect();
-        String query = "UPDATE `user` SET `ID_User` = 'b01c52f3f1b7c7beecb53bda2dd6e0cf', "
+        String query = "UPDATE `user` SET `ID_User` = '" + data.getIdUser() + "', "
                 + "`Nama_Lengkap` = '" + data.getNamaLengkap() + "', "
                 + "`Email` = '" + data.getEmail() + "', "
                 + "`Password` = '" + data.getPassword() + "', "
