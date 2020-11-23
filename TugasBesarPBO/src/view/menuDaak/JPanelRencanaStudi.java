@@ -149,9 +149,7 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
         yearRencanaStudi.setVisible(false);
         add(yearRencanaStudi);
        
-       
-        
-        btnSearchEdit = new JButton("Cari");
+       btnSearchEdit = new JButton("Cari");
         btnSearchEdit.setBounds(420, 100, 100 ,30);
         btnSearchEdit.setContentAreaFilled(true);
         btnSearchEdit.setBackground(BGCOLOR_DEFAULT);
