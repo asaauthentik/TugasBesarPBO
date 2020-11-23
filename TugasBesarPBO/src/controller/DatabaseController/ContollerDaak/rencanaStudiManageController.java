@@ -37,6 +37,10 @@ public class rencanaStudiManageController {
             if(!insertDetailRencanaStudi(data)){
                 return false;
             }
+            if(!insertHasilStudi(data,nim)){
+                return false;
+            }
+            
             System.out.println("Log DB Insert Rencana Studi : Success");
         } catch (SQLException e) {
             System.out.println("Error  Insert  Matakuliah : " + e.getMessage());
@@ -62,6 +66,24 @@ public class rencanaStudiManageController {
         }
         return true;
     }
+    private static boolean insertHasilStudi(RencanaStudi data,String nim) {
+        conn.connect();
+        String query = "INSERT INTO  hasil_studi_mahasiswa(ID_MK,NIM)  VALUES(?,?)";
+                             
+        try {
+            for(int i=0; i < data.getId_Mk().size(); i++){
+                PreparedStatement stmt = conn.con.prepareStatement(query);
+                stmt.setString(1, data.getId_Mk().get(i));
+                stmt.setString(2, nim);
+                stmt.executeUpdate();
+            }
+            System.out.println("Log DB Insert Hasil Studi : Success");
+        } catch (SQLException e) {
+            System.out.println("Error  Insert Hasil Studi : " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
     
     
     public static boolean updateRencanaStudi(RencanaStudi data,String nim) {
@@ -75,6 +97,9 @@ public class rencanaStudiManageController {
             stmt.executeUpdate(query);
             System.out.println("Log DB Update Rencana Studi : Success");
             if(!updateDetailRencanaStudi(data)){
+                return false;
+            }
+            if(!insertHasilStudi(data,nim)){
                 return false;
             }
             return (true);
@@ -119,6 +144,20 @@ public class rencanaStudiManageController {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Log DB Delete Detail Rencana Studi : Success");
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    public static boolean deleteHasilStudi(RencanaStudi RSM,String nim) {
+        conn.connect();
+        String query = "DELETE FROM hasil_studi_mahasiswa WHERE NIM='" + nim + "'"
+                + "&& ID_MK='" + RSM.getId_Mk()  +"'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            System.out.println("Log DB Delete Hasil Studi : Success");
             return (true);
         } catch (SQLException e) {
             e.printStackTrace();

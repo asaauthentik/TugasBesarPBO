@@ -328,6 +328,7 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
                 newRS.setTahunAjaran(tahun);
                 newRS.setId_RSM(RSM.getId_RSM());
                 newRS.setId_Mk(idMK);
+                rencanaStudiManageController.deleteHasilStudi(RSM,nim);
                 if(rencanaStudiManageController.updateRencanaStudi(newRS, nim)){
                     JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil diupdate ke database");
                 }else{

@@ -142,7 +142,7 @@ public abstract class User {
         this.pathFoto = pathFoto;
     }
     
-    private String getSHA(String input){  
+    public static String getSHA(String input){  
         /*
             Reference Code https://www.geeksforgeeks.org/sha-256-hash-in-java/?ref=lbp
         */
