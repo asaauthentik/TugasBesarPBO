@@ -5,13 +5,25 @@
  */
 package view.menuDaak.Helper;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
+import controller.DatabaseController.ContollerDaak.rosterManageController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
@@ -33,30 +45,59 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
     private  JLabel labelJamMulai;
     private  JLabel labelJamSelesai;
     private  JLabel labelRuangan;
+    private  JLabel labelKehadiranDosen;
     
        
-    private UtilDateModel modelTglLahir;
+    private UtilDateModel modelTglRoster;
     private JDatePanelImpl datePanelTglLahir;
     private Properties  propertiesTglLahir;   
         
     private JDatePickerImpl fieldTanggal;
     private JSpinner fieldJamMulai;
-    private String listJam[] = {"01:00:00","01:30:00","02:00:00","02:30:00","03:00:00","03:30:00","04:00:00","04:30:00","05:00:00","05:30:00","06:00:00","06:30:00","07:00:00","07:30:00","08:00:00","08:30:00","09:00:00","09:30:00","10:00:00" ,"10:30:00" ,"11:00:00" ,"11:30:00" ,"12:00:00" ,"12:30:00" ,"13:00:00" ,"13:30:00" ,"14:00:00" ,"14:30:00" ,"15:00:00" ,"15:30:00" ,"16:00:00" ,"16:30:00" ,"17:00:00" ,"17:30:00" ,"18:00:00" ,"18:30:00" ,"19:00:00" ,"19:30:00" ,"20:00:00" ,"20:30:00" ,"21:00:00" ,"21:30:00" ,"22:00:00" ,"22:30:00" ,"23:00:00" ,"23:30:00" ,"24:00:00" ,"24:30:00"};
+    private final String listJam[] = {"01:00:00","01:30:00","02:00:00","02:30:00","03:00:00","03:30:00","04:00:00","04:30:00","05:00:00","05:30:00","06:00:00","06:30:00","07:00:00","07:30:00","08:00:00","08:30:00","09:00:00","09:30:00","10:00:00" ,"10:30:00" ,"11:00:00" ,"11:30:00" ,"12:00:00" ,"12:30:00" ,"13:00:00" ,"13:30:00" ,"14:00:00" ,"14:30:00" ,"15:00:00" ,"15:30:00" ,"16:00:00" ,"16:30:00" ,"17:00:00" ,"17:30:00" ,"18:00:00" ,"18:30:00" ,"19:00:00" ,"19:30:00" ,"20:00:00" ,"20:30:00" ,"21:00:00" ,"21:30:00" ,"22:00:00" ,"22:30:00" ,"23:00:00" ,"23:30:00" ,"24:00:00" ,"24:30:00"};
     //private String listJam[] = {"","1.00", "1.30", "2.00", "2.30", "3.00", "3.30", "4.00", "4.30", "5.00", "5.30", "6.00", "6.30", "7.00", "7.30", "8.00", "8.30", "9.00", "9.30", "10.00", "10.30", "11.00", "11.30", "12.00", "12.30", "13.00", "13.30", "14.00", "14.30", "15.00", "15.30", "16.00", "16.30", "17.00", "17.30", "18.00", "18.30", "19.00", "19.30", "20.00", "20.30", "21.00", "21.30", "22.00", "22.30", "23.00", "23.30", "24.00", "24.30"};
     private JSpinner fieldJamSelesai;
     private JTextField fieldRuangan;
+    private JRadioButton fieldDosenHadir;
+    private JRadioButton fieldDosenTidakHadir;
+    private JComboBox fieldAllRoster;
     
+    private ButtonGroup bgKehadiranDosen;
     private JButton Save;
     private JButton Delete;
     
-    private String ID_Roster;
-    public JPanelHelperJadwal(String type,String ID_Roster){
-        this(type);
-        this.ID_Roster = ID_Roster;
+    private String idMK = "";
+    private ArrayList<Roster> roster = null;
+    private Roster rosterNow = null;
+    private boolean isEdit = true;
+    
+    public JPanelHelperJadwal(String type,ArrayList<Roster> roster,String idMK){
+        this.idMK = idMK;
+        this.roster = roster;
+        generatePanel();
+        if(type.equals("Delete")){
+            generateShowForm(roster.get(0));
+            isEdit = false;
+            Delete.setVisible(true);
+            Save.setVisible(false);
+        }else if(type.equals("Edit")){
+            generateEditForm(roster.get(0));
+            Delete.setVisible(false);
+            Save.setVisible(true);
+        }
     }
-    public JPanelHelperJadwal(String type){
+    
+    public JPanelHelperJadwal(String type,String idMK){
+        this.idMK = idMK;
+        generatePanel();
+        generateInputForm();
+        Delete.setVisible(false);
+        Save.setVisible(true);
+    }
+    
+    private void generatePanel(){
         setLayout(null);
-       
+        
         Save = new JButton("Simpan");
         Save.setBounds(370,445, 100, 30);
         Save.setContentAreaFilled(true);
@@ -81,24 +122,8 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
         Delete.setVisible(false);
         add(Delete);
         
-        if(type.equals("Input")){
-            generateInputForm();
-            Delete.setVisible(false);
-            Save.setVisible(true);
-        }else if(type.equals("Delete")){
-            generateShowForm();
-            Delete.setVisible(true);
-            Save.setVisible(false);
-        }else if(type.equals("Edit")){
-            generateEditForm();
-            Delete.setVisible(false);
-            Save.setVisible(true);
-        }
     }
-    
     private void generateLabel(){
-        
-        
         labelTanggal = new JLabel("Tanggal :");
         labelTanggal.setBounds(0,5, 120, 30);
         labelTanggal.setFont(FONT_DEFAULT_PLAIN );
@@ -119,6 +144,11 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
         labelRuangan.setFont(FONT_DEFAULT_PLAIN);
         add(labelRuangan);
         
+        labelKehadiranDosen = new JLabel("Kehadiran Dosen :");
+        labelKehadiranDosen.setBounds(0,165, 120, 30);
+        labelKehadiranDosen.setFont(FONT_DEFAULT_PLAIN);
+        add(labelKehadiranDosen);
+        
     }
     
     private void generateInputForm(){
@@ -129,8 +159,8 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
         propertiesTglLahir.put("text.today", "Today");
         propertiesTglLahir.put("text.month", "Month");
         propertiesTglLahir.put("text.year", "Year");
-        modelTglLahir = new UtilDateModel();
-        datePanelTglLahir = new JDatePanelImpl(modelTglLahir, propertiesTglLahir);
+        modelTglRoster = new UtilDateModel();
+        datePanelTglLahir = new JDatePanelImpl(modelTglRoster, propertiesTglLahir);
         fieldTanggal = new JDatePickerImpl(datePanelTglLahir, new DateLabelFormatter());
         fieldTanggal.setBounds(140,5, 200, 30);
         fieldTanggal.setFont(FONT_DEFAULT_PLAIN);
@@ -151,21 +181,77 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
         fieldRuangan.setFont(FONT_DEFAULT_PLAIN);
         add(fieldRuangan);
         
-    }
-    
-    private void generateEditForm(){
-    
-        generateInputForm();
-        modelTglLahir.setSelected(true);
-        modelTglLahir.setDate(2020, 9, 17);
-        fieldJamMulai.setValue(listJam[9]);
-        fieldJamSelesai.setValue(listJam[12]);
-        fieldRuangan.setText("ABC");
-    }
-    
-    private void generateShowForm(){
+        fieldDosenHadir = new JRadioButton("Hadir");
+        fieldDosenHadir.setBounds(140,165, 100, 30);
+        fieldDosenHadir.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldDosenHadir);
         
-        generateEditForm();
+        fieldDosenTidakHadir = new JRadioButton("Tidak Hadir");
+        fieldDosenTidakHadir.setBounds(240,165, 100, 30);
+        fieldDosenTidakHadir.setFont(FONT_DEFAULT_PLAIN);
+        add(fieldDosenTidakHadir);
+        
+        bgKehadiranDosen = new ButtonGroup();
+        bgKehadiranDosen.add(fieldDosenHadir);
+        bgKehadiranDosen.add(fieldDosenTidakHadir);
+        
+        if(roster != null){
+            String listdate[] = new String[roster.size()] ;
+            for(int i=0; i<listdate.length; i++){
+                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
+                listdate[i] = dateFormat.format(roster.get(i).getTanggal());  
+            }
+            fieldAllRoster = new JComboBox(listdate);
+            fieldAllRoster.setBounds(360,5, 150, 30);
+            fieldAllRoster.setFont(FONT_DEFAULT_PLAIN);
+            add(fieldAllRoster);
+            
+            fieldAllRoster.addActionListener (new ActionListener () {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //Reset
+                        if( roster.get(fieldAllRoster.getSelectedIndex()) != rosterNow ){
+                            fieldTanggal.setVisible(false);
+                            fieldJamMulai.setVisible(false);
+                            fieldJamSelesai.setVisible(false);
+                            fieldRuangan.setVisible(false);
+                            fieldDosenHadir.setVisible(false);
+                            fieldDosenTidakHadir.setVisible(false);
+                            if(isEdit){
+                                generateEditForm(roster.get(fieldAllRoster.getSelectedIndex()));
+                            }else{
+                                generateShowForm(roster.get(fieldAllRoster.getSelectedIndex()));
+                            }
+                            
+                            System.out.println("Tanggl yg baru  " + rosterNow.getRuangan());
+                            
+
+                        }
+                    }
+            });
+        }
+        
+        
+    }
+    
+    private void generateEditForm(Roster r){
+        generateInputForm();
+        modelTglRoster.setSelected(true);
+        modelTglRoster.setValue(r.getTanggal());
+        fieldJamMulai.setValue(r.getJamMulai());
+        fieldJamSelesai.setValue(r.getJamSelesai());
+        fieldRuangan.setText(r.getRuangan());
+        if(r.isStatusDosen()){
+            fieldDosenHadir.setSelected(true);
+        }else{
+            fieldDosenTidakHadir.setSelected(true);
+        }
+        rosterNow = r;
+    }
+    
+    private void generateShowForm(Roster r){
+        
+        generateEditForm(r);
         fieldTanggal.setEnabled(false);
         fieldTanggal.getComponent(1).setEnabled(false);
         fieldJamMulai.setEnabled(false); 
@@ -179,17 +265,39 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
         String action = e.getActionCommand();
         System.out.println("Action Panel Helper Matakuliah : " + action);
         if(action.equals("Simpan")){
-            System.out.println("Hasil : ");
-            String tanggal = fieldTanggal.getModel().getValue().toString();
+            Date tanggal = (Date) fieldTanggal.getModel().getValue();
             String jamMulai = (String) fieldJamMulai.getValue();
             String jamSelesai = (String) fieldJamSelesai.getValue();
             String ruangan = fieldRuangan.getText();
+            boolean statusDosen = false;
+            if(fieldDosenHadir.isSelected()){
+                statusDosen = true;
+            }
             
-            Roster roster = new Roster(tanggal,jamMulai,jamSelesai,ruangan,false);
-            System.out.println(roster.toString());
-            //Tambahakn ke controller database
+            Roster newRoster = new Roster(0,tanggal,jamMulai,jamSelesai,ruangan,statusDosen);
+            if(roster == null){
+                if(rosterManageController.insertRoster(newRoster, idMK)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
+                }
+            }else{
+                int idroster = rosterManageController.getRoster(rosterNow, idMK);
+                if(rosterManageController.updateRoster(newRoster, idMK, idroster)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
+                }
+                //update
+            }
+            
         }else if(action.equals("Hapus")){
-            System.out.println("Masuk Hapus ke database");
+            int idroster = rosterManageController.getRoster(rosterNow, idMK);
+            if(rosterManageController.deleteRoster(idroster)){
+                    JOptionPane.showMessageDialog(null, "Berhasil Menghapus di Database");
+            }else{
+                JOptionPane.showMessageDialog(null, "Gagal Menghapus di Database");
+            }
             //Hapus ke controller database
         }
         

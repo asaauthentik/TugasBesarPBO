@@ -18,7 +18,7 @@ public interface DatabaseConfig {
     
     //Server AWS (Not Always On)
     String DATABASE = "tubespbo";
-    String HOST = "3.86.60.57 ";
+    String HOST = "3.86.206.93";
     String USERNAME = "pbo_apps";
     String PASSWORD = "qSMj2gndcPZOHaqu";
     

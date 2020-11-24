@@ -6,6 +6,7 @@
 package view.menuDaak.Helper;
 
 import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Properties;
@@ -89,6 +90,7 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
             Delete.setVisible(false);
             Save.setVisible(true);
         }
+        setBackground(Color.DARK_GRAY);
     }
     
     private void generateLabel(){

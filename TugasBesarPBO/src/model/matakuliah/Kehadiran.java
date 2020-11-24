@@ -5,6 +5,8 @@
  */
 package model.matakuliah;
 
+import java.util.Date;
+
 /**
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
@@ -18,12 +20,18 @@ public class Kehadiran extends Roster{
     public Kehadiran(){
         super();
     }
-    public Kehadiran(String NIM,String keterangan, String tanggal, String jamMulai, String jamSelesai, String ruangan,boolean statusDosen) {
 
-        super(tanggal, jamMulai, jamSelesai, ruangan, statusDosen);
+    public Kehadiran(String NIM, String keterangan) {
         this.NIM = NIM;
         this.keterangan = keterangan;
     }
+
+    public Kehadiran(String NIM, String keterangan, int ID_Roster, Date tanggal, String jamMulai, String jamSelesai, String ruangan, boolean statusDosen) {
+        super(ID_Roster, tanggal, jamMulai, jamSelesai, ruangan, statusDosen);
+        this.NIM = NIM;
+        this.keterangan = keterangan;
+    }
+   
 
     public String getNIM() {
         return NIM;
