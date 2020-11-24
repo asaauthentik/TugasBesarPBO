@@ -5,6 +5,7 @@
  */
 package view.menuMahasiswa;
 
+import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -40,22 +41,20 @@ public class JPanelProfile extends JPanel implements ViewConfig{
     private final JButton Keluar;
     public JPanelProfile(){
         //Dummny
-        Mahasiswa mhs = new Mahasiswa();
-        mhs.setJenisKelamin("Peremupuan");
-        mhs.setTahunLulus(2020);
-        mhs.setTahunMasuk(2019);
-        
-        mhs.setPredikat("Cum Laud");
-        mhs.setNIM("1119038");
-        mhs.setNomorTelepon("057356566895");
-        
-        mhs.setTanggalLahir(new Date());
-        mhs.setNamaLengkap("Elangel Shaday");
-        mhs.setEmail("elagel@yahoo.com");
-        mhs.setPathFoto("https://jawdhwjdakjdwak.com");
-        
-        
-        
+        Mahasiswa mhs = (Mahasiswa) UserManager.getInstance().getUser();
+//        mhs.setJenisKelamin("Perempuan");
+//        mhs.setTahunLulus(2020);
+//        mhs.setTahunMasuk(2019);
+//        
+//        mhs.setPredikat("Cumlaude");
+//        mhs.setNIM("1119038");
+//        mhs.setNomorTelepon("057356566895");
+//        
+//        mhs.setTanggalLahir(new Date());
+//        mhs.setNamaLengkap("Elangel Shaday");
+//        mhs.setEmail("elagel@yahoo.com");
+//        mhs.setPathFoto("https://jawdhwjdakjdwak.com");
+
         /// !1!!!!!!!!!!!!!!!!!!
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
