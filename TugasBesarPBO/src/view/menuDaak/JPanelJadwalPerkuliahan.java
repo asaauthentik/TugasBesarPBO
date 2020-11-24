@@ -5,18 +5,23 @@
  */
 package view.menuDaak;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rosterManageController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Roster;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -40,6 +45,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
     private JButton btnTypeMatakuliah;
     
     private JTextField kodeMKJadwal;
+    private JTextField kelasMK;
     
     private String listSemester[] = {"-Semester-","Ganjil", "Genap","Pendek"};
     private JComboBox optionSemester;
@@ -146,9 +152,32 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
         });
         yearJadwal.setVisible(false);
         add(yearJadwal);
-       
-       btnSearchEdit = new JButton("Cari");
-        btnSearchEdit.setBounds(420, 100, 100 ,30);
+        
+        kelasMK = new JTextField(" Kelas");
+        kelasMK.setBounds(410, 100, 70 ,30);
+        kelasMK.setFont(FONT_DEFAULT_PLAIN);
+        kelasMK.setForeground(Color.GRAY);
+        kelasMK.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (kelasMK.getText().equals(" Kelas")) {
+                    kelasMK.setText("");
+                    kelasMK.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (kelasMK.getText().isEmpty()) {
+                    kelasMK.setForeground(Color.GRAY);
+                    kelasMK.setText(" Kelas");
+                }
+            }
+        });
+        kelasMK.setVisible(false);
+        add(kelasMK);
+        
+        btnSearchEdit = new JButton("Cari");
+        btnSearchEdit.setBounds(490, 100, 100 ,30);
         btnSearchEdit.setContentAreaFilled(true);
         btnSearchEdit.setBackground(BGCOLOR_DEFAULT);
         btnSearchEdit.setForeground(COLOR_WHITE);
@@ -160,7 +189,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
         add(btnSearchEdit);
         
         btnTypeMatakuliah = new JButton("Process");
-        btnTypeMatakuliah.setBounds(420, 100, 100 ,30);
+        btnTypeMatakuliah.setBounds(490, 100, 100 ,30);
         btnTypeMatakuliah.setContentAreaFilled(true);
         btnTypeMatakuliah.setBackground(BGCOLOR_DEFAULT);
         btnTypeMatakuliah.setForeground(COLOR_WHITE);
@@ -218,18 +247,23 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
             String  kodeMK = kodeMKJadwal.getText();
             String  semester = (String) optionSemester.getSelectedItem();
             String  tahun = yearJadwal.getText();
+            char  kelas = kelasMK.getText().charAt(0);
+            
             if(!checkInput()){
                 JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
                 return;
             }
-            
-            if(true){      
-                jadwalCreate = new JPanelHelperJadwal("Input");
+            DetailMatakuliah dMK = matakuliahManageController.getDetailMatakuliah(kodeMK,Integer.valueOf(tahun),semester,kelas);
+            if(dMK != null){
+                jadwalCreate = new JPanelHelperJadwal("Input",dMK.getId_MK());
                 jadwalCreate.setBounds(20,135,668,490);
                 jadwalCreate.setVisible(false);
                 add(jadwalCreate);
                 jadwalCreate.setVisible(true);
-            }
+            }else{
+                JOptionPane.showMessageDialog(null, "Matakuliah yang dimasukan tidak ada pada semester dan tahun yang diberikan");
+                return;
+             }
             Cancel.setVisible(true);
             return;
          }
@@ -243,29 +277,36 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
          
          //Proccces Edit / Delete
          if(option.equals("Cari")){
-             String  kodeMK = kodeMKJadwal.getText();
-             String  semester = (String) optionSemester.getSelectedItem();
-             String  tahun = yearJadwal.getText();
+             String kodeMK = kodeMKJadwal.getText();
+             String semester = (String) optionSemester.getSelectedItem();
+             String tahun = yearJadwal.getText();
+             String kelas = kelasMK.getText();
              if(!checkInput()){
                 JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
                 return;
              }
-             //Lakukan pencarian didatabase nanti y :v
-             boolean foundTest = true;
-             String ID_Roster = "";
-             //Dummy Boy
-             
-             //End Dummy
+                          
+             boolean foundTest = false;
+             String idMK = "";
+             ArrayList<Roster> roster = null;
+             DetailMatakuliah dMK = matakuliahManageController.getDetailMatakuliah(kodeMK,Integer.valueOf(tahun),semester,kelas.charAt(0));
+             if(dMK != null){
+                 idMK = dMK.getId_MK();
+                 roster = rosterManageController.getArrayRoster(idMK);
+                 if(!roster.isEmpty()){
+                     foundTest = true;
+                 }
+             }
              if(foundTest){
                 if(menuNow.equals("Edit Jadwal")){
-                    jadwalEdit = new JPanelHelperJadwal("Edit",ID_Roster);
+                    jadwalEdit = new JPanelHelperJadwal("Edit",roster,idMK);
                     jadwalEdit.setBounds(20,135,660,490);
                     jadwalEdit.setVisible(false);
                     add(jadwalEdit);
                     jadwalEdit.setVisible(true);
 
                 }else if(menuNow.equals("Delete Jadwal")){
-                    jadwalDelete = new JPanelHelperJadwal("Delete",ID_Roster);
+                    jadwalDelete = new JPanelHelperJadwal("Delete",roster,idMK);
                     jadwalDelete.setBounds(20,135,660,490);
                     jadwalDelete.setVisible(false);
                     add(jadwalDelete);
@@ -295,6 +336,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
          kodeMKJadwal.setVisible(false);
          optionSemester.setVisible(false);
          yearJadwal.setVisible(false);
+         kelasMK.setVisible(false);
             
         if(option.equals("Tambah Jadwal")){
             menuNow = "Tambah Jadwal";
@@ -304,6 +346,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
             yearJadwal.setVisible(true);
             kodeMKJadwal.setVisible(true);
             btnTypeMatakuliah.setVisible(true);
+            kelasMK.setVisible(true);
         }else if(option.equals("Edit Jadwal")){
             menuNow = "Edit Jadwal";
             editJadwal.setBackground(BGCOLOR_DEFAULT);
@@ -312,6 +355,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
             yearJadwal.setVisible(true);
             kodeMKJadwal.setVisible(true);
             btnSearchEdit.setVisible(true);
+            kelasMK.setVisible(true);
         }else if(option.equals("Hapus Jadwal")){
             menuNow = "Delete Jadwal";
             deleteJadwal.setBackground(BGCOLOR_DEFAULT);
@@ -320,13 +364,12 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
             yearJadwal.setVisible(true);
             kodeMKJadwal.setVisible(true);
             btnSearchEdit.setVisible(true);
+            kelasMK.setVisible(true);
         }
          
     }
     private boolean checkInput(){
-        
-        if(kodeMKJadwal.getText().equals(" Kode MK")  || ((String) optionSemester.getSelectedItem()).equals("-Semester-") || yearJadwal.getText().equals(" Tahun") ){
-            System.out.println("Hellodjw");
+        if(kelasMK.getText().equals(" Kelas") ||kodeMKJadwal.getText().equals(" Kode MK")  || ((String) optionSemester.getSelectedItem()).equals("-Semester-") || yearJadwal.getText().equals(" Tahun") ){
             return false;
         }
         return true;

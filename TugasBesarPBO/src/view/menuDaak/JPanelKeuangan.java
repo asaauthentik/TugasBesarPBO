@@ -227,7 +227,7 @@ public class JPanelKeuangan  extends JPanel implements ActionListener,ViewConfig
             String  tahun = yearJadwal.getText();
             System.out.println("Nim : " + kodeMK + " Semester : " + semester + " Tahun : " + tahun);
             if(true){      
-                jadwalCreate = new JPanelHelperJadwal("Input");
+                //jadwalCreate = new JPanelHelperJadwal("Input");
                 jadwalCreate.setBounds(20,135,668,490);
                 jadwalCreate.setVisible(false);
                 add(jadwalCreate);
@@ -257,14 +257,14 @@ public class JPanelKeuangan  extends JPanel implements ActionListener,ViewConfig
              //End Dummy
              if(foundTest){
                 if(menuNow.equals("Edit Jadwal")){
-                    jadwalEdit = new JPanelHelperJadwal("Edit");
+                    //jadwalEdit = new JPanelHelperJadwal("Edit");
                     jadwalEdit.setBounds(20,135,660,490);
                     jadwalEdit.setVisible(false);
                     add(jadwalEdit);
                     jadwalEdit.setVisible(true);
 
                 }else if(menuNow.equals("Delete Jadwal")){
-                    jadwalDelete = new JPanelHelperJadwal("Delete");
+                    //jadwalDelete = new JPanelHelperJadwal("Delete");
                     jadwalDelete.setBounds(20,135,660,490);
                     jadwalDelete.setVisible(false);
                     add(jadwalDelete);
