@@ -56,7 +56,7 @@ jobs:
       with:
           java-version: 11
     - name: Build with Ant
-      run: ant -noinput -buildfile TugasBesarPBO/build.xml
+      run: ant all -noinput -buildfile TugasBesarPBO/build.xml
     #- run: |
     #   make bootstrap
     #   make release
