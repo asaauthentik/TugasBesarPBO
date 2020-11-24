@@ -5,9 +5,11 @@
  */
 package view.menuMahasiswa;
 
+import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -15,10 +17,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import model.user.Mahasiswa;
 import view.ViewConfig;
 import static view.ViewConfig.*;
 
@@ -34,6 +40,22 @@ public class JPanelProfile extends JPanel implements ViewConfig{
     private final JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK, ViewPredikat;
     private final JButton Keluar;
     public JPanelProfile(){
+        //Dummny
+        Mahasiswa mhs = (Mahasiswa) UserManager.getInstance().getUser();
+//        mhs.setJenisKelamin("Perempuan");
+//        mhs.setTahunLulus(2020);
+//        mhs.setTahunMasuk(2019);
+//        
+//        mhs.setPredikat("Cumlaude");
+//        mhs.setNIM("1119038");
+//        mhs.setNomorTelepon("057356566895");
+//        
+//        mhs.setTanggalLahir(new Date());
+//        mhs.setNamaLengkap("Elangel Shaday");
+//        mhs.setEmail("elagel@yahoo.com");
+//        mhs.setPathFoto("https://jawdhwjdakjdwak.com");
+
+        /// !1!!!!!!!!!!!!!!!!!!
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
         Header.setBounds(0,20,700,50);
@@ -43,18 +65,24 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         Header.add(Judul);
         add(Header);
         setLayout(null);
-        //Foto
-        //String pathFileFoto = "C:\\Users\\Rog\\Pictures\\Foto\\Elangel.jpg";
+        
         JLabel ViewFoto;
         Image img = null;
         try {
-            img = ImageIO.read(new URL("https://3ncrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBVtrw01AM9oJidFPKQbmigHhqll_3ScuACg&usqp=CAU"));
+            img = ImageIO.read(new URL(mhs.getPathFoto()));
         } catch (Exception ex) {
-            ImageIcon pathFoto = new ImageIcon(new File("asset/profile-dp.png").getAbsolutePath());
-            img = pathFoto.getImage();
+            String RESOURCE = "../asset/profile-dp.png";
+            URL url = getClass().getResource( RESOURCE );
+            if(url == null ){
+                try {
+                    throw new Exception( "ERR cannot find resource: " + RESOURCE );
+                } catch (Exception ex1) {
+                    Logger.getLogger(view.menuMahasiswa.JPanelProfile.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+            img = Toolkit.getDefaultToolkit().getImage( url );
             System.out.println("Error " + ex.getMessage());
         } 
-        
         Image newPicture1 = img.getScaledInstance(300,300, Image.SCALE_SMOOTH);
         ImageIcon image1 = new ImageIcon(newPicture1);
         ViewFoto = new JLabel(image1);
@@ -64,63 +92,65 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         NIM = new JLabel("NIM");
         NIM.setBounds(370,80,100,100);
         add(NIM);
-        ViewNIM = new JLabel(": 1119038");
+        ViewNIM = new JLabel(": " + mhs.getNIM());
         ViewNIM.setBounds(470,80,100,100);
         add(ViewNIM);
         //Nama
         Nama = new JLabel("Nama");
         Nama.setBounds(370,110,100,100);
         add(Nama);
-        ViewNama = new JLabel(": Elangel");
+        ViewNama = new JLabel(": " + mhs.getNamaLengkap());
         ViewNama.setBounds(470,110,100,100);
         add(ViewNama);
         //Jurusan
         Jurusan = new JLabel("Jurusan");
         Jurusan.setBounds(370,140,100,100);
         add(Jurusan);
-        ViewJurusan = new JLabel(": Informatika");
+        ViewJurusan = new JLabel(": " + mhs.getJurusan());
         ViewJurusan.setBounds(470,140,100,100);
         add(ViewJurusan);
         //Angkatan
         Angkatan = new JLabel("Angkatan");
         Angkatan.setBounds(370,170,100,100);
         add(Angkatan);
-        ViewAngkatan = new JLabel(": 2019");
+        ViewAngkatan = new JLabel(": " + mhs.getTahunMasuk());
         ViewAngkatan.setBounds(470,170,100,100);
         add(ViewAngkatan);
         //Tanggal Lahir
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");  
+        String tgllahir = dateFormat.format(mhs.getTanggalLahir());
         TanggalLahir = new JLabel("Tanggal Lahir");
         TanggalLahir.setBounds(370,200,100,100);
         add(TanggalLahir);
-        ViewTanggalLahir = new JLabel(": 17 Agustus 2001");
+        ViewTanggalLahir = new JLabel(": " + tgllahir);
         ViewTanggalLahir.setBounds(470,200,100,100);
         add(ViewTanggalLahir);
         //Jenis Kelamin
         JenisKelamin = new JLabel("Jenis Kelamin");
         JenisKelamin.setBounds(370,230,100,100);
         add(JenisKelamin);
-        ViewJenisKelamin = new JLabel(": Perempuan");
+        ViewJenisKelamin = new JLabel(": " + mhs.getJenisKelamin());
         ViewJenisKelamin.setBounds(470,230,100,100);
         add(ViewJenisKelamin);
         //Nomor HP
         NomorHP = new JLabel("Nomor HP");
         NomorHP.setBounds(370,260,100,100);
         add(NomorHP);
-        ViewNomorHP = new JLabel(": 08123456789");
+        ViewNomorHP = new JLabel(": " + mhs.getNomorTelepon());
         ViewNomorHP.setBounds(470,260,100,100);
         add(ViewNomorHP);
         //Email
         Email = new JLabel("Email");
         Email.setBounds(370,290,100,100);
         add(Email);
-        ViewEmail = new JLabel(": elangel@gmail.com");
+        ViewEmail = new JLabel(": " + mhs.getEmail());
         ViewEmail.setBounds(470,290,200,100);
         add(ViewEmail);
         //Alamat 
-        Alamat = new JLabel("Alamat");
+        Alamat = new JLabel("Tahun Lulus");
         Alamat.setBounds(370,320,100,100);
         add(Alamat);
-        ViewAlamat = new JLabel(": Bandung");
+        ViewAlamat = new JLabel(": " + mhs.getTahunLulus());
         ViewAlamat.setBounds(470,320,100,100);
         add(ViewAlamat);
         
@@ -137,7 +167,7 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         ViewIPKPanel = new JPanel();
         ViewIPKPanel.setBounds(150,450,100,40);
         ViewIPKPanel.setBackground(Color.LIGHT_GRAY);
-        ViewIPK= new JLabel("4.00");
+        ViewIPK= new JLabel(String.valueOf(mhs.getIpk()));
         ViewIPK.setBounds(0,320,100,100);
         ViewIPK.setFont(FONT_TITLE);
         ViewIPKPanel.add(ViewIPK);
@@ -156,7 +186,7 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         ViewPredikatPanel = new JPanel();
         ViewPredikatPanel.setBounds(440,450,180,40);
         ViewPredikatPanel.setBackground(Color.LIGHT_GRAY);
-        ViewPredikat = new JLabel("Cumlaude");
+        ViewPredikat = new JLabel(mhs.getPredikat());
         ViewPredikat.setBounds(0,350,100,100);
         ViewPredikat.setFont(FONT_TITLE);
         ViewPredikatPanel.add(ViewPredikat);

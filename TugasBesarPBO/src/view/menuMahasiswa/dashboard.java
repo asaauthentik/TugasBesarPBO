@@ -203,7 +203,7 @@ public class dashboard implements ActionListener,ViewConfig {
         }
         //System.out.println(option);
     }
-    public static void main(String[] args){
-        dashboard dashboard = new dashboard();
-    }
+//    public static void main(String[] args){
+//        dashboard dashboard = new dashboard();
+//    }
 }
