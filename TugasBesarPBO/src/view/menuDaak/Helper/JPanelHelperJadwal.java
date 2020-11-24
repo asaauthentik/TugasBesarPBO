@@ -5,18 +5,14 @@
  */
 package view.menuDaak.Helper;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 import controller.DatabaseController.ContollerDaak.rosterManageController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -55,7 +51,7 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
     private JDatePickerImpl fieldTanggal;
     private JSpinner fieldJamMulai;
     private final String listJam[] = {"01:00:00","01:30:00","02:00:00","02:30:00","03:00:00","03:30:00","04:00:00","04:30:00","05:00:00","05:30:00","06:00:00","06:30:00","07:00:00","07:30:00","08:00:00","08:30:00","09:00:00","09:30:00","10:00:00" ,"10:30:00" ,"11:00:00" ,"11:30:00" ,"12:00:00" ,"12:30:00" ,"13:00:00" ,"13:30:00" ,"14:00:00" ,"14:30:00" ,"15:00:00" ,"15:30:00" ,"16:00:00" ,"16:30:00" ,"17:00:00" ,"17:30:00" ,"18:00:00" ,"18:30:00" ,"19:00:00" ,"19:30:00" ,"20:00:00" ,"20:30:00" ,"21:00:00" ,"21:30:00" ,"22:00:00" ,"22:30:00" ,"23:00:00" ,"23:30:00" ,"24:00:00" ,"24:30:00"};
-    //private String listJam[] = {"","1.00", "1.30", "2.00", "2.30", "3.00", "3.30", "4.00", "4.30", "5.00", "5.30", "6.00", "6.30", "7.00", "7.30", "8.00", "8.30", "9.00", "9.30", "10.00", "10.30", "11.00", "11.30", "12.00", "12.30", "13.00", "13.30", "14.00", "14.30", "15.00", "15.30", "16.00", "16.30", "17.00", "17.30", "18.00", "18.30", "19.00", "19.30", "20.00", "20.30", "21.00", "21.30", "22.00", "22.30", "23.00", "23.30", "24.00", "24.30"};
+    
     private JSpinner fieldJamSelesai;
     private JTextField fieldRuangan;
     private JRadioButton fieldDosenHadir;
@@ -223,7 +219,7 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
                                 generateShowForm(roster.get(fieldAllRoster.getSelectedIndex()));
                             }
                             
-                            System.out.println("Tanggl yg baru  " + rosterNow.getRuangan());
+                            //System.out.println("Tanggl yg baru  " + rosterNow.getRuangan());
                             
 
                         }

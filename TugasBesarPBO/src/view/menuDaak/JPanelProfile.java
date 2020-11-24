@@ -9,9 +9,19 @@ package view.menuDaak;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import model.user.Daak;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -26,11 +36,29 @@ import static view.ViewConfig.FONT_TITLE;
 public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
     private final JPanel Header;
     private final JLabel Judul;
-    private final JLabel NIK, Nama, Jabatan, StatusKontrak, TanggalLahir, JenisKelamin, NomorHP, Email, HAKeuangan, HAKemahasiswaan, HAPerkuliahaan;
-    private final JLabel ViewNIK, ViewNama, ViewJabatan, ViewStatusKontrak, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewHAKeuangan, ViewHAKemahasiswaan, ViewHAPerkuliahaan;
+    private final JLabel NIK, Nama, Jabatan, StatusKontrak, TanggalLahir, JenisKelamin, NomorHP, Email, HAKeuangan, HAKemahasiswaan, HARencanaStudi, HAUser, HAJadwal;
+    private final JLabel ViewNIK, ViewNama, ViewJabatan, ViewStatusKontrak, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewHAKeuangan, ViewHAKemahasiswaan, ViewHARencanaStudi, ViewHAUser, ViewHAJadwal;
     private final JButton Keluar;
     
     public JPanelProfile(){
+        //From singleton
+        Daak daak = new Daak();
+        daak.setJenisKelamin("Laki-Laki");
+        daak.setHakAksesJadwalPerkuliahan(true);
+        daak.setHakAksesKeuangan(false);
+        daak.setHakAksesMatakuliah(true);
+        daak.setHakAksesRencanaStudi(true);
+        daak.setHakAksesUser(true);
+        daak.setJabatan("Administrasi");
+        daak.setNIK("4729847239867");
+        daak.setNomorTelepon("057356566895");
+        daak.setStatusKontrak(true);
+        daak.setTanggalLahir(new Date());
+        daak.setNamaLengkap("Albertus Angkuw");
+        daak.setEmail("angkuwjr@yahoo.com");
+        daak.setPathFoto("https://i.pinimg.com/originals/81/9f/b8/819fb8b2baa84564043bfb1d81e7c323.jpg");
+        
+        //dum dum
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
         Header.setBounds(0,20,700,50);
@@ -40,93 +68,126 @@ public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
         Header.add(Judul);
         add(Header);
         setLayout(null);
-        //Foto
-        String pathFileFoto = "C:\\Users\\Rog\\Pictures\\Foto\\Elangel.jpg";
+       
         JLabel ViewFoto;
-        ImageIcon pathFoto = new ImageIcon(pathFileFoto);
-        Image pathPictureFoto = pathFoto.getImage();
-        Image newPicture1 = pathPictureFoto.getScaledInstance(300,300, Image.SCALE_SMOOTH);
+        Image img = null;
+        try {
+            img = ImageIO.read(new URL(daak.getPathFoto()));
+        } catch (Exception ex) {
+            String RESOURCE = "../asset/profile-dp.png";
+            URL url = getClass().getResource( RESOURCE );
+            if(url == null ){
+                try {
+                    throw new Exception( "ERR cannot find resource: " + RESOURCE );
+                } catch (Exception ex1) {
+                    Logger.getLogger(view.menuMahasiswa.JPanelProfile.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+            img = Toolkit.getDefaultToolkit().getImage( url );
+            System.out.println("Error " + ex.getMessage());
+        } 
+        Image newPicture1 = img.getScaledInstance(300,300, Image.SCALE_SMOOTH);
         ImageIcon image1 = new ImageIcon(newPicture1);
         ViewFoto = new JLabel(image1);
         ViewFoto.setBounds(50,100,270,300);
         add(ViewFoto);
         //NIM
         NIK = new JLabel("NIK");
-        NIK.setBounds(370,80,170,100);
+        NIK.setBounds(350,80,170,100);
         add(NIK);
-        ViewNIK = new JLabel(": 1119038");
-        ViewNIK.setBounds(540,80,200,100);
+        ViewNIK = new JLabel(": " + daak.getNIK());
+        ViewNIK.setBounds(490,80,200,100);
         add(ViewNIK);
         //Nama
         Nama = new JLabel("Nama");
-        Nama.setBounds(370,110,170,100);
+        Nama.setBounds(350,110,170,100);
         add(Nama);
-        ViewNama = new JLabel(": Albert");
-        ViewNama.setBounds(540,110,200,100);
+        ViewNama = new JLabel(":  " + daak.getNamaLengkap());
+        ViewNama.setBounds(490,110,200,100);
         add(ViewNama);
         //Jurusan
-        Jabatan = new JLabel("Jabatan");
-        Jabatan.setBounds(370,140,170,100);
+        Jabatan = new JLabel("Jabatan ");
+        Jabatan.setBounds(350,140,170,100);
         add(Jabatan);
-        ViewJabatan = new JLabel(": Administrasi");
-        ViewJabatan.setBounds(540,140,200,100);
+        ViewJabatan = new JLabel(": " + daak.getJabatan());
+        ViewJabatan.setBounds(490,140,200,100);
         add(ViewJabatan);
         //Angkatan
+        String statusKontrak = "Aktif";
+        if(!daak.isStatusKontrak()){
+            statusKontrak = "Tidak Aktif";
+        }
         StatusKontrak = new JLabel("Status Kontrak");
-        StatusKontrak.setBounds(370,170,170,100);
+        StatusKontrak.setBounds(350,170,170,100);
         add(StatusKontrak);
-        ViewStatusKontrak = new JLabel(": Aktif");
-        ViewStatusKontrak.setBounds(540,170,200,100);
+        ViewStatusKontrak = new JLabel(": " + statusKontrak);
+        ViewStatusKontrak.setBounds(490,170,200,100);
         add(ViewStatusKontrak);
         //Tanggal Lahir
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");  
+        String tgllahir = dateFormat.format(daak.getTanggalLahir());
         TanggalLahir = new JLabel("Tanggal Lahir");
-        TanggalLahir.setBounds(370,200,170,100);
+        TanggalLahir.setBounds(350,200,170,100);
         add(TanggalLahir);
-        ViewTanggalLahir = new JLabel(": 17 September 2001");
-        ViewTanggalLahir.setBounds(540,200,200,100);
+        ViewTanggalLahir = new JLabel(": " + tgllahir);
+        ViewTanggalLahir.setBounds(490,200,200,100);
         add(ViewTanggalLahir);
         //Jenis Kelamin
         JenisKelamin = new JLabel("Jenis Kelamin");
-        JenisKelamin.setBounds(370,230,170,100);
+        JenisKelamin.setBounds(350,230,170,100);
         add(JenisKelamin);
-        ViewJenisKelamin = new JLabel(": Pria");
-        ViewJenisKelamin.setBounds(540,230,200,100);
+        ViewJenisKelamin = new JLabel(": " + daak.getJenisKelamin());
+        ViewJenisKelamin.setBounds(490,230,200,100);
         add(ViewJenisKelamin);
         //Nomor HP
         NomorHP = new JLabel("Nomor HP");
-        NomorHP.setBounds(370,260,170,100);
+        NomorHP.setBounds(350,260,170,100);
         add(NomorHP);
-        ViewNomorHP = new JLabel(": 08123456789");
-        ViewNomorHP.setBounds(540,260,200,100);
+        ViewNomorHP = new JLabel(": " + daak.getNomorTelepon());
+        ViewNomorHP.setBounds(490,260,200,100);
         add(ViewNomorHP);
         //Email
         Email = new JLabel("Email");
-        Email.setBounds(370,290,170,100);
+        Email.setBounds(350,290,170,100);
         add(Email);
-        ViewEmail = new JLabel(": albert@gmail.com");
-        ViewEmail.setBounds(540,290,200,100);
+        ViewEmail = new JLabel(": " + daak.getEmail());
+        ViewEmail.setBounds(490,290,200,100);
         add(ViewEmail);
         //Alamat 
-        HAKeuangan = new JLabel("Hak Akses Keuangan");
-        HAKeuangan.setBounds(370,320,170,100);
+        HAKeuangan = new JLabel("Akses Keuangan");
+        HAKeuangan.setBounds(350,320,170,100);
         add(HAKeuangan);
-        ViewHAKeuangan = new JLabel(": Boleh");
-        ViewHAKeuangan.setBounds(540,320,200,100);
+        ViewHAKeuangan = new JLabel(": " + getPrivilege(daak.isHakAksesKeuangan()));
+        ViewHAKeuangan.setBounds(490,320,200,100);
         add(ViewHAKeuangan);
         
-        HAKemahasiswaan = new JLabel("Hak Akses Kemahasiswaan");
-        HAKemahasiswaan.setBounds(370,350,170,100);
+        HAKemahasiswaan = new JLabel("Akses Matakuliah");
+        HAKemahasiswaan.setBounds(350,350,170,100);
         add(HAKemahasiswaan);
-        ViewHAKemahasiswaan = new JLabel(": Boleh");
-        ViewHAKemahasiswaan.setBounds(540,350,200,100);
+        ViewHAKemahasiswaan = new JLabel(": " + getPrivilege(daak.isHakAksesMatakuliah()));
+        ViewHAKemahasiswaan.setBounds(490,350,200,100);
         add(ViewHAKemahasiswaan);
         
-        HAPerkuliahaan = new JLabel("Hak Akses Perkuliahaan");
-        HAPerkuliahaan.setBounds(370,380,170,100);
-        add(HAPerkuliahaan);
-        ViewHAPerkuliahaan = new JLabel(": Boleh");
-        ViewHAPerkuliahaan.setBounds(540,380,200,100);
-        add(ViewHAPerkuliahaan);
+        HARencanaStudi = new JLabel("Akses Rencana Studi");
+        HARencanaStudi.setBounds(350,380,170,100);
+        add(HARencanaStudi);
+        ViewHARencanaStudi = new JLabel(": " + getPrivilege(daak.isHakAksesRencanaStudi()));
+        ViewHARencanaStudi.setBounds(490,380,200,100);
+        add(ViewHARencanaStudi);
+        
+        HAUser = new JLabel("Akses User");
+        HAUser.setBounds(350,410,170,100);
+        add(HAUser);
+        ViewHAUser = new JLabel(": " + getPrivilege(daak.isHakAksesUser()));
+        ViewHAUser.setBounds(490,410,200,100);
+        add(ViewHAUser);
+        
+        HAJadwal = new JLabel("Akses Jadwal Kuliah");
+        HAJadwal.setBounds(350,440,170,100);
+        add(HAJadwal);
+        ViewHAJadwal = new JLabel(": " + getPrivilege(daak.isHakAksesJadwalPerkuliahan()));
+        ViewHAJadwal.setBounds(490,440,200,100);
+        add(ViewHAJadwal);
         
         //Button keluar
         Keluar = new JButton("Keluar");
@@ -141,7 +202,12 @@ public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
         add(Keluar);
     }
     
-    
+    private String getPrivilege(boolean privilege){
+        if(privilege){
+            return "Boleh";        
+        }
+        return "Tidak Boleh";
+    }
     @Override
     public Dimension getPreferredSize() {
         return DIMENSION_PANEL_CARD;

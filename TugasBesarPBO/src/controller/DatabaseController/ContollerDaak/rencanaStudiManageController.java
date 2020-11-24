@@ -5,15 +5,13 @@
  */
 package controller.DatabaseController.ContollerDaak;
 
-import static controller.DatabaseController.ContollerDaak.matakuliahManageController.conn;
+
 import controller.DatabaseHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.matakuliah.DetailMatakuliah;
-import model.matakuliah.Matakuliah;
 import model.matakuliah.RencanaStudi;
 
 /**
