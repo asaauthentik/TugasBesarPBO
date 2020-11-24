@@ -6,6 +6,7 @@
 package view;
 
 import controller.DatabaseController.loginController;
+import controller.UserManager;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import javax.swing.JTextField;
 import model.user.User;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
+import view.menuDaak.dashboard;
 
 /**
  *
@@ -111,6 +113,17 @@ public class loginMenu implements ActionListener,ViewConfig{
                 User user = loginController.searchUser(email, password);
                 if(user != null){
                     JOptionPane.showMessageDialog(null,"Berhasil Login!");
+                    UserManager.getInstance().setUser(user);
+                    if(user.getJenisUser() == 1){
+                        new view.menuDaak.dashboard();
+                    }else if(user.getJenisUser() == 2){
+                        new view.menuDosen.dashboard();
+                    }else if(user.getJenisUser() == 3){
+                        new view.menuMahasiswa.dashboard();
+                    }else{
+                        System.out.println("User tidak ditemukan");
+                        System.out.println(user.toString());
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null,"Data tidak ditemukan!");
                 }

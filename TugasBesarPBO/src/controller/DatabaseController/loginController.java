@@ -26,13 +26,13 @@ public class loginController {
         
         if(getDaak(idUser) != null){
             Daak daak = getDaak(idUser);
-            return daak;
+            return getUser(daak);
         }else if(getMahasiswa(idUser) != null){
             Mahasiswa mhs = getMahasiswa(idUser);
-            return mhs;
+            return getUser(mhs);
         }else if(getDosen(idUser) != null){
             Dosen dosen = getDosen(idUser);
-            return dosen;
+            return getUser(dosen);
         }
         return null;
     }
