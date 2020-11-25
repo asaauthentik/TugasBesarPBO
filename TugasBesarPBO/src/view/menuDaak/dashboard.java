@@ -8,6 +8,7 @@ package view.menuDaak;
 
 
 
+import controller.UserManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
+import javax.swing.JOptionPane;
 
 import javax.swing.JPanel;
 
@@ -27,26 +29,26 @@ import view.ViewConfig;
  * @author 1119002 Albertus Angkuw
  */
 public class dashboard implements ActionListener,ViewConfig {
-    private CardLayout card;
-    private JPanel cardPanel;
-    private JPanel sideBar;
+    private final CardLayout card;
+    private final JPanel cardPanel;
+    private final JPanel sideBar;
     //--List Card as Menu
   
     //Menu DAAK
-    private JPanelProfile profile;
-    private JPanelRencanaStudi rencanaStudi;
-    private JPanelMatakuliah matakuliah;
-    private JPanelKeuangan keuangan;
-    private JPanelUser user;
-    private JPanelJadwalPerkuliahan jadwalPerkuliahan;
+    private final JPanelProfile profile;
+    private final JPanelRencanaStudi rencanaStudi;
+    private final JPanelMatakuliah matakuliah;
+    private final JPanelKeuangan keuangan;
+    private final JPanelUser user;
+    private final JPanelJadwalPerkuliahan jadwalPerkuliahan;
       
     //List Button
-    private JButton showProfile ;
-    private JButton showRencanaStudi ;
-    private JButton showMatakuliah ;
-    private JButton showKeuangan ;
-    private JButton showJadwalPerkuliahan;
-    private JButton showUser;
+    private final JButton showProfile ;
+    private final JButton showRencanaStudi ;
+    private final JButton showMatakuliah ;
+    private final JButton showKeuangan ;
+    private final JButton showJadwalPerkuliahan;
+    private final JButton showUser;
       
     public dashboard(){
         card = new CardLayout();
@@ -168,6 +170,76 @@ public class dashboard implements ActionListener,ViewConfig {
     public void actionPerformed(ActionEvent e){
         String option = e.getActionCommand();
         
+        System.out.println(option);
+        if(null != option)switch (option) {
+            case "Profile":
+                card.show(cardPanel,"ProfilePanel");
+                showProfile.setBorderPainted(true);
+                showProfile.setForeground(COLOR_WHITE);
+                break;
+            case "Rencana Studi":
+                if(UserManager.getInstance().getDaak().isHakAksesRencanaStudi()){
+                    resetLayer();
+                    card.show(cardPanel,"RencanaStudiPanel");
+                    showRencanaStudi.setBorderPainted(true);
+                    showRencanaStudi.setForeground(COLOR_WHITE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Akun ini tidak memiliki akses ke fitur ini");
+                    return;
+                }
+                break;
+            case "Matakuliah":
+                if(UserManager.getInstance().getDaak().isHakAksesMatakuliah()){
+                    resetLayer();
+                    card.show(cardPanel,"MatakuliahPanel");
+                    showMatakuliah.setBorderPainted(true);
+                    showMatakuliah.setForeground(COLOR_WHITE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Akun ini tidak memiliki akses ke fitur ini");
+                    return;
+                }
+                break;
+            case "Keuangan":
+                if(UserManager.getInstance().getDaak().isHakAksesKeuangan()){
+                    resetLayer();
+                    card.show(cardPanel,"KeuanganPanel");
+                    showKeuangan.setBorderPainted(true);
+                    showKeuangan.setForeground(COLOR_WHITE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Akun ini tidak memiliki akses ke fitur ini");
+                    return;
+                }
+                break;
+            case "Jadwal Perkuliahan":
+                if(UserManager.getInstance().getDaak().isHakAksesJadwalPerkuliahan()){
+                    resetLayer();
+                    card.show(cardPanel,"JadwalPerkuliahanPanel");
+                    showJadwalPerkuliahan.setBorderPainted(true);
+                    showJadwalPerkuliahan.setForeground(COLOR_WHITE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Akun ini tidak memiliki akses ke fitur ini");
+                    return;
+                }
+                break;
+            case "User":
+                if(UserManager.getInstance().getDaak().isHakAksesUser()){
+                    resetLayer();
+                    card.show(cardPanel,"UserPanel");
+                    showUser.setBorderPainted(true);
+                    showUser.setForeground(COLOR_WHITE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Akun ini tidak memiliki akses ke fitur ini");
+                    return;
+                }
+                break;
+            default:
+                break;
+        }
+        
+        
+        
+    }
+    private void resetLayer(){
         showProfile.setForeground(COLOR_GRAY);
         showRencanaStudi.setForeground(COLOR_GRAY);
         showMatakuliah.setForeground(COLOR_GRAY);
@@ -181,44 +253,6 @@ public class dashboard implements ActionListener,ViewConfig {
         showKeuangan.setBorderPainted(false);
         showJadwalPerkuliahan.setBorderPainted(false);
         showUser.setBorderPainted(false);
-        
-        if(null != option)switch (option) {
-            case "Profile":
-                card.show(cardPanel,"ProfilePanel");
-                showProfile.setBorderPainted(true);
-                showProfile.setForeground(COLOR_WHITE);
-                break;
-            case "Rencana Studi":
-                card.show(cardPanel,"RencanaStudiPanel");
-                showRencanaStudi.setBorderPainted(true);
-                showRencanaStudi.setForeground(COLOR_WHITE);
-                break;
-            case "Matakuliah":
-                card.show(cardPanel,"MatakuliahPanel");
-                showMatakuliah.setBorderPainted(true);
-                showMatakuliah.setForeground(COLOR_WHITE);
-                break;
-            case "Keuangan":
-                card.show(cardPanel,"KeuanganPanel");
-                showKeuangan.setBorderPainted(true);
-                showKeuangan.setForeground(COLOR_WHITE);
-                break;
-            case "Jadwal Perkuliahan":
-                card.show(cardPanel,"JadwalPerkuliahanPanel");
-                showJadwalPerkuliahan.setBorderPainted(true);
-                showJadwalPerkuliahan.setForeground(COLOR_WHITE);
-                break;
-            case "User":
-                card.show(cardPanel,"UserPanel");
-                showUser.setBorderPainted(true);
-                showUser.setForeground(COLOR_WHITE);
-                break;
-            default:
-                break;
-        }
-        System.out.println(option);
     }
-    public static void main(String[] args) {
-        new dashboard();
-    }
+    
 }
