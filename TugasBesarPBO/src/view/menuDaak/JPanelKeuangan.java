@@ -173,8 +173,6 @@ public class JPanelKeuangan  extends JPanel implements ActionListener,ViewConfig
         add(btnTypeMatakuliah);
       
         errorMsg = new JLabel();
-        errorMsg.setText("Belum jadi, menunggu keputusan yang tidak pasti (⊙_⊙;)");
-        errorMsg.setVisible(true);
         errorMsg.setBounds(20, 140, 450, 30);
         errorMsg.setFont(new java.awt.Font("Segoe UI", 0, 16));
         add(errorMsg);

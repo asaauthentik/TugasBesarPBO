@@ -5,11 +5,16 @@
  */
 package view.menuMahasiswa;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
+import controller.DatabaseController.CotrollerMahasiswa.NilaiMahasiswaController;
+import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,6 +23,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Matakuliah;
+import model.matakuliah.Nilai;
+import model.matakuliah.RencanaStudi;
+import model.user.Mahasiswa;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
@@ -70,16 +80,42 @@ public class JPanelTranskripNilai  extends JPanel implements ActionListener, Vie
         Find.setFont(FONT_DEFAULT_PLAIN);
         Find.addActionListener(this);
         add(Find);
-        //Table Daftar Hadir
+        
         daftarNilai = new JTable();
         jScrollPane1 = new JScrollPane();
+    }
+    public void showTables(){
+        //Table Daftar Hadir
+        int printTahun = Integer.valueOf(ViewTahun.getText());
+        String printSemester = ViewSemester.getSelectedItem().toString();
+        Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
+        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        
+        if(rsm == null){
+            JOptionPane.showMessageDialog(null,"Maaf transkrip nilai tidak ditemukan");
+            return;
+        }
+        String objectNilai[][] = new String[rsm.getId_Mk().size()][11];
+        for(int i=0; i<rsm.getId_Mk().size(); i++){
+            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i));
+            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            
+            objectNilai[i][0] = String.valueOf(i+1) + ". ";
+            objectNilai[i][1] = mk.getKode_MK();
+            objectNilai[i][2] = mk.getNama_MK();
+            
+            Nilai nilaiMK = NilaiMahasiswaController.getNilaiMahasiswa( Integer.valueOf(detailMK.getId_MK()), mhs.getNIM());
+            objectNilai[i][3] = String.valueOf(nilaiMK.getNilai1());            
+            objectNilai[i][4] = String.valueOf(nilaiMK.getNilai2());
+            objectNilai[i][5] = String.valueOf(nilaiMK.getNilai3());
+            objectNilai[i][6] = String.valueOf(nilaiMK.getNilai4());
+            objectNilai[i][7] = String.valueOf(nilaiMK.getNilai5());
+            objectNilai[i][8] = String.valueOf(nilaiMK.getNilaiUAS());
+            objectNilai[i][9] = String.valueOf(nilaiMK.getNilaiAkhir());
+            objectNilai[i][10] = String.valueOf(nilaiMK.getHurufMutu());
+        }
         daftarNilai.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "101", "Algoritma", "77", "88", "99", "100", "86", "90", "96", "A"}, 
-                {"2.", "102", "Kalkulus",  "77", "88", "99", "100", "86", "90", "96", "A"}, 
-                {"3.", "103", "Web Programming",  "77", "88", "99", "100", "86", "90", "96", "A"}, 
-                {"4.", "104", "Web Design",  "77", "88", "99", "100", "86", "90", "96", "A"}
-            }, 
+            objectNilai , 
             new String[] {
                 "No", "Kode MK", "Nama Matakuliah", "N1", "N2", "N3", "N4", "N5", "UAS", "NA", "HM"
             }
@@ -109,9 +145,8 @@ public class JPanelTranskripNilai  extends JPanel implements ActionListener, Vie
             daftarNilai.getColumnModel().getColumn(5).setPreferredWidth(60);
         }
         jScrollPane1.setBounds(15,140,640,460);
-        jScrollPane1.setVisible(false);
+        jScrollPane1.setVisible(true);
         add(jScrollPane1);
-
     }
     private boolean checkAllData(){
         if(ViewTahun.getText().equals("")){
@@ -131,9 +166,7 @@ public class JPanelTranskripNilai  extends JPanel implements ActionListener, Vie
         }else{
             Find.setBackground(BGCOLOR_DEFAULT);
             Find.setForeground(COLOR_WHITE);
-            jScrollPane1.setVisible(true);
-            String printTahun = ViewTahun.getText();
-            String printSemester = ViewSemester.getSelectedItem().toString();
+            showTables();
         }
     }
     @Override

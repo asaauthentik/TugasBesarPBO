@@ -24,7 +24,6 @@ public class JPanelProfile extends JPanel implements ViewConfig{
     private final JLabel Judul;
     private JLabel NID, Nama, JenisKelamin, TanggalLahir, Alamat, Email, BidangIlmu, ProgramStudi, GelarAkademik, StatusPegawai, StatusDosen;
     private JLabel ViewNID, ViewNama, ViewJenisKelamin, ViewTanggalLahir, ViewAlamat, ViewEmail, ViewBidangIlmu, ViewProgramStudi, ViewGelarAkademik, ViewStatusPegawai, ViewStatusDosen;
-    private final JButton Keluar;
     public JPanelProfile(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
@@ -122,23 +121,6 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         ViewStatusDosen = new JLabel(": Aktif");
         ViewStatusDosen.setBounds(420,350,100,100);
         add(ViewStatusDosen);
-        //Button keluar
-        Keluar = new JButton("Keluar");
-        Keluar.setBounds(30,440,500,30);
-        Keluar.setContentAreaFilled(true);
-        Keluar.setBackground(Color.WHITE);
-        Keluar.setForeground(BGCOLOR_DEFAULT);
-        Keluar.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
-        Keluar.setFocusPainted(false);
-        Keluar.setFont(FONT_DEFAULT_PLAIN);
-        //Keluar.addActionListner(new CloseListener());
-        add(Keluar);
-    }
-    private class CloseListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //System.exit(0);
-        }
     }
     @Override
     public Dimension getPreferredSize() {

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import model.user.Mahasiswa;
 import model.user.User;
 
 /**
@@ -23,7 +24,11 @@ public class UserManager {
         }
         return instance;
     }
-
+    
+    public Mahasiswa getMahasiswa(){
+        return (Mahasiswa) user;
+    }
+    
     public User getUser() {
         return user;
     }
