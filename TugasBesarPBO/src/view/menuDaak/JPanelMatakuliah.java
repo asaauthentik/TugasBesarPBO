@@ -6,7 +6,7 @@
 package view.menuDaak;
 
 
-import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -304,7 +304,7 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
                 }
                 int tahun = Integer.valueOf(yearMatakuliah.getText()); 
                 String semester =(String) optionSemester.getSelectedItem();
-                tempMK = MatakuliahManageController.getDetailMatakuliah(matakuliahToSearch, tahun, semester);
+                tempMK = matakuliahManageController.getDetailMatakuliah(matakuliahToSearch, tahun, semester);
                 if( tempMK != null){
                     foundTest = true;
                 }else{
@@ -316,7 +316,7 @@ public class JPanelMatakuliah  extends JPanel implements ActionListener,ViewConf
                     JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
                     return;
                 }
-                tempMK = MatakuliahManageController.getMatakuliah(matakuliahToSearch);
+                tempMK = matakuliahManageController.getMatakuliah(matakuliahToSearch);
                 if( tempMK != null){
                     foundTest = true;
                 }else{

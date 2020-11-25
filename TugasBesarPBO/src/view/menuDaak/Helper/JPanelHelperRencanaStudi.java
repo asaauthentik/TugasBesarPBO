@@ -5,9 +5,9 @@
  */
 package view.menuDaak.Helper;
 
-import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
-import static controller.DatabaseController.ContollerDaak.MatakuliahManageController.getDetailMatakuliah;
-import controller.DatabaseController.ContollerDaak.RencanaStudiManageController;
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import static controller.DatabaseController.ContollerDaak.matakuliahManageController.getDetailMatakuliah;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -308,7 +308,7 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
             for(int i=0; i<fieldMK.size(); i++){
                 String kodeMKCheck = fieldMK.get(i).getText();
                 char kelas = fieldKelas.get(i).getText().charAt(0);
-                DetailMatakuliah mk = MatakuliahManageController.getDetailMatakuliah(kodeMKCheck, tahun, semester,kelas);
+                DetailMatakuliah mk = matakuliahManageController.getDetailMatakuliah(kodeMKCheck, tahun, semester,kelas);
                 idMK.add(mk.getId_MK());
             }
             if(RSM == null){
@@ -317,7 +317,7 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
                 newRS.setTahunAjaran(tahun);
                 newRS.createId_RSM(nim);
                 newRS.setId_Mk(idMK);
-                if(RencanaStudiManageController.insertRencanaStudi(newRS, nim)){
+                if(rencanaStudiManageController.insertRencanaStudi(newRS, nim)){
                     JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil dimasukan ke database");
                 }else{
                     JOptionPane.showMessageDialog(labelKodeMK, "Data gagal dimasukan ke database");
@@ -328,8 +328,8 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
                 newRS.setTahunAjaran(tahun);
                 newRS.setId_RSM(RSM.getId_RSM());
                 newRS.setId_Mk(idMK);
-                RencanaStudiManageController.deleteHasilStudi(RSM,nim);
-                if(RencanaStudiManageController.updateRencanaStudi(newRS, nim)){
+                rencanaStudiManageController.deleteHasilStudi(RSM,nim);
+                if(rencanaStudiManageController.updateRencanaStudi(newRS, nim)){
                     JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil diupdate ke database");
                 }else{
                     JOptionPane.showMessageDialog(labelKodeMK, "Data gagal diupdate ke database");
@@ -337,7 +337,7 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
             }
         }
         if(action.equals("Hapus")){
-            if(RencanaStudiManageController.deleteRencanaStudi(RSM.getId_RSM())){
+            if(rencanaStudiManageController.deleteRencanaStudi(RSM.getId_RSM())){
                     JOptionPane.showMessageDialog(labelKodeMK, "Data berhasil dihapus di database");
             }else{
                     JOptionPane.showMessageDialog(labelKodeMK, "Data gagal dihapus di database");
@@ -352,7 +352,7 @@ public class JPanelHelperRencanaStudi extends JPanel implements ActionListener, 
         int errorCount = 0;
         for(int i=0; i<fieldMK.size(); i++){
                 String kodeMK = fieldMK.get(i).getText();
-                ArrayList<DetailMatakuliah> mk =  MatakuliahManageController.getArrayDetailMatakuliah(kodeMK, tahun, semester);
+                ArrayList<DetailMatakuliah> mk =  matakuliahManageController.getArrayDetailMatakuliah(kodeMK, tahun, semester);
                 if(!mk.isEmpty()){
                     String allKelas = "";
                     for(int j=0; j<mk.size(); j++){

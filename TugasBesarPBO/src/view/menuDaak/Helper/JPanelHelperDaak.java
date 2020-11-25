@@ -5,7 +5,7 @@
  */
 package view.menuDaak.Helper;
 
-import controller.DatabaseController.ContollerDaak.UserManageController;
+import controller.DatabaseController.ContollerDaak.userManageController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -541,21 +541,21 @@ public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConf
             newDaak.setJenisUser(1);
             if(daak == null){
                 newDaak.setIdUser();
-                if(UserManageController.insertNewUser((User) newDaak)){
+                if(userManageController.insertNewUser((User) newDaak)){
                     JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
                 }
             }else{
                 newDaak.setIdUser(daak.getIdUser());
-                if(UserManageController.updateDaak(newDaak)){
+                if(userManageController.updateDaak(newDaak)){
                     JOptionPane.showMessageDialog(null, "Berhasil Mengupdate ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Mengupdate ke Database");
                 }
             }
         }else if(action.equals("Hapus")){
-            if(UserManageController.deleteDaak(daak.getIdUser())){
+            if(userManageController.deleteDaak(daak.getIdUser())){
                     JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
             }else{
                 JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");

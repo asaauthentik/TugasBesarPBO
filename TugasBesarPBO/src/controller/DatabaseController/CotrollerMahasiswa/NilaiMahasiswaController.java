@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.DatabaseController.ControllerMahasiswa;
+package controller.DatabaseController.CotrollerMahasiswa;
 
 import controller.DatabaseHandler;
 import java.sql.ResultSet;

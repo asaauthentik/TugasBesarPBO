@@ -5,9 +5,9 @@
  */
 package view.menuMahasiswa;
 
-import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
-import controller.DatabaseController.ContollerDaak.RencanaStudiManageController;
-import controller.DatabaseController.ControllerMahasiswa.NilaiMahasiswaController;
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
+import controller.DatabaseController.CotrollerMahasiswa.NilaiMahasiswaController;
 import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -89,7 +89,7 @@ public class JPanelTranskripNilai  extends JPanel implements ActionListener, Vie
         int printTahun = Integer.valueOf(ViewTahun.getText());
         String printSemester = ViewSemester.getSelectedItem().toString();
         Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
-        RencanaStudi rsm = RencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
         
         if(rsm == null){
             JOptionPane.showMessageDialog(null,"Maaf transkrip nilai tidak ditemukan");
@@ -97,8 +97,8 @@ public class JPanelTranskripNilai  extends JPanel implements ActionListener, Vie
         }
         String objectNilai[][] = new String[rsm.getId_Mk().size()][11];
         for(int i=0; i<rsm.getId_Mk().size(); i++){
-            DetailMatakuliah detailMK = MatakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i));
-            Matakuliah mk = MatakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i));
+            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
             
             objectNilai[i][0] = String.valueOf(i+1) + ". ";
             objectNilai[i][1] = mk.getKode_MK();

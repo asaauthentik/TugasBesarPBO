@@ -5,7 +5,7 @@
  */
 package view.menuDosen;
 
-import controller.DatabaseController.ControllerDosen.MatakuliahController;
+import controller.DatabaseController.ControllerDosen.matakuliahController;
 import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -97,7 +97,7 @@ public class JPanelRekapDataMengajar  extends JPanel implements ActionListener, 
         Dosen dsn = (Dosen) UserManager.getInstance().getUser();
         int printTahun = Integer.valueOf(ViewTahun.getText());
         String printSemester = ViewSemester.getSelectedItem().toString();
-        ArrayList<DetailMatakuliah> dmk = MatakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
+        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
         if(dmk == null){
             JOptionPane.showMessageDialog(null,"Data yang dimasukan tidak tersedia!");
             return;

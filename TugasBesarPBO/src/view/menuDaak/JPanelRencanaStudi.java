@@ -6,7 +6,7 @@
 package view.menuDaak;
 
 
-import controller.DatabaseController.ContollerDaak.RencanaStudiManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -251,7 +251,7 @@ public class JPanelRencanaStudi  extends JPanel  implements ActionListener,ViewC
                  return;
              }
              boolean foundTest = false;
-             RencanaStudi rsm = RencanaStudiManageController.getRencanastudi(nim, tahun, semester);
+             RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(nim, tahun, semester);
              //Lakukan pencarian didatabase nanti
              if(rsm != null){
                  foundTest = true;

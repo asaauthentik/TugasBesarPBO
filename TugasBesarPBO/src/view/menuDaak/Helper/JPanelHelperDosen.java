@@ -5,7 +5,7 @@
  */
 package view.menuDaak.Helper;
 
-import controller.DatabaseController.ContollerDaak.UserManageController;
+import controller.DatabaseController.ContollerDaak.userManageController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -412,14 +412,14 @@ public class JPanelHelperDosen extends JPanel implements ActionListener, ViewCon
            
             if(dosen == null){
                 newDosen.setIdUser();
-                if(UserManageController.insertNewUser(newDosen)){
+                if(userManageController.insertNewUser(newDosen)){
                     JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
                 }
             }else{
                 newDosen.setIdUser(dosen.getIdUser());
-                if(UserManageController.updateDosen(newDosen)){
+                if(userManageController.updateDosen(newDosen)){
                     JOptionPane.showMessageDialog(null, "Berhasil Mengupdate ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Mengupdate ke Database");
@@ -428,7 +428,7 @@ public class JPanelHelperDosen extends JPanel implements ActionListener, ViewCon
             
           
         }else if(action.equals("Hapus")){
-            if(UserManageController.deleteDosen(dosen.getIdUser())){
+            if(userManageController.deleteDosen(dosen.getIdUser())){
                     JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
             }else{
                 JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");

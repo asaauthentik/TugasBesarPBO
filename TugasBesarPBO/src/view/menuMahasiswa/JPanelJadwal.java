@@ -5,10 +5,10 @@
  */
 package view.menuMahasiswa;
 
-import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
-import controller.DatabaseController.ContollerDaak.RencanaStudiManageController;
-import controller.DatabaseController.ContollerDaak.RosterManageController;
-import controller.DatabaseController.ControllerMahasiswa.JadwalMahasiswaController;
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
+import controller.DatabaseController.ContollerDaak.rosterManageController;
+import controller.DatabaseController.CotrollerMahasiswa.JadwalMahasiswaController;
 import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -144,10 +144,10 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
         int printTahun = Integer.valueOf(ViewTahun.getText());
         String printSemester = ViewSemester.getSelectedItem().toString();
         Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
-        RencanaStudi rsm = RencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
         ArrayList<DetailMatakuliah> dmk = new ArrayList<>();
         for(int i=0; i<rsm.getId_Mk().size(); i++){
-            dmk.add(MatakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i)));
+            dmk.add(matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i)));
         }
         
         if(dmk == null){
@@ -169,8 +169,8 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
         //Cek Database
         String objectJadwal[][] = new String[arrRoster.size()][6];
         for(int i=0; i<arrRoster.size() ; i++){
-            DetailMatakuliah detailMK = MatakuliahManageController.getDetailMatakuliah(arrIDMK.get(i));
-            Matakuliah mk = MatakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(arrIDMK.get(i));
+            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");  
             String dateJadwal = dateFormat.format(arrRoster.get(i).getTanggal()); 
             objectJadwal[i][0] = dateJadwal;

@@ -5,11 +5,11 @@
  */
 package view.menuDosen;
 
-import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
-import controller.DatabaseController.ContollerDaak.RosterManageController;
-import controller.DatabaseController.ContollerDaak.UserManageController;
-import controller.DatabaseController.ControllerDosen.MatakuliahController;
-import controller.DatabaseController.ControllerDosen.RosterController;
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rosterManageController;
+import controller.DatabaseController.ContollerDaak.userManageController;
+import controller.DatabaseController.ControllerDosen.matakuliahController;
+import controller.DatabaseController.ControllerDosen.rosterController;
 import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -352,7 +352,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         String printSemester = ViewSemesterDosen.getSelectedItem().toString();
         Dosen dsn = (Dosen) UserManager.getInstance().getUser();
         
-        ArrayList<DetailMatakuliah> dmk = MatakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
+        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
         
         if(dmk == null){
             JOptionPane.showMessageDialog(null,"Maaf Jadwal tidak ditemukan");
@@ -364,8 +364,8 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         
         for(int i=0; i<dmk.size(); i++){
             DetailMatakuliah detailMK = dmk.get(i);
-            Matakuliah mk = MatakuliahManageController.getMatakuliah(detailMK.getKode_MK());
-            ArrayList<Roster> arrTemp = RosterManageController.getArrayRoster(detailMK.getId_MK());
+            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            ArrayList<Roster> arrTemp = rosterManageController.getArrayRoster(detailMK.getId_MK());
             arrRoster.addAll(arrTemp);
             int counterKehadiran = 0;
             for(int j=0; j<arrTemp.size(); j++){
@@ -421,12 +421,12 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         int tahun = Integer.valueOf(ViewTahunMhs.getText());
         String printSemester = ViewSemesterMhs.getSelectedItem().toString();
         int selectedIdx = ViewMatkul.getSelectedIndex();
-        ArrayList<DetailMatakuliah> dmk = MatakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
+        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
         if(dmk == null){
             return;
         }
         DetailMatakuliah dmkDipilih = dmk.get(selectedIdx);
-        ArrayList<Kehadiran> rosterMhs = RosterController.getArrayDaftarHadirMhs(dmkDipilih.getId_MK());
+        ArrayList<Kehadiran> rosterMhs = rosterController.getArrayDaftarHadirMhs(dmkDipilih.getId_MK());
         //Connect Database
         class  MhsdanJumlahHadir{
             String nim;
@@ -458,7 +458,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         String DaftarHadirMahasiswa[][] = new String[groupMhs.size()][5];
         for(int i=0; i<groupMhs.size(); i++){
             DaftarHadirMahasiswa[i][0] = String.valueOf(i + 1) + ". ";
-            User mhs = UserManageController.getUser(rosterMhs.get(i).getNIM());
+            User mhs = userManageController.getUser(rosterMhs.get(i).getNIM());
             DaftarHadirMahasiswa[i][1] = rosterMhs.get(i).getNIM();
             DaftarHadirMahasiswa[i][2] = mhs.getNamaLengkap();
             DaftarHadirMahasiswa[i][3] = String.valueOf(groupMhs.get(i).jumlahHadir);
@@ -554,7 +554,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             Dosen dsn = (Dosen) UserManager.getInstance().getUser();
             int tahun = Integer.valueOf(ViewTahunMhs.getText());
             String printSemester = ViewSemesterMhs.getSelectedItem().toString();
-            ArrayList<DetailMatakuliah> dmk = MatakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
+            ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
             if(dmk == null){
                 return;
             }
@@ -572,7 +572,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             Dosen dsn = (Dosen) UserManager.getInstance().getUser();
             int tahun = Integer.valueOf(ViewTahunMhs.getText());
             String printSemester = ViewSemesterMhs.getSelectedItem().toString();
-            ArrayList<DetailMatakuliah> dmk = MatakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
+            ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
             if(dmk == null){
                 return;
             }

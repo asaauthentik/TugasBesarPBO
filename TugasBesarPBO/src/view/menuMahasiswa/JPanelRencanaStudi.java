@@ -5,8 +5,8 @@
  */
 package view.menuMahasiswa;
 
-import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
-import controller.DatabaseController.ContollerDaak.RencanaStudiManageController;
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
 import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -87,15 +87,15 @@ public class JPanelRencanaStudi  extends JPanel implements ActionListener, ViewC
         int printTahun = Integer.valueOf(ViewTahun.getText());
         String printSemester = ViewSemester.getSelectedItem().toString();
         Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
-        RencanaStudi rsm = RencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
         ArrayList<Matakuliah> MK = new ArrayList<>();
         if(rsm == null){
             JOptionPane.showMessageDialog(null,"Maaf rencana studi tidak ditemukan ");
             return;
         }
         for(int i=0; i<rsm.getId_Mk().size(); i++){
-            DetailMatakuliah detailMK = MatakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i));
-            MK.add(MatakuliahManageController.getMatakuliah(detailMK.getKode_MK()));
+            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i));
+            MK.add(matakuliahManageController.getMatakuliah(detailMK.getKode_MK()));
         }
         //Cek Database
         String objectRencanaStudi[][] = new String[MK.size()][6];
@@ -103,7 +103,7 @@ public class JPanelRencanaStudi  extends JPanel implements ActionListener, ViewC
             objectRencanaStudi[i][0] = String.valueOf(i+1) + ". ";
             objectRencanaStudi[i][1] = MK.get(i).getKode_MK();
             objectRencanaStudi[i][2] = MK.get(i).getNama_MK();
-            objectRencanaStudi[i][3] = String.valueOf(MatakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i)).getKelas());
+            objectRencanaStudi[i][3] = String.valueOf(matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i)).getKelas());
             objectRencanaStudi[i][4] = MK.get(i).getJenis_MK().toString();
             objectRencanaStudi[i][5] = MK.get(i).getSifat_MK().toString();
         }

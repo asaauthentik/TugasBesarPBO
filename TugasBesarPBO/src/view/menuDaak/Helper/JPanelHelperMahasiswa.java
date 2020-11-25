@@ -5,7 +5,7 @@
  */
 package view.menuDaak.Helper;
 
-import controller.DatabaseController.ContollerDaak.UserManageController;
+import controller.DatabaseController.ContollerDaak.userManageController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -364,14 +364,14 @@ public class JPanelHelperMahasiswa extends JPanel implements ActionListener, Vie
             
             if(mhs == null){
                 newMhs.setIdUser();
-                if(UserManageController.insertNewUser(newMhs)){
+                if(userManageController.insertNewUser(newMhs)){
                     JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
                 }
             }else{
                 newMhs.setIdUser(mhs.getIdUser());
-                if(UserManageController.updateMahasiswa(newMhs)){
+                if(userManageController.updateMahasiswa(newMhs)){
                     JOptionPane.showMessageDialog(null, "Berhasil Mengupdate ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Mengupdate ke Database");
@@ -380,7 +380,7 @@ public class JPanelHelperMahasiswa extends JPanel implements ActionListener, Vie
            
             //To Sql Controller !
         }else if(action.equals("Hapus")){
-            if(UserManageController.deleteMahasiswa(mhs.getIdUser())){
+            if(userManageController.deleteMahasiswa(mhs.getIdUser())){
                     JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
             }else{
                 JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");
