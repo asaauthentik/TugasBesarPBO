@@ -9,8 +9,13 @@ import controller.DatabaseController.loginController;
 import controller.UserManager;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -46,11 +51,19 @@ public class loginMenu implements ActionListener,ViewConfig{
         Frame.add(Menu);
         
         //Foto
-        String pathFileFoto = "C:\\Users\\Rog\\Pictures\\Foto\\Elangel.jpg";
         JLabel ViewFoto;
-        ImageIcon pathFoto = new ImageIcon(pathFileFoto);
-        Image pathPictureFoto = pathFoto.getImage();
-        Image newPicture1 = pathPictureFoto.getScaledInstance(150,150, Image.SCALE_SMOOTH);
+        Image img = null;
+        String RESOURCE = "asset/logo.png";
+        URL url = getClass().getResource( RESOURCE );
+        if(url == null ){
+            try {
+                throw new Exception( "ERR cannot find resource: " + RESOURCE );
+            } catch (Exception ex1) {
+                Logger.getLogger(view.menuMahasiswa.JPanelProfile.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        img = Toolkit.getDefaultToolkit().getImage( url );
+        Image newPicture1 = img.getScaledInstance(170,170, Image.SCALE_SMOOTH);
         ImageIcon image1 = new ImageIcon(newPicture1);
         ViewFoto = new JLabel(image1);
         ViewFoto.setBounds(160,50,170,170);
@@ -115,10 +128,13 @@ public class loginMenu implements ActionListener,ViewConfig{
                     JOptionPane.showMessageDialog(null,"Berhasil Login!");
                     UserManager.getInstance().setUser(user);
                     if(user.getJenisUser() == 1){
+                        Frame.dispose();
                         new view.menuDaak.dashboard();
                     }else if(user.getJenisUser() == 2){
+                        Frame.dispose();
                         new view.menuDosen.dashboard();
                     }else if(user.getJenisUser() == 3){
+                        Frame.dispose();
                         new view.menuMahasiswa.dashboard();
                     }else{
                         System.out.println("User tidak ditemukan");

@@ -6,6 +6,7 @@
 package view.menuDaak;
 
 
+import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -33,32 +34,15 @@ import static view.ViewConfig.FONT_TITLE;
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
+public class JPanelProfile extends JPanel implements ViewConfig{
     private final JPanel Header;
     private final JLabel Judul;
     private final JLabel NIK, Nama, Jabatan, StatusKontrak, TanggalLahir, JenisKelamin, NomorHP, Email, HAKeuangan, HAKemahasiswaan, HARencanaStudi, HAUser, HAJadwal;
     private final JLabel ViewNIK, ViewNama, ViewJabatan, ViewStatusKontrak, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewHAKeuangan, ViewHAKemahasiswaan, ViewHARencanaStudi, ViewHAUser, ViewHAJadwal;
-    private final JButton Keluar;
     
     public JPanelProfile(){
-        //From singleton
-        Daak daak = new Daak();
-        daak.setJenisKelamin("Laki-Laki");
-        daak.setHakAksesJadwalPerkuliahan(true);
-        daak.setHakAksesKeuangan(false);
-        daak.setHakAksesMatakuliah(true);
-        daak.setHakAksesRencanaStudi(true);
-        daak.setHakAksesUser(true);
-        daak.setJabatan("Administrasi");
-        daak.setNIK("4729847239867");
-        daak.setNomorTelepon("057356566895");
-        daak.setStatusKontrak(true);
-        daak.setTanggalLahir(new Date());
-        daak.setNamaLengkap("Albertus Angkuw");
-        daak.setEmail("angkuwjr@yahoo.com");
-        daak.setPathFoto("https://i.pinimg.com/originals/81/9f/b8/819fb8b2baa84564043bfb1d81e7c323.jpg");
+        Daak daak = UserManager.getInstance().getDaak();
         
-        //dum dum
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
         Header.setBounds(0,20,700,50);
@@ -188,18 +172,6 @@ public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
         ViewHAJadwal = new JLabel(": " + getPrivilege(daak.isHakAksesJadwalPerkuliahan()));
         ViewHAJadwal.setBounds(490,440,200,100);
         add(ViewHAJadwal);
-        
-        //Button keluar
-        Keluar = new JButton("Keluar");
-        Keluar.setBounds(50,530,570,40);
-        Keluar.setContentAreaFilled(true);
-        Keluar.setBackground(Color.WHITE);
-        Keluar.setForeground(BGCOLOR_DEFAULT);
-        Keluar.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
-        Keluar.setFocusPainted(false);
-        Keluar.setFont(FONT_DEFAULT_PLAIN);
-        //Keluar.addActionListner(new CloseListener());
-        add(Keluar);
     }
     
     private String getPrivilege(boolean privilege){
@@ -211,10 +183,5 @@ public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
     @Override
     public Dimension getPreferredSize() {
         return DIMENSION_PANEL_CARD;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

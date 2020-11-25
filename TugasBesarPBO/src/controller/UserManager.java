@@ -5,6 +5,11 @@
  */
 package controller;
 
+
+import model.user.Mahasiswa;
+
+import model.user.Daak;
+
 import model.user.User;
 
 /**
@@ -23,7 +28,11 @@ public class UserManager {
         }
         return instance;
     }
-
+    
+    public Mahasiswa getMahasiswa(){
+        return (Mahasiswa) user;
+    }
+    
     public User getUser() {
         return user;
     }
@@ -31,7 +40,10 @@ public class UserManager {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
+    public Daak getDaak(){
+        return (Daak) user;
+    }
     @Override
     public String toString() {
         return "UserManager{" + "user=" + user + '}';

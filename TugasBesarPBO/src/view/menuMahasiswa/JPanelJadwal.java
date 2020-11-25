@@ -5,6 +5,11 @@
  */
 package view.menuMahasiswa;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
+import controller.DatabaseController.ContollerDaak.rosterManageController;
+import controller.DatabaseController.CotrollerMahasiswa.JadwalMahasiswaController;
+import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import javax.swing.JButton;
@@ -22,6 +30,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Matakuliah;
+import model.matakuliah.RencanaStudi;
+import model.matakuliah.Roster;
+import model.user.Mahasiswa;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -123,25 +136,62 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
         Find.addActionListener(this);
         add(Find);
         
-        //Table Jadwal
         daftarJadwal = new JTable();
         jScrollPane1 = new JScrollPane();
+    }
+    public void showTables(){
+        //Table Daftar Hadir
+        int printTahun = Integer.valueOf(ViewTahun.getText());
+        String printSemester = ViewSemester.getSelectedItem().toString();
+        Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
+        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        ArrayList<DetailMatakuliah> dmk = new ArrayList<>();
+        for(int i=0; i<rsm.getId_Mk().size(); i++){
+            dmk.add(matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i)));
+        }
+        
+        if(dmk == null){
+            JOptionPane.showMessageDialog(null,"Maaf Jadwal tidak ditemukan");
+            return;
+        }
+        ArrayList<Roster> arrRoster = new ArrayList<>();
+        ArrayList<String> arrIDMK = new ArrayList<>();
+        Date TanggalAwal = (Date) tanggal.getModel().getValue();
+        Date TanggalAkhir = (Date) tanggalAkhir.getModel().getValue();
+        for(int i=0; i<dmk.size(); i++){
+            DetailMatakuliah detailMK = dmk.get(i);
+            ArrayList<Roster> arrTemp = JadwalMahasiswaController.getJadwalMahasiswa(Integer.valueOf(detailMK.getId_MK()), TanggalAwal, TanggalAkhir);
+            arrRoster.addAll(arrTemp);
+            arrTemp.forEach(_item -> {
+                arrIDMK.add(detailMK.getId_MK());
+            });
+        }
+        //Cek Database
+        String objectJadwal[][] = new String[arrRoster.size()][6];
+        for(int i=0; i<arrRoster.size() ; i++){
+            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(arrIDMK.get(i));
+            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");  
+            String dateJadwal = dateFormat.format(arrRoster.get(i).getTanggal()); 
+            objectJadwal[i][0] = dateJadwal;
+            objectJadwal[i][1] = arrRoster.get(i).getRuangan();
+            objectJadwal[i][2] = arrRoster.get(i).getJamMulai();
+            objectJadwal[i][3] = arrRoster.get(i).getJamSelesai();
+            objectJadwal[i][4] = mk.getKode_MK();
+            objectJadwal[i][5] = mk.getNama_MK();
+        }
+        //Table Jadwal
         daftarJadwal.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "17 Agustus 2020", "07:00", "09:00","IF-101"}, 
-                {"2.", "17 September 2020", "10:00", "12:00","IF-203"}, 
-                {"3.", "17 Oktober 2020", "13:00", "15:00","MG-302"}, 
-                {"4.", "25 Desember 2020", "09:00", "11:00","AK-401"}
-            }, 
+            objectJadwal, 
             new String[] {
-                "No", "Tanggal", "Jam Mulai", "Jam Selesai", "Ruangan"
+                "Tanggal","Ruangan", "Jam Mulai", "Jam Selesai", "Kode Mk","Nama MK"
             }
         ){
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false,false
             };
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -159,12 +209,14 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
             daftarJadwal.getColumnModel().getColumn(2).setPreferredWidth(150);
             daftarJadwal.getColumnModel().getColumn(3).setPreferredWidth(30);
             daftarJadwal.getColumnModel().getColumn(4).setPreferredWidth(60);
+            daftarJadwal.getColumnModel().getColumn(5).setPreferredWidth(60);
             
         }
         jScrollPane1.setBounds(15,180,640,420);
-        jScrollPane1.setVisible(false);
+        jScrollPane1.setVisible(true);
         add(jScrollPane1);
     }
+    
     public boolean checkAllData(){
         if(ViewSemester.getSelectedItem().toString().equals("")){
             return false;
@@ -185,9 +237,7 @@ public class JPanelJadwal  extends JPanel implements ActionListener, ViewConfig 
             }else{
                 Find.setBackground(BGCOLOR_DEFAULT);
                 Find.setForeground(COLOR_WHITE);
-                jScrollPane1.setVisible(true);
-                String printSemester = ViewSemester.getSelectedItem().toString();
-                String printTahun = ViewTahun.getText();
+                showTables();
                 Date printTanggal = (Date) tanggal.getModel().getValue();
                 tanggal.getModel().addDay(7);
                 Date printTanggalAkhir = (Date) tanggal.getModel().getValue();

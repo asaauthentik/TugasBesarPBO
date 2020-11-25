@@ -146,7 +146,7 @@ public class JPanelHelperDaak extends JPanel implements ActionListener, ViewConf
             Delete.setVisible(false);
             Save.setVisible(true);
         }
-        setBackground(Color.PINK);
+        //setBackground(Color.PINK);
     }
     
     private void generateLabel(){

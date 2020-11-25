@@ -29,9 +29,9 @@ import view.ViewConfig;
 public class JPanelProfile extends JPanel implements ViewConfig{
     private final JPanel Header;
     private final JLabel Judul;
-    private JLabel NID, Nama, JenisKelamin, TanggalLahir, Email, BidangIlmu, ProgramStudi, GelarAkademik, StatusPegawai, StatusDosen;
-    private JLabel ViewNID, ViewNama, ViewJenisKelamin, ViewTanggalLahir, ViewEmail, ViewBidangIlmu, ViewProgramStudi, ViewGelarAkademik, ViewStatusPegawai, ViewStatusDosen;
-    private final JButton Keluar;
+
+    private JLabel NID, Nama, JenisKelamin, TanggalLahir, Alamat, Email, BidangIlmu, ProgramStudi, GelarAkademik, StatusPegawai, StatusDosen;
+    private JLabel ViewNID, ViewNama, ViewJenisKelamin, ViewTanggalLahir, ViewAlamat, ViewEmail, ViewBidangIlmu, ViewProgramStudi, ViewGelarAkademik, ViewStatusPegawai, ViewStatusDosen;
     public JPanelProfile(){
         Dosen dsn = (Dosen) UserManager.getInstance().getUser();
         Header = new JPanel();
@@ -142,23 +142,6 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         ViewStatusDosen = new JLabel(": " + statusDosen);
         ViewStatusDosen.setBounds(420,320,100,100);
         add(ViewStatusDosen);
-        //Button keluar
-        Keluar = new JButton("Keluar");
-        Keluar.setBounds(30,440,500,30);
-        Keluar.setContentAreaFilled(true);
-        Keluar.setBackground(Color.WHITE);
-        Keluar.setForeground(BGCOLOR_DEFAULT);
-        Keluar.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
-        Keluar.setFocusPainted(false);
-        Keluar.setFont(FONT_DEFAULT_PLAIN);
-        //Keluar.addActionListner(new CloseListener());
-        add(Keluar);
-    }
-    private class CloseListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //System.exit(0);
-        }
     }
     @Override
     public Dimension getPreferredSize() {

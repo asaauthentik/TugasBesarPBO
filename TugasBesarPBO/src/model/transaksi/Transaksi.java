@@ -21,7 +21,8 @@ public class Transaksi {
     private int jumlahBayar;
     private char semeterDiambil;
     private int tahunSemester;
-
+    
+    public Transaksi(){};
     public Transaksi(int idtransaksi, String tanggalTransaksi, int jumlahBayar, char semeterDiambil, int tahunSemester) {
         this.idtransaksi = idtransaksi;
         this.tanggalTransaksi = tanggalTransaksi;
