@@ -27,7 +27,7 @@ import javax.swing.*;
 import model.user.Mahasiswa;
 import view.ViewConfig;
 import static view.ViewConfig.*;
-import view.loginMenu;
+import view.LoginMenu;
 
 /**
  *

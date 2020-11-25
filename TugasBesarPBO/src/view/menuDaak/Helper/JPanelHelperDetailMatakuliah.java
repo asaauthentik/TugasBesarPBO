@@ -5,7 +5,7 @@
  */
 package view.menuDaak.Helper;
 
-import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -201,14 +201,14 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
             dMK.setNid(dosen);
             
             if(detailMK == null){
-                if(matakuliahManageController.insertDetailMatakuliah(dMK)){
+                if(MatakuliahManageController.insertDetailMatakuliah(dMK)){
                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
                 }else{
                    JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
                 }
             }else{
                 dMK.setId_MK(detailMK.getId_MK());
-                if(matakuliahManageController.updateDetailMatakuliah(dMK)){
+                if(MatakuliahManageController.updateDetailMatakuliah(dMK)){
                    JOptionPane.showMessageDialog(null, "Berhasil Mengupdate  ke Database");
                 }else{
                    JOptionPane.showMessageDialog(null, "Gagal Mengupdate  ke Database");
@@ -216,7 +216,7 @@ public class JPanelHelperDetailMatakuliah extends JPanel implements ActionListen
             }
             
         }else if(action.equals("Hapus")){
-            if(matakuliahManageController.deleteDetailMatakuliah(detailMK.getKode_MK(),detailMK.getTahun(),detailMK.getSemester())){
+            if(MatakuliahManageController.deleteDetailMatakuliah(detailMK.getKode_MK(),detailMK.getTahun(),detailMK.getSemester())){
                     JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
             }else{
                 JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");
