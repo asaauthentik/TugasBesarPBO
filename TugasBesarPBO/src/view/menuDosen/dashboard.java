@@ -5,6 +5,7 @@
  */
 package view.menuDosen;
 
+import controller.UserManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -16,6 +17,7 @@ import java.awt.*;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import view.ViewConfig;
+import view.loginMenu;
 /**
  *
  * @author 1119002 Albertus Angkuw
@@ -41,7 +43,9 @@ public class dashboard implements ActionListener,ViewConfig {
     private final JButton showDaftarHadir;
     private final JButton showNilaiMatakuliah;
     private final JButton showRekapDataMengajar;
+    private JButton exit;
     
+    private JFrame frame;
     public dashboard(){
         card = new CardLayout();
         cardPanel = new JPanel(card);
@@ -53,12 +57,13 @@ public class dashboard implements ActionListener,ViewConfig {
         showDaftarHadir = new JButton("Daftar Hadir");
         showNilaiMatakuliah = new JButton("Nilai Matakuliah");
         showRekapDataMengajar = new JButton("Rekap Data Mengajar");
+        exit = new JButton("Keluar");
         sideBar.add(showProfile);
         sideBar.add(showJadwalMengajar);
         sideBar.add(showDaftarHadir);
         sideBar.add(showNilaiMatakuliah);
         sideBar.add(showRekapDataMengajar);
-        
+        sideBar.add(exit);
         //--Styling
         
         sideBar.setBackground(BGCOLOR_DEFAULT);
@@ -69,43 +74,49 @@ public class dashboard implements ActionListener,ViewConfig {
         showDaftarHadir.setBackground(BGCOLOR_DEFAULT);
         showNilaiMatakuliah.setBackground(BGCOLOR_DEFAULT);
         showRekapDataMengajar.setBackground(BGCOLOR_DEFAULT);
+        exit.setBackground(BGCOLOR_DEFAULT);
         
         showProfile.setForeground(COLOR_WHITE );
         showJadwalMengajar.setForeground(COLOR_GRAY);
         showDaftarHadir.setForeground(COLOR_GRAY);
         showNilaiMatakuliah.setForeground(COLOR_GRAY);
         showRekapDataMengajar.setForeground(COLOR_GRAY);
+        exit.setForeground(COLOR_GRAY);
         
         showProfile.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showJadwalMengajar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showDaftarHadir.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showNilaiMatakuliah.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showRekapDataMengajar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
+        exit.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         
         showProfile.setPreferredSize(new Dimension(200, 20));
         showJadwalMengajar.setPreferredSize(new Dimension(200, 20));
         showDaftarHadir.setPreferredSize(new Dimension(200, 20));
         showNilaiMatakuliah.setPreferredSize(new Dimension(200, 20));
         showRekapDataMengajar.setPreferredSize(new Dimension(200, 20));
+        exit.setPreferredSize(new Dimension(200, 20));
         
         showProfile.setBorderPainted(true);
         showJadwalMengajar.setBorderPainted(false);
         showDaftarHadir.setBorderPainted(false);
         showNilaiMatakuliah.setBorderPainted(false);
         showRekapDataMengajar.setBorderPainted(false);
+        exit.setBorderPainted(false);
         
         showProfile.setContentAreaFilled(false);
         showJadwalMengajar.setContentAreaFilled(false);
         showDaftarHadir.setContentAreaFilled(false);
         showNilaiMatakuliah.setContentAreaFilled(false);
         showRekapDataMengajar.setContentAreaFilled(false);
+        exit.setContentAreaFilled(false);
         
         showProfile.setFocusPainted(false);
         showJadwalMengajar.setFocusPainted(false);
         showDaftarHadir.setFocusPainted(false);
         showNilaiMatakuliah.setFocusPainted(false);
         showRekapDataMengajar.setFocusPainted(false);
-        
+        exit.setFocusPainted(false);
         //End of styling
         
         showProfile.addActionListener(this);
@@ -113,7 +124,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showDaftarHadir.addActionListener(this);
         showNilaiMatakuliah.addActionListener(this);
         showRekapDataMengajar.addActionListener(this);
-        
+        exit.addActionListener(this);
         
         //--List Menu
         profile = new JPanelProfile();
@@ -131,7 +142,7 @@ public class dashboard implements ActionListener,ViewConfig {
         //End of List Menu
         
         //-- Inisialisasi Frame
-        JFrame frame = new JFrame("Sistem Informasi Akademik");
+        frame = new JFrame("Sistem Informasi Akademik");
         frame.add(cardPanel);
         frame.add(sideBar, BorderLayout.WEST);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,6 +187,11 @@ public class dashboard implements ActionListener,ViewConfig {
             card.show(cardPanel,"RekapDataMengajarPanel");
             showRekapDataMengajar.setBorderPainted(true);
             showRekapDataMengajar.setForeground(COLOR_WHITE);
+        }else if("Keluar".equals(option)){
+            System.out.println("Keluar");
+            frame.dispose();
+            UserManager.getInstance().setUser(null);
+            loginMenu loginMenu = new loginMenu();
         }
         //System.out.println(option);
     }

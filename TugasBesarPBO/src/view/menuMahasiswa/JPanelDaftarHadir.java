@@ -5,10 +5,15 @@
  */
 package view.menuMahasiswa;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
+import controller.DatabaseController.CotrollerMahasiswa.KehadiranMahasiswaController;
+import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,6 +23,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Kehadiran;
+import model.matakuliah.Matakuliah;
+import model.matakuliah.RencanaStudi;
+import model.user.Mahasiswa;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
@@ -73,13 +83,54 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
         //Table Daftar Hadir
         daftarHadir = new JTable();
         jScrollPane1 = new JScrollPane();
+        
+    }
+    private boolean checkAllData(){
+        if(ViewTahun.getText().equals("")){
+            return false;
+        }
+        if(ViewSemester.getSelectedItem().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+    
+    private void showTables(){
+        int printTahun = Integer.valueOf(ViewTahun.getText());
+        String printSemester = ViewSemester.getSelectedItem().toString();
+        
+        Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
+        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        
+        if(rsm == null){
+            JOptionPane.showMessageDialog(null,"Maaf rencana studi tidak ditemukan ");
+            jScrollPane1.setVisible(true);
+            return ;
+        }
+        String listDaftarHadir[][] = new String[rsm.getId_Mk().size()][5];
+        for(int i=0; i<rsm.getId_Mk().size(); i++){
+            DetailMatakuliah dMK = matakuliahManageController.getDetailMatakuliah( rsm.getId_Mk().get(i));
+            Matakuliah mk = matakuliahManageController.getMatakuliah(dMK.getKode_MK());
+            listDaftarHadir[i][0] = String.valueOf(i + 1) + ". ";
+            listDaftarHadir[i][1] = dMK.getKode_MK();
+            listDaftarHadir[i][2] = mk.getNama_MK();
+            listDaftarHadir[i][3] = String.valueOf(dMK.getKelas());
+            ArrayList<Kehadiran> kehadiranMhs = KehadiranMahasiswaController.getRosterMahasiswa(Integer.valueOf(dMK.getId_MK()),mhs.getNIM());
+            int counterKehadiran = 0;
+            for(int j=0; j<kehadiranMhs.size(); j++){
+                if(kehadiranMhs.get(j).getKeterangan() == null){
+                    continue;
+                }
+                if(kehadiranMhs.get(j).getKeterangan().equals("Hadir")){
+                    counterKehadiran++;
+                }
+            }
+            listDaftarHadir[i][4] = String.valueOf(counterKehadiran);
+            
+        }
+        
         daftarHadir.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "101", "Algoritma", "A","12"}, 
-                {"2.", "102", "Kalkulus", "A","11"}, 
-                {"3.", "103", "Web Programming", "B","13"}, 
-                {"4.", "103", "Web Design", "B","13"}
-            }, 
+            listDaftarHadir, 
             new String[] {
                 "No", "Kode MK", "Nama Matakuliah", "Kelas", "Jumlah Kehadiran"
             }
@@ -109,17 +160,8 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
             
         }
         jScrollPane1.setBounds(15,140,640,460);
-        jScrollPane1.setVisible(false);
+        jScrollPane1.setVisible(true);
         add(jScrollPane1);
-    }
-    private boolean checkAllData(){
-        if(ViewTahun.getText().equals("")){
-            return false;
-        }
-        if(ViewSemester.getSelectedItem().toString().equals("")){
-            return false;
-        }
-        return true;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -132,8 +174,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
                 Find.setBackground(BGCOLOR_DEFAULT);
                 Find.setForeground(COLOR_WHITE);
                 jScrollPane1.setVisible(true);
-                String printTahun = ViewTahun.getText();
-                String printSemester = ViewSemester.getSelectedItem().toString();
+                showTables();
             }
         }
     }

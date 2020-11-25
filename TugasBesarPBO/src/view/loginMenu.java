@@ -128,10 +128,13 @@ public class loginMenu implements ActionListener,ViewConfig{
                     JOptionPane.showMessageDialog(null,"Berhasil Login!");
                     UserManager.getInstance().setUser(user);
                     if(user.getJenisUser() == 1){
+                        Frame.dispose();
                         new view.menuDaak.dashboard();
                     }else if(user.getJenisUser() == 2){
+                        Frame.dispose();
                         new view.menuDosen.dashboard();
                     }else if(user.getJenisUser() == 3){
+                        Frame.dispose();
                         new view.menuMahasiswa.dashboard();
                     }else{
                         System.out.println("User tidak ditemukan");

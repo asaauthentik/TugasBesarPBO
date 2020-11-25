@@ -5,11 +5,15 @@
  */
 package view.menuMahasiswa;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
+import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,6 +22,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Matakuliah;
+import model.matakuliah.RencanaStudi;
+import model.user.Mahasiswa;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.FONT_DEFAULT_PLAIN;
@@ -70,16 +78,37 @@ public class JPanelRencanaStudi  extends JPanel implements ActionListener, ViewC
         Find.setFont(FONT_DEFAULT_PLAIN);
         Find.addActionListener(this);
         add(Find);
-        //Table Daftar Hadir
+        
         rencanaStudi = new JTable();
         jScrollPane1 = new JScrollPane();
+    }
+    public void showTables(){
+        //Table Daftar Hadir
+        int printTahun = Integer.valueOf(ViewTahun.getText());
+        String printSemester = ViewSemester.getSelectedItem().toString();
+        Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
+        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        ArrayList<Matakuliah> MK = new ArrayList<>();
+        if(rsm == null){
+            JOptionPane.showMessageDialog(null,"Maaf rencana studi tidak ditemukan ");
+            return;
+        }
+        for(int i=0; i<rsm.getId_Mk().size(); i++){
+            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i));
+            MK.add(matakuliahManageController.getMatakuliah(detailMK.getKode_MK()));
+        }
+        //Cek Database
+        String objectRencanaStudi[][] = new String[MK.size()][6];
+        for(int i=0; i<MK.size(); i++){
+            objectRencanaStudi[i][0] = String.valueOf(i+1) + ". ";
+            objectRencanaStudi[i][1] = MK.get(i).getKode_MK();
+            objectRencanaStudi[i][2] = MK.get(i).getNama_MK();
+            objectRencanaStudi[i][3] = String.valueOf(matakuliahManageController.getDetailMatakuliah(rsm.getId_Mk().get(i)).getKelas());
+            objectRencanaStudi[i][4] = MK.get(i).getJenis_MK().toString();
+            objectRencanaStudi[i][5] = MK.get(i).getSifat_MK().toString();
+        }
         rencanaStudi.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1.", "101", "Algoritma", "A", "Teori", "Wajib"}, 
-                {"2.", "102", "Kalkulus", "A", "Teori", "Wajib"}, 
-                {"3.", "103", "Web Programming", "B", "Praktikum", "Optional"}, 
-                {"4.", "104", "Web Design", "B", "Parktikum", "Wajib"}
-            }, 
+            objectRencanaStudi, 
             new String[] {
                 "No", "Kode MK", "Nama Matakuliah", "Kelas", "Jenis MK","Sifat MK"
             }
@@ -109,7 +138,7 @@ public class JPanelRencanaStudi  extends JPanel implements ActionListener, ViewC
             rencanaStudi.getColumnModel().getColumn(5).setPreferredWidth(60);
         }
         jScrollPane1.setBounds(15,140,640,460);
-        jScrollPane1.setVisible(false);
+        jScrollPane1.setVisible(true);
         add(jScrollPane1);
     }
     private boolean checkAllData(){
@@ -131,9 +160,7 @@ public class JPanelRencanaStudi  extends JPanel implements ActionListener, ViewC
             }else{
                 Find.setBackground(BGCOLOR_DEFAULT);
                 Find.setForeground(COLOR_WHITE);
-                jScrollPane1.setVisible(true);
-                String printTahun = ViewTahun.getText();
-                String printSemester = ViewSemester.getSelectedItem().toString();
+                showTables();
             }
         }
     }

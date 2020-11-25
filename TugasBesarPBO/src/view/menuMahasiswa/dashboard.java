@@ -5,6 +5,7 @@
  */
 package view.menuMahasiswa;
 
+import controller.UserManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import view.ViewConfig;
+import view.loginMenu;
 /**
  *
  * @author 1119002 Albertus Angkuw
@@ -47,7 +49,8 @@ public class dashboard implements ActionListener,ViewConfig {
     private final JButton showTranskripNilai ;
     private final JButton showKeuangan ;
     private final JButton showJadwal;
-    
+    private JButton exit;
+    private JFrame frame;
     public dashboard(){
         card = new CardLayout();
         cardPanel = new JPanel(card);
@@ -60,13 +63,14 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai = new JButton("Transkrip Nilai");
         showKeuangan = new JButton("Keuangan");
         showJadwal = new JButton("Jadwal");
+        exit = new JButton("Keluar");
         sideBar.add(showProfile);
         sideBar.add(showRencanaStudi);
         sideBar.add(showDaftarHadir);
         sideBar.add(showTranskripNilai);
         sideBar.add(showKeuangan);
         sideBar.add(showJadwal);
-        
+        sideBar.add(exit);
         //--Styling
         
         sideBar.setBackground(BGCOLOR_DEFAULT);
@@ -78,6 +82,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai.setBackground(BGCOLOR_DEFAULT);
         showKeuangan.setBackground(BGCOLOR_DEFAULT);
         showJadwal.setBackground(BGCOLOR_DEFAULT);
+        exit.setBackground(BGCOLOR_DEFAULT);
         
         showProfile.setForeground(COLOR_WHITE );
         showRencanaStudi.setForeground(COLOR_GRAY);
@@ -85,6 +90,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai.setForeground(COLOR_GRAY);
         showKeuangan.setForeground(COLOR_GRAY);
         showJadwal.setForeground(COLOR_GRAY);
+        exit.setForeground(COLOR_GRAY);
         
         showProfile.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showRencanaStudi.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
@@ -92,6 +98,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showKeuangan.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         showJadwal.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
+        exit.setBorder(createMatteBorder(0, 12, 0, 0, COLOR_WHITE));
         
         showProfile.setPreferredSize(new Dimension(200, 20));
         showRencanaStudi.setPreferredSize(new Dimension(200, 20));
@@ -99,6 +106,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai.setPreferredSize(new Dimension(200, 20));
         showKeuangan.setPreferredSize(new Dimension(200, 20));
         showJadwal.setPreferredSize(new Dimension(200, 20));
+        exit.setPreferredSize(new Dimension(200, 20));
         
         showProfile.setBorderPainted(true);
         showRencanaStudi.setBorderPainted(false);
@@ -106,13 +114,15 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai.setBorderPainted(false);
         showKeuangan.setBorderPainted(false);
         showJadwal.setBorderPainted(false);
-        
+        exit.setBorderPainted(false);
+                
         showProfile.setContentAreaFilled(false);
         showRencanaStudi.setContentAreaFilled(false);
         showDaftarHadir.setContentAreaFilled(false);
         showTranskripNilai.setContentAreaFilled(false);
         showKeuangan.setContentAreaFilled(false);
         showJadwal.setContentAreaFilled(false);
+        exit.setContentAreaFilled(false);
         
         showProfile.setFocusPainted(false);
         showRencanaStudi.setFocusPainted(false);
@@ -120,7 +130,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai.setFocusPainted(false);
         showKeuangan.setFocusPainted(false);
         showJadwal.setFocusPainted(false);
-        
+        exit.setFocusPainted(false);
         //End of styling
         
         showProfile.addActionListener(this);
@@ -129,7 +139,7 @@ public class dashboard implements ActionListener,ViewConfig {
         showTranskripNilai.addActionListener(this);
         showKeuangan.addActionListener(this);
         showJadwal.addActionListener(this);
-        
+        exit.addActionListener(this);
         
         //--List Menu
         profile = new JPanelProfile();
@@ -149,7 +159,7 @@ public class dashboard implements ActionListener,ViewConfig {
         //End of List Menu
         
         //-- Inisialisasi Frame
-        JFrame frame = new JFrame("Sistem Informasi Akademik");
+        frame = new JFrame("Sistem Informasi Akademik");
         frame.add(cardPanel);
         frame.add(sideBar, BorderLayout.WEST);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -200,7 +210,13 @@ public class dashboard implements ActionListener,ViewConfig {
             card.show(cardPanel,"JadwalPanel");
             showJadwal.setBorderPainted(true);
             showJadwal.setForeground(COLOR_WHITE);
+        }else if("Keluar".equals(option)){
+            System.out.println("Keluar");
+            frame.dispose();
+            UserManager.getInstance().setUser(null);
+            loginMenu loginMenu = new loginMenu();
         }
+        
         //System.out.println(option);
     }
 //    public static void main(String[] args){

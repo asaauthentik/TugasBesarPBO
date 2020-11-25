@@ -34,12 +34,11 @@ import static view.ViewConfig.FONT_TITLE;
  *
  * @author 1119002 Albertus Angkuw
  */
-public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
+public class JPanelProfile extends JPanel implements ViewConfig{
     private final JPanel Header;
     private final JLabel Judul;
     private final JLabel NIK, Nama, Jabatan, StatusKontrak, TanggalLahir, JenisKelamin, NomorHP, Email, HAKeuangan, HAKemahasiswaan, HARencanaStudi, HAUser, HAJadwal;
     private final JLabel ViewNIK, ViewNama, ViewJabatan, ViewStatusKontrak, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewHAKeuangan, ViewHAKemahasiswaan, ViewHARencanaStudi, ViewHAUser, ViewHAJadwal;
-    private final JButton Keluar;
     
     public JPanelProfile(){
         Daak daak = UserManager.getInstance().getDaak();
@@ -173,18 +172,6 @@ public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
         ViewHAJadwal = new JLabel(": " + getPrivilege(daak.isHakAksesJadwalPerkuliahan()));
         ViewHAJadwal.setBounds(490,440,200,100);
         add(ViewHAJadwal);
-        
-        //Button keluar
-        Keluar = new JButton("Keluar");
-        Keluar.setBounds(50,530,570,40);
-        Keluar.setContentAreaFilled(true);
-        Keluar.setBackground(Color.WHITE);
-        Keluar.setForeground(BGCOLOR_DEFAULT);
-        Keluar.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
-        Keluar.setFocusPainted(false);
-        Keluar.setFont(FONT_DEFAULT_PLAIN);
-        //Keluar.addActionListner(new CloseListener());
-        add(Keluar);
     }
     
     private String getPrivilege(boolean privilege){
@@ -196,10 +183,5 @@ public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
     @Override
     public Dimension getPreferredSize() {
         return DIMENSION_PANEL_CARD;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
