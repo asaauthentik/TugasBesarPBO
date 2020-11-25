@@ -504,7 +504,7 @@ public class JPanelKeuangan  extends JPanel implements ActionListener, ViewConfi
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        System.out.println("Action Panel Daftar Hadir : " + action);
+        System.out.println("Action Panel Keuangan : " + action);
         
         if(action.equals("Tagihan")){
             Tagihan.setBackground(BGCOLOR_DEFAULT);

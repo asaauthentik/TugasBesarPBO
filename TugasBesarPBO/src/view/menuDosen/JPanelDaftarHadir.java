@@ -5,6 +5,12 @@
  */
 package view.menuDosen;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rosterManageController;
+import controller.DatabaseController.ContollerDaak.userManageController;
+import controller.DatabaseController.ControllerDosen.matakuliahController;
+import controller.DatabaseController.ControllerDosen.rosterController;
+import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -21,7 +27,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.matakuliah.DetailMatakuliah;
 import model.matakuliah.Kehadiran;
+import model.matakuliah.Matakuliah;
+import model.matakuliah.Roster;
+import model.user.Dosen;
+import model.user.User;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -48,7 +59,8 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     private JScrollPane jScrollPane1Dosen;
     
     //Variabel Daftar Hadir Mahasiswa
-    private JLabel TahunMhs, SemesterMhs, Matakuliah;
+    private JLabel TahunMhs, SemesterMhs;
+    private JButton Matakuliah;
     private JButton FindMhs;
     private JTextField ViewTahunMhs;
     private JComboBox ViewSemesterMhs, ViewMatkul;
@@ -58,8 +70,8 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     private JScrollPane jScrollPanelMhs;
     
     //Variabel Edit Daftar Hadir Mahasiswa
-    private JLabel EditTahunMhs, EditSemesterMhs, EditMatakuliah, Tanggal;
-    private JButton Cari, Next, Simpan, Batal;
+    private JLabel EditTahunMhs, EditSemesterMhs, Tanggal;
+    private JButton Cari, Next, Simpan, Batal,EditMatakuliah;
     private JTextField EditViewTahunMhs;
     private JComboBox EditViewSemesterMhs, EditViewMatkul, ViewTanggal;
     private String EditSemesterValueMhs[] = {"", "Ganjil", "Genap", "Pendek"};
@@ -177,11 +189,12 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         ViewSemesterMhs.setVisible(false);
         add(ViewSemesterMhs);
         
-        Matakuliah = new JLabel("Matakuliah");
-        Matakuliah.setBounds(325,95,100,100);
+        Matakuliah = new JButton("Check MK");
+        Matakuliah.setBounds(325,130,70,30);
         Matakuliah.setVisible(false);
+        Matakuliah.addActionListener(this);
         add(Matakuliah);
-        ViewMatkul = new JComboBox(MatkulValue);
+        ViewMatkul = new JComboBox();
         ViewMatkul.setBounds(400,130,115,30);
         ViewMatkul.setVisible(false);
         add(ViewMatkul);
@@ -224,8 +237,8 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         EditViewSemesterMhs.setVisible(false);
         add(EditViewSemesterMhs);
         
-        EditMatakuliah = new JLabel("Matakuliah");
-        EditMatakuliah.setBounds(325,95,100,100);
+        EditMatakuliah = new JButton("Cek");
+        EditMatakuliah.setBounds(325,130,70,30);
         EditMatakuliah.setVisible(false);
         add(EditMatakuliah);
         EditViewMatkul = new JComboBox(EditMatkulValue);
@@ -335,13 +348,39 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         return true;
     }
     public void ShowTablesDosen(){
-        //Connect Database
-        String DaftarHadirDosen[][] = new String[][] {
-                {"IF-101","Algoritma", "A","14","12"}, 
-                {"IF-301","PBO", "A","14","11"}, 
-                {"IF-201","Web Design", "B","13","13"}, 
-                {"IF-307","Matriks Vektor", "B","15","15"}
-            };
+        int printTahun = Integer.valueOf(ViewTahunDosen.getText());
+        String printSemester = ViewSemesterDosen.getSelectedItem().toString();
+        Dosen dsn = (Dosen) UserManager.getInstance().getUser();
+        
+        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
+        
+        if(dmk == null){
+            JOptionPane.showMessageDialog(null,"Maaf Jadwal tidak ditemukan");
+            return;
+            
+        }
+        String DaftarHadirDosen[][] = new String[dmk.size()][5];
+        ArrayList<Roster> arrRoster = new ArrayList<>();
+        
+        for(int i=0; i<dmk.size(); i++){
+            DetailMatakuliah detailMK = dmk.get(i);
+            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            ArrayList<Roster> arrTemp = rosterManageController.getArrayRoster(detailMK.getId_MK());
+            arrRoster.addAll(arrTemp);
+            int counterKehadiran = 0;
+            for(int j=0; j<arrTemp.size(); j++){
+                if(arrTemp.get(i).isStatusDosen()){
+                    counterKehadiran++;
+                }
+            }
+            
+            DaftarHadirDosen[i][0] = mk.getKode_MK();
+            DaftarHadirDosen[i][1] = mk.getNama_MK();
+            DaftarHadirDosen[i][2] = String.valueOf(detailMK.getKelas());
+            DaftarHadirDosen[i][3] = String.valueOf(detailMK.getJumlahPertemuan());
+            DaftarHadirDosen[i][4] = String.valueOf(counterKehadiran);
+             
+        }
         tableDaftarHadirDosen.setModel(new DefaultTableModel(
             DaftarHadirDosen, 
             new String[] {
@@ -376,14 +415,55 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         jScrollPane1Dosen.setVisible(true);
         add(jScrollPane1Dosen);
     }
+    
     public void ShowTablesMahasiswa(){
+        Dosen dsn = (Dosen) UserManager.getInstance().getUser();
+        int tahun = Integer.valueOf(ViewTahunMhs.getText());
+        String printSemester = ViewSemesterMhs.getSelectedItem().toString();
+        int selectedIdx = ViewMatkul.getSelectedIndex();
+        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
+        if(dmk == null){
+            return;
+        }
+        DetailMatakuliah dmkDipilih = dmk.get(selectedIdx);
+        ArrayList<Kehadiran> rosterMhs = rosterController.getArrayDaftarHadirMhs(dmkDipilih.getId_MK());
         //Connect Database
-        String DaftarHadirMahasiswa[][] = new String[][] {
-                {"1.", "10001", "Albert", "A","12"}, 
-                {"2.", "10002", "Michael", "A","11"}, 
-                {"3.", "10003", "Elangel", "B","13"}, 
-                {"4.", "10003", "William", "B","13"}
-            }; 
+        class  MhsdanJumlahHadir{
+            String nim;
+            int jumlahHadir = 0;
+        }
+        ArrayList<String> daftarMhs  = new ArrayList<>();
+        ArrayList<MhsdanJumlahHadir> groupMhs  = new ArrayList<>();
+      
+        for(int i=0; i<rosterMhs.size(); i++){
+            Kehadiran kehadiran = rosterMhs.get(i);
+            if(!daftarMhs.contains(kehadiran.getNIM())){
+                daftarMhs.add(kehadiran.getNIM());
+                MhsdanJumlahHadir mhs = new MhsdanJumlahHadir();
+                mhs.nim = kehadiran.getNIM();
+                if(kehadiran.getKeterangan().equals("Hadir")){
+                mhs.jumlahHadir = 1;
+                }
+                groupMhs.add(mhs);
+            }else{
+                for(int j=0; j<groupMhs.size(); j++){
+                    if(groupMhs.get(j).nim.equals(kehadiran.getNIM())){
+                        if(kehadiran.getKeterangan().equals("Hadir")){
+                            groupMhs.get(j).jumlahHadir++;
+                        }
+                    }
+                }
+            }
+        }
+        String DaftarHadirMahasiswa[][] = new String[groupMhs.size()][5];
+        for(int i=0; i<groupMhs.size(); i++){
+            DaftarHadirMahasiswa[i][0] = String.valueOf(i + 1) + ". ";
+            User mhs = userManageController.getUser(rosterMhs.get(i).getNIM());
+            DaftarHadirMahasiswa[i][1] = rosterMhs.get(i).getNIM();
+            DaftarHadirMahasiswa[i][2] = mhs.getNamaLengkap();
+            DaftarHadirMahasiswa[i][3] = String.valueOf(groupMhs.get(i).jumlahHadir);
+        }
+        
         tableDaftarHadirMhs.setModel(new DefaultTableModel(
             DaftarHadirMahasiswa,
             new String[] {
@@ -418,6 +498,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
         jScrollPanelMhs.setVisible(true);
         add(jScrollPanelMhs);
     }
+    
     public void ShowTableEditMahasiswa(){
         String EditDaftarHadirMahasiswa[][] = new String[][] {
                 {"1.", "1119002", "Albertus", "A",""}, 
@@ -469,7 +550,42 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         System.out.println("Action Panel Daftar Hadir : " + action);
-        
+        if(action.equals("Cek")){
+            Dosen dsn = (Dosen) UserManager.getInstance().getUser();
+            int tahun = Integer.valueOf(ViewTahunMhs.getText());
+            String printSemester = ViewSemesterMhs.getSelectedItem().toString();
+            ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
+            if(dmk == null){
+                return;
+            }
+            String kodeMK[] = new String[dmk.size()];
+            for(int i=0; i<dmk.size(); i++){
+                kodeMK[i] = dmk.get(i).getKode_MK();
+            }
+            ViewMatkul.setVisible(false);
+            ViewMatkul = new JComboBox(kodeMK);
+            ViewMatkul.setBounds(400,130,115,30);
+            ViewMatkul.setVisible(true);
+            add(ViewMatkul);
+        }
+        if(action.equals("Check MK")){
+            Dosen dsn = (Dosen) UserManager.getInstance().getUser();
+            int tahun = Integer.valueOf(ViewTahunMhs.getText());
+            String printSemester = ViewSemesterMhs.getSelectedItem().toString();
+            ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, printSemester);
+            if(dmk == null){
+                return;
+            }
+            String kodeMK[] = new String[dmk.size()];
+            for(int i=0; i<dmk.size(); i++){
+                kodeMK[i] = dmk.get(i).getKode_MK();
+            }
+            ViewMatkul.setVisible(false);
+            ViewMatkul = new JComboBox(kodeMK);
+            ViewMatkul.setBounds(400,130,115,30);
+            ViewMatkul.setVisible(true);
+            add(ViewMatkul);
+        }
         if(action.equals("Daftar Hadir Dosen")){
             daftarHadirDosen.setBackground(BGCOLOR_DEFAULT);
             daftarHadirDosen.setForeground(COLOR_WHITE);
@@ -523,7 +639,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
             SemesterMhs.setVisible(true);
             ViewSemesterMhs.setVisible(true);
             Matakuliah.setVisible(true);
-            ViewMatkul.setVisible(true);
+            ViewMatkul.setVisible(false);
             FindMhs.setVisible(true);
             daftarHadirDosen.setBackground(COLOR_WHITE);
             daftarHadirDosen.setForeground(BGCOLOR_DEFAULT);
@@ -556,9 +672,6 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener,ViewConf
                 FindMhs.setBackground(BGCOLOR_DEFAULT);
                 FindMhs.setForeground(COLOR_WHITE);
                 ShowTablesMahasiswa();
-                String printTahunMhs = ViewTahunMhs.getText();
-                String printSemesterMhs = ViewSemesterMhs.getSelectedItem().toString();
-                String printMatkulMhs = ViewMatkul.getSelectedItem().toString();
             }
         }
         if(action.equals("Edit Daftar Hadir Mahasiswa")){

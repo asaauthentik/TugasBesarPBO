@@ -5,11 +5,14 @@
  */
 package view.menuDosen;
 
+import controller.DatabaseController.ControllerDosen.matakuliahController;
+import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.DetailMatakuliah;
+import model.user.Dosen;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -36,7 +41,7 @@ public class JPanelRekapDataMengajar  extends JPanel implements ActionListener, 
     private final String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
     private final JTextField ViewTahun;
     private final JButton Find;
-    private final JTable daftarNilai;
+    private final JTable rekapData;
     private JScrollPane jScrollPane1;
     public JPanelRekapDataMengajar(){
         Header = new JPanel();
@@ -73,43 +78,9 @@ public class JPanelRekapDataMengajar  extends JPanel implements ActionListener, 
         Find.addActionListener(this);
         add(Find);
         //Table Rekap Data Mengajar
-        daftarNilai = new JTable();
+        rekapData = new JTable();
         jScrollPane1 = new JScrollPane();
-        daftarNilai.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"1", "IF-101","Algoritma", "3"}, 
-                {"2.", "IF-202", "Struktur Data", "3"}    
-            }, 
-            new String[] {
-                "No", "Kode MK", "Nama Matakuliah", "SKS"
-            }
-        ){
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(daftarNilai);
-        if (daftarNilai.getColumnModel().getColumnCount() > 0) {
-            daftarNilai.getColumnModel().getColumn(0).setPreferredWidth(30);
-            daftarNilai.getColumnModel().getColumn(1).setPreferredWidth(60);
-            daftarNilai.getColumnModel().getColumn(2).setPreferredWidth(200);
-            daftarNilai.getColumnModel().getColumn(3).setPreferredWidth(30);
-           
-        }
-        jScrollPane1.setBounds(15,140,640,260);
-        jScrollPane1.setVisible(false);
-        add(jScrollPane1);
+        
 
     }
     private boolean checkAllData(){
@@ -121,6 +92,60 @@ public class JPanelRekapDataMengajar  extends JPanel implements ActionListener, 
         }
         return true;
     }
+    
+    private void ShowTablesRekapDataMengajar(){
+        Dosen dsn = (Dosen) UserManager.getInstance().getUser();
+        int printTahun = Integer.valueOf(ViewTahun.getText());
+        String printSemester = ViewSemester.getSelectedItem().toString();
+        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
+        if(dmk == null){
+            JOptionPane.showMessageDialog(null,"Data yang dimasukan tidak tersedia!");
+            return;
+        }
+        String RekapData[][] = new String[dmk.size()][5];
+        for(int i=0;i <dmk.size();i++){
+            RekapData[i][0] = String.valueOf(i + 1) + ". ";
+            RekapData[i][1] = dmk.get(i).getKode_MK();
+            RekapData[i][2] = dmk.get(i).getNama_MK();
+            RekapData[i][3] = String.valueOf(dmk.get(i).getSks());
+            RekapData[i][4] = String.valueOf(dmk.get(i).getKelas());
+        }
+        
+        rekapData.setModel(new DefaultTableModel(
+            RekapData, 
+            new String[] {
+                "No", "Kode MK", "Nama Matakuliah", "SKS", "Kelas"
+            }
+        ){
+            Class[] types = new Class [] {
+                java.lang.String.class,java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(rekapData);
+        if (rekapData.getColumnModel().getColumnCount() > 0) {
+            rekapData.getColumnModel().getColumn(0).setPreferredWidth(30);
+            rekapData.getColumnModel().getColumn(1).setPreferredWidth(60);
+            rekapData.getColumnModel().getColumn(2).setPreferredWidth(200);
+            rekapData.getColumnModel().getColumn(3).setPreferredWidth(30);
+            rekapData.getColumnModel().getColumn(4).setPreferredWidth(30);
+            
+           
+        }
+        jScrollPane1.setBounds(15,140,640,260);
+        jScrollPane1.setVisible(true);
+        add(jScrollPane1);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
@@ -131,8 +156,9 @@ public class JPanelRekapDataMengajar  extends JPanel implements ActionListener, 
             Find.setBackground(BGCOLOR_DEFAULT);
             Find.setForeground(COLOR_WHITE);
             jScrollPane1.setVisible(true);
-            String printTahun = ViewTahun.getText();
-            String printSemester = ViewSemester.getSelectedItem().toString();
+            System.out.println("");
+            ShowTablesRekapDataMengajar();
+            
         }
     }
     @Override

@@ -5,6 +5,10 @@
  */
 package view.menuDosen;
 
+import controller.DatabaseController.ContollerDaak.userManageController;
+import controller.DatabaseController.ControllerDosen.matakuliahController;
+import controller.DatabaseController.ControllerDosen.nilaiController;
+import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,7 +23,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.DetailMatakuliah;
 import model.matakuliah.Nilai;
+import model.user.Dosen;
 import view.ViewConfig;
 import static view.ViewConfig.BGCOLOR_DEFAULT;
 import static view.ViewConfig.COLOR_WHITE;
@@ -32,15 +38,16 @@ import static view.ViewConfig.FONT_TITLE;
  * @author 1119006 William Juniar
  */
 public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, ViewConfig{
+    ArrayList<DetailMatakuliah> dmk = null;
     private final JPanel Header;
     private final JLabel Judul, Tahun, Semester,Matakuliah;
-    private final JComboBox ViewSemester,ViewMatakuliah;
+    private JComboBox ViewSemester,ViewMatakuliah;
     private final JButton Find,Next,Save;
     private final String SemesterValue[] = {"", "Ganjil", "Genap", "Pendek"};
-    private final String MatakuliahValue[]= {"", "Algoritma","Kalkulus"};
     private final JTextField ViewTahun;
     private final JTable daftarNilai;
     private JScrollPane jScrollPane1;
+    private String idMK = null;
     public JPanelNilaiMatakuliah(){
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
@@ -82,10 +89,7 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
         Matakuliah.setBounds(40,140,100,30);
         Matakuliah.setVisible(false);
         add(Matakuliah);
-        ViewMatakuliah = new JComboBox(MatakuliahValue);
-        ViewMatakuliah.setBounds(110,140,115,30);
-        ViewMatakuliah.setVisible(false);
-        add(ViewMatakuliah);
+       
         
         Save = new JButton("Save");      
         Save.setBounds(15,520,125,30);
@@ -125,13 +129,29 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
         }
         return true;
     }
-    public void ShowTables(){
-        String DataNilai[][] = new String[][] {
-            {"10001","Albert","77", "88", "99", "100", "86", "90", "96", "A"}, 
-            {"10002","Michael","77", "88", "99", "100", "86", "90", "96", "A"}, 
-            {"10003","William","77", "88", "99", "100", "86", "90", "96", "A"}, 
-            {"10004","Elangel","77", "88", "99", "100", "86", "90", "96", "A"}
-        };
+    public void ShowTablesNilaiMatakuliah(){
+        DetailMatakuliah detailMK = dmk.get(ViewMatakuliah.getSelectedIndex());
+        ArrayList<Nilai> nilaiMhs = nilaiController.getNilaiMahasiswa(Integer.valueOf(detailMK.getId_MK()));
+        String DataNilai[][] = new String[nilaiMhs.size()][10];
+        if(nilaiMhs == null){
+            JOptionPane.showMessageDialog(null,"Data yang dimasukan tidak tersedia!");
+            return;
+        }
+        idMK = detailMK.getId_MK();
+        for(int i=0;i <nilaiMhs.size();i++){
+            DataNilai[i][0] = nilaiMhs.get(i).getNIM();
+            DataNilai[i][1] = userManageController.getUser(nilaiMhs.get(i).getNIM()).getNamaLengkap();
+            DataNilai[i][2] = String.valueOf(nilaiMhs.get(i).getNilai1());
+            DataNilai[i][3] = String.valueOf(nilaiMhs.get(i).getNilai2());
+            DataNilai[i][4] = String.valueOf(nilaiMhs.get(i).getNilai3());
+            DataNilai[i][5] = String.valueOf(nilaiMhs.get(i).getNilai4());
+            DataNilai[i][6] = String.valueOf(nilaiMhs.get(i).getNilai5());
+            DataNilai[i][7] = String.valueOf(nilaiMhs.get(i).getNilaiUAS());
+            DataNilai[i][8] = String.valueOf(nilaiMhs.get(i).getNilaiAkhir());
+            DataNilai[i][9] = nilaiMhs.get(i).getHurufMutu();
+           
+        }
+        
         daftarNilai.setModel(new DefaultTableModel(
             DataNilai, 
             new String[] {
@@ -172,6 +192,7 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         String action = e.getActionCommand();
         System.out.println("Action Panel Nilai Matakuliah: " + action);
             if(action.equals("Next")){
@@ -182,27 +203,40 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
                 Next.setBackground(BGCOLOR_DEFAULT);
                 Next.setForeground(COLOR_WHITE);
                 Matakuliah.setVisible(true);
-                ViewMatakuliah.setVisible(true);
                 Find.setVisible(true);
+                Dosen dsn = (Dosen) UserManager.getInstance().getUser();
+                int tahun = Integer.valueOf(ViewTahun.getText());
+                String semester = ViewSemester.getSelectedItem().toString();
+                dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, semester);
+                if(dmk == null){
+                    JOptionPane.showMessageDialog(null,"Data yang dimasukan tidak tersedia!");
+                    return;
+                }
+                String RekapData[] = new String[dmk.size()];
+                for(int i=0;i <dmk.size();i++){
+                    RekapData[i] = dmk.get(i).getNama_MK();
+                }
+                ViewMatakuliah = new JComboBox(RekapData);
+                ViewMatakuliah.setBounds(110,140,115,30);
+                ViewMatakuliah.setVisible(true);
+                add(ViewMatakuliah);
+                
                 }
             }
             if(action.equals("Lihat Daftar Nilai")){
-                if(ViewMatakuliah.getSelectedIndex()== 0){
-                    JOptionPane.showMessageDialog(null,"Silahkan Isi Semua Data!");
-                }
-                else{
-                    ShowTables();
+                
+                ShowTablesNilaiMatakuliah();
                 jScrollPane1.setVisible(true);
                 Save.setVisible(true);
                 
                 
-                }
+                
             }
             if(action.equals("Save")){
                 ArrayList<Nilai> arrDaftarNilai = new ArrayList<>(); 
                 for(int i=0; i<daftarNilai.getModel().getRowCount(); i++){
                         Nilai nilai = new Nilai();
-                        nilai.setNIM((String) daftarNilai.getModel().getValueAt(i, 1));
+                        nilai.setNIM((String) daftarNilai.getModel().getValueAt(i, 0));
                         nilai.setNilai1(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 2)));
                         nilai.setNilai2(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 3)));
                         nilai.setNilai3(Integer.valueOf((String)daftarNilai.getModel().getValueAt(i, 4)));
@@ -212,10 +246,15 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
                         nilai.setNilaiAkhir(nilai.hitungNA());
                         nilai.setHurufMutu(nilai.convertHurufMutu());
                         arrDaftarNilai.add(nilai);
-                        System.out.println(nilai.toString());
                         daftarNilai.getModel().setValueAt(nilai.getNilaiAkhir(), i, 8);
                         daftarNilai.getModel().setValueAt(nilai.getHurufMutu(), i, 9);
+                        if(!nilaiController.updateNilaiMahasiswa(nilai, idMK)){
+                            JOptionPane.showMessageDialog(null, "Update Nilai Gagal!");
+                            return;
+                        }
+                        
                 }
+                
             }
         
     }

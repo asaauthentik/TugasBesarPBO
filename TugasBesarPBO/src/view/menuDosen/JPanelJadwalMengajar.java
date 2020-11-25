@@ -5,6 +5,11 @@
  */
 package view.menuDosen;
 
+import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
+import controller.DatabaseController.ContollerDaak.rosterManageController;
+import controller.DatabaseController.ControllerDosen.matakuliahController;
+import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import javax.swing.JButton;
@@ -22,6 +30,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.matakuliah.DetailMatakuliah;
+import model.matakuliah.Matakuliah;
+import model.matakuliah.RencanaStudi;
+import model.matakuliah.Roster;
+import model.user.Dosen;
+import model.user.Mahasiswa;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -125,13 +139,61 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
         //Table Jadwal
         daftarJadwal = new JTable();
         jScrollPane1 = new JScrollPane();
+        
+    }
+    public boolean checkAllData(){
+        if(ViewSemester.getSelectedItem().toString().equals("")){
+            return false;
+        }
+        if(ViewTahun.getText().equals("")){
+            return false;
+        }
+        return true;
+    }
+    
+    private void ShowTablesJadwalMengajar(){
+        Dosen dsn = (Dosen) UserManager.getInstance().getUser();
+        int printTahun = Integer.valueOf(ViewTahun.getText());
+        String printSemester = ViewSemester.getSelectedItem().toString();
+        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
+               
+        if(dmk == null){
+            JOptionPane.showMessageDialog(null,"Maaf Jadwal tidak ditemukan");
+            return;
+            
+        }
+        ArrayList<Roster> arrRoster = new ArrayList<>();
+        ArrayList<String> arrIDMK = new ArrayList<>();
+        for(int i=0; i<dmk.size(); i++){
+            DetailMatakuliah detailMK = dmk.get(i);
+            ArrayList<Roster> arrTemp = rosterManageController.getArrayRoster(detailMK.getId_MK());
+            arrRoster.addAll(arrTemp);
+            for(int j=0; j<arrTemp.size(); j++){
+                arrIDMK.add(detailMK.getId_MK());
+            }
+        }
+        //Cek Database
+        String JadwalMengajar[][] = new String[arrRoster.size()][6];
+        for(int i=0; i<arrRoster.size() ; i++){
+            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(arrIDMK.get(i));
+            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");  
+            String dateJadwal = dateFormat.format(arrRoster.get(i).getTanggal()); 
+            JadwalMengajar[i][0] = dateJadwal;
+            JadwalMengajar[i][1] = arrRoster.get(i).getRuangan();
+            JadwalMengajar[i][2] = arrRoster.get(i).getJamMulai();
+            JadwalMengajar[i][3] = arrRoster.get(i).getJamSelesai();
+            JadwalMengajar[i][4] = mk.getKode_MK();
+            JadwalMengajar[i][5] = mk.getNama_MK();
+        }
+
+//                {"17 Agustus 2020", "R-101", "07:00", "09:00","IF-101","Algoritma"}, 
+//                {"17 September 2020", "R-303", "10:00", "12:00","IF-203", "Pemrograman Web"}, 
+//                {"17 Oktober 2020", "R-201", "13:00", "15:00","MG-101", "Managemen Dasar"}, 
+//                {"25 Desember 2020", "R-201", "09:00", "11:00","AK-401", "Akuntansi Perpajakan"}
+//            };
         daftarJadwal.setModel(new DefaultTableModel(
-            new Object[][] {
-                {"17 Agustus 2020", "R-101", "07:00", "09:00","IF-101","Algoritma"}, 
-                {"17 September 2020", "R-303", "10:00", "12:00","IF-203", "Pemrograman Web"}, 
-                {"17 Oktober 2020", "R-201", "13:00", "15:00","MG-101", "Managemen Dasar"}, 
-                {"25 Desember 2020", "R-201", "09:00", "11:00","AK-401", "Akuntansi Perpajakan"}
-            }, 
+            JadwalMengajar,
             new String[] {
                 "Tanggal", "Ruangan", "Jam Mulai", "Jam Berakhir", "Kode MK", "Nama MK" 
             }
@@ -162,17 +224,8 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
             
         }
         jScrollPane1.setBounds(15,180,640,420);
-        jScrollPane1.setVisible(false);
+        jScrollPane1.setVisible(true);
         add(jScrollPane1);
-    }
-    public boolean checkAllData(){
-        if(ViewSemester.getSelectedItem().toString().equals("")){
-            return false;
-        }
-        if(ViewTahun.getText().equals("")){
-            return false;
-        }
-        return true;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -192,6 +245,7 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
                 Date printTanggalAkhir = (Date) tanggalAkhir.getModel().getValue();
                 System.out.println(printTanggal);
                 System.out.println(printTanggalAkhir.getTime());
+                ShowTablesJadwalMengajar();
             }
         }
     }

@@ -27,6 +27,7 @@ import javax.swing.*;
 import model.user.Mahasiswa;
 import view.ViewConfig;
 import static view.ViewConfig.*;
+import view.loginMenu;
 
 /**
  *
@@ -38,22 +39,9 @@ public class JPanelProfile extends JPanel implements ViewConfig{
     private final JLabel Judul;
     private final JLabel NIM, Nama, Jurusan, Angkatan, TanggalLahir, JenisKelamin, NomorHP, Email, Alamat, IPK, Predikat;
     private final JLabel ViewNIM, ViewNama, ViewJurusan, ViewAngkatan, ViewTanggalLahir, ViewJenisKelamin, ViewNomorHP, ViewEmail, ViewAlamat, ViewIPK, ViewPredikat;
-    private final JButton Keluar;
     public JPanelProfile(){
         //Dummny
-        Mahasiswa mhs = (Mahasiswa) UserManager.getInstance().getUser();
-//        mhs.setJenisKelamin("Perempuan");
-//        mhs.setTahunLulus(2020);
-//        mhs.setTahunMasuk(2019);
-//        
-//        mhs.setPredikat("Cumlaude");
-//        mhs.setNIM("1119038");
-//        mhs.setNomorTelepon("057356566895");
-//        
-//        mhs.setTanggalLahir(new Date());
-//        mhs.setNamaLengkap("Elangel Shaday");
-//        mhs.setEmail("elagel@yahoo.com");
-//        mhs.setPathFoto("https://jawdhwjdakjdwak.com");
+        Mahasiswa mhs = (Mahasiswa) UserManager.getInstance().getMahasiswa();
 
         /// !1!!!!!!!!!!!!!!!!!!
         Header = new JPanel();
@@ -191,24 +179,6 @@ public class JPanelProfile extends JPanel implements ViewConfig{
         ViewPredikat.setFont(FONT_TITLE);
         ViewPredikatPanel.add(ViewPredikat);
         add(ViewPredikatPanel);
-        
-        //Button keluar
-        Keluar = new JButton("Keluar");
-        Keluar.setBounds(50,530,570,40);
-        Keluar.setContentAreaFilled(true);
-        Keluar.setBackground(Color.WHITE);
-        Keluar.setForeground(BGCOLOR_DEFAULT);
-        Keluar.setBorder(javax.swing.BorderFactory.createLineBorder(BGCOLOR_DEFAULT));
-        Keluar.setFocusPainted(false);
-        Keluar.setFont(FONT_DEFAULT_PLAIN);
-        //Keluar.addActionListner(new CloseListener());
-        add(Keluar);
-    }
-    private class CloseListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //System.exit(0);
-        }
     }
     @Override
     public Dimension getPreferredSize() {
