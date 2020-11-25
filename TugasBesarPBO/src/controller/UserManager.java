@@ -5,6 +5,7 @@
  */
 package controller;
 
+import model.user.Daak;
 import model.user.User;
 
 /**
@@ -31,7 +32,10 @@ public class UserManager {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
+    public Daak getDaak(){
+        return (Daak) user;
+    }
     @Override
     public String toString() {
         return "UserManager{" + "user=" + user + '}';

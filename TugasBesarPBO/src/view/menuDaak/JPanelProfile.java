@@ -6,6 +6,7 @@
 package view.menuDaak;
 
 
+import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -41,24 +42,8 @@ public class JPanelProfile extends JPanel implements ActionListener, ViewConfig{
     private final JButton Keluar;
     
     public JPanelProfile(){
-        //From singleton
-        Daak daak = new Daak();
-        daak.setJenisKelamin("Laki-Laki");
-        daak.setHakAksesJadwalPerkuliahan(true);
-        daak.setHakAksesKeuangan(false);
-        daak.setHakAksesMatakuliah(true);
-        daak.setHakAksesRencanaStudi(true);
-        daak.setHakAksesUser(true);
-        daak.setJabatan("Administrasi");
-        daak.setNIK("4729847239867");
-        daak.setNomorTelepon("057356566895");
-        daak.setStatusKontrak(true);
-        daak.setTanggalLahir(new Date());
-        daak.setNamaLengkap("Albertus Angkuw");
-        daak.setEmail("angkuwjr@yahoo.com");
-        daak.setPathFoto("https://i.pinimg.com/originals/81/9f/b8/819fb8b2baa84564043bfb1d81e7c323.jpg");
+        Daak daak = UserManager.getInstance().getDaak();
         
-        //dum dum
         Header = new JPanel();
         Header.setBackground(Color.DARK_GRAY);
         Header.setBounds(0,20,700,50);
