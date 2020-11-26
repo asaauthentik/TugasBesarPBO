@@ -5,9 +5,9 @@
  */
 package view.menuDosen;
 
-import controller.DatabaseController.ContollerDaak.userManageController;
-import controller.DatabaseController.ControllerDosen.matakuliahController;
-import controller.DatabaseController.ControllerDosen.nilaiController;
+import controller.DatabaseController.ContollerDaak.UserManageController;
+import controller.DatabaseController.ControllerDosen.MatakuliahController;
+import controller.DatabaseController.ControllerDosen.NilaiController;
 import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -131,7 +131,7 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
     }
     public void ShowTablesNilaiMatakuliah(){
         DetailMatakuliah detailMK = dmk.get(ViewMatakuliah.getSelectedIndex());
-        ArrayList<Nilai> nilaiMhs = nilaiController.getNilaiMahasiswa(Integer.valueOf(detailMK.getId_MK()));
+        ArrayList<Nilai> nilaiMhs = NilaiController.getNilaiMahasiswa(Integer.valueOf(detailMK.getId_MK()));
         String DataNilai[][] = new String[nilaiMhs.size()][10];
         if(nilaiMhs == null){
             JOptionPane.showMessageDialog(null,"Data yang dimasukan tidak tersedia!");
@@ -140,7 +140,7 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
         idMK = detailMK.getId_MK();
         for(int i=0;i <nilaiMhs.size();i++){
             DataNilai[i][0] = nilaiMhs.get(i).getNIM();
-            DataNilai[i][1] = userManageController.getUser(nilaiMhs.get(i).getNIM()).getNamaLengkap();
+            DataNilai[i][1] = UserManageController.getUser(nilaiMhs.get(i).getNIM()).getNamaLengkap();
             DataNilai[i][2] = String.valueOf(nilaiMhs.get(i).getNilai1());
             DataNilai[i][3] = String.valueOf(nilaiMhs.get(i).getNilai2());
             DataNilai[i][4] = String.valueOf(nilaiMhs.get(i).getNilai3());
@@ -207,7 +207,7 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
                 Dosen dsn = (Dosen) UserManager.getInstance().getUser();
                 int tahun = Integer.valueOf(ViewTahun.getText());
                 String semester = ViewSemester.getSelectedItem().toString();
-                dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, semester);
+                dmk = MatakuliahController.getArrayDetailMatakuliah(dsn.getNID(), tahun, semester);
                 if(dmk == null){
                     JOptionPane.showMessageDialog(null,"Data yang dimasukan tidak tersedia!");
                     return;
@@ -248,7 +248,7 @@ public class JPanelNilaiMatakuliah  extends JPanel implements ActionListener, Vi
                         arrDaftarNilai.add(nilai);
                         daftarNilai.getModel().setValueAt(nilai.getNilaiAkhir(), i, 8);
                         daftarNilai.getModel().setValueAt(nilai.getHurufMutu(), i, 9);
-                        if(!nilaiController.updateNilaiMahasiswa(nilai, idMK)){
+                        if(!NilaiController.updateNilaiMahasiswa(nilai, idMK)){
                             JOptionPane.showMessageDialog(null, "Update Nilai Gagal!");
                             return;
                         }

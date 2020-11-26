@@ -6,7 +6,7 @@
 package view.menuDaak;
 
 
-import controller.DatabaseController.ContollerDaak.userManageController;
+import controller.DatabaseController.ContollerDaak.UserManageController;
 import view.menuDaak.Helper.JPanelHelperMahasiswa;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -256,7 +256,7 @@ public class JPanelUser  extends JPanel implements ActionListener,ViewConfig  {
          //Proccces Edit / Delete
          if(option.equals("Cari")){
              String nameToSearch = searchUser.getText();
-             User user = userManageController.getUser(nameToSearch);
+             User user = UserManageController.getUser(nameToSearch);
              String tipe = "";
 
              if(nameToSearch.equals(" Nama atau Nomor Induk")){

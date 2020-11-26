@@ -5,10 +5,10 @@
  */
 package view.menuDosen;
 
-import controller.DatabaseController.ContollerDaak.matakuliahManageController;
-import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
-import controller.DatabaseController.ContollerDaak.rosterManageController;
-import controller.DatabaseController.ControllerDosen.matakuliahController;
+import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
+import controller.DatabaseController.ContollerDaak.RencanaStudiManageController;
+import controller.DatabaseController.ContollerDaak.RosterManageController;
+import controller.DatabaseController.ControllerDosen.MatakuliahController;
 import controller.UserManager;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -155,7 +155,7 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
         Dosen dsn = (Dosen) UserManager.getInstance().getUser();
         int printTahun = Integer.valueOf(ViewTahun.getText());
         String printSemester = ViewSemester.getSelectedItem().toString();
-        ArrayList<DetailMatakuliah> dmk = matakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
+        ArrayList<DetailMatakuliah> dmk = MatakuliahController.getArrayDetailMatakuliah(dsn.getNID(), printTahun, printSemester);
                
         if(dmk == null){
             JOptionPane.showMessageDialog(null,"Maaf Jadwal tidak ditemukan");
@@ -166,7 +166,7 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
         ArrayList<String> arrIDMK = new ArrayList<>();
         for(int i=0; i<dmk.size(); i++){
             DetailMatakuliah detailMK = dmk.get(i);
-            ArrayList<Roster> arrTemp = rosterManageController.getArrayRoster(detailMK.getId_MK());
+            ArrayList<Roster> arrTemp = RosterManageController.getArrayRoster(detailMK.getId_MK());
             arrRoster.addAll(arrTemp);
             for(int j=0; j<arrTemp.size(); j++){
                 arrIDMK.add(detailMK.getId_MK());
@@ -175,8 +175,8 @@ public class JPanelJadwalMengajar  extends JPanel implements ActionListener, Vie
         //Cek Database
         String JadwalMengajar[][] = new String[arrRoster.size()][6];
         for(int i=0; i<arrRoster.size() ; i++){
-            DetailMatakuliah detailMK = matakuliahManageController.getDetailMatakuliah(arrIDMK.get(i));
-            Matakuliah mk = matakuliahManageController.getMatakuliah(detailMK.getKode_MK());
+            DetailMatakuliah detailMK = MatakuliahManageController.getDetailMatakuliah(arrIDMK.get(i));
+            Matakuliah mk = MatakuliahManageController.getMatakuliah(detailMK.getKode_MK());
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");  
             String dateJadwal = dateFormat.format(arrRoster.get(i).getTanggal()); 
             JadwalMengajar[i][0] = dateJadwal;
