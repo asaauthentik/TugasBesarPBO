@@ -18,7 +18,7 @@ import model.user.User;
  *
  * @author 1119038 Elangel Neilea Shaday
  */
-public class loginController {
+public class LoginController {
     static DatabaseHandler conn = new DatabaseHandler();
     public static User searchUser(String email, String password){
         String pwd = User.getSHA(password);
@@ -36,6 +36,7 @@ public class loginController {
         }
         return null;
     }
+    
     public static String getUser(String email, String password){
         conn.connect();
         String query = "SELECT * FROM user WHERE email='" + email + "' and password='" + password + "'";

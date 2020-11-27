@@ -5,9 +5,6 @@
  */
 package view.menuDaak;
 
-
-
-
 import controller.UserManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -18,10 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
 import javax.swing.JOptionPane;
-
 import javax.swing.JPanel;
-
-
 import javax.swing.border.EmptyBorder;
 import view.ViewConfig;
 import view.loginMenu;
@@ -29,7 +23,7 @@ import view.loginMenu;
  *
  * @author 1119002 Albertus Angkuw
  */
-public class dashboard implements ActionListener,ViewConfig {
+public class Dashboard implements ActionListener,ViewConfig {
     private final CardLayout card;
     private final JPanel cardPanel;
     private final JPanel sideBar;
@@ -55,7 +49,7 @@ public class dashboard implements ActionListener,ViewConfig {
     
     private JFrame frame;
 
-    public dashboard(){
+    public Dashboard(){
         card = new CardLayout();
         cardPanel = new JPanel(card);
         sideBar = new JPanel(new GridLayout(10, 1, 10, 5));
@@ -174,7 +168,7 @@ public class dashboard implements ActionListener,ViewConfig {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
-        frame.setDefaultLookAndFeelDecorated(true);
+        //frame.setDefaultLookAndFeelDecorated(true);
         frame.setLocationRelativeTo(null);
         //End of Inisialisasi Frame
     }

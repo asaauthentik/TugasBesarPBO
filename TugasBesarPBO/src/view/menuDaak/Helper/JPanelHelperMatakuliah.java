@@ -5,7 +5,7 @@
  */
 package view.menuDaak.Helper;
 
-import controller.DatabaseController.ContollerDaak.matakuliahManageController;
+import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -199,21 +199,21 @@ public class JPanelHelperMatakuliah extends JPanel implements ActionListener, Vi
             mk.setSks(sksMK);
             
             if(matakuliah == null){
-                if(matakuliahManageController.insertMatakuliah(mk)){
+                if(MatakuliahManageController.insertMatakuliah(mk)){
                    JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
                 }else{
                    JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
                 }
             }else{
                  mk.setKode_MK(matakuliah.getKode_MK());
-                if(matakuliahManageController.updateMatakuliah(mk)){
+                if(MatakuliahManageController.updateMatakuliah(mk)){
                    JOptionPane.showMessageDialog(null, "Berhasil Mengupdate  ke Database");
                 }else{
                    JOptionPane.showMessageDialog(null, "Gagal Mengupdate  ke Database");
                 }
             }
         }else if(action.equals("Hapus")){
-            if(matakuliahManageController.deleteMatakuliah(matakuliah.getKode_MK())){
+            if(MatakuliahManageController.deleteMatakuliah(matakuliah.getKode_MK())){
                     JOptionPane.showMessageDialog(null, "Berhasil Menghapus ke Database");
             }else{
                 JOptionPane.showMessageDialog(null, "Gagal Menghapus ke Database");

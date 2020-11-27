@@ -5,8 +5,8 @@
  */
 package view.menuDaak;
 
-import controller.DatabaseController.ContollerDaak.matakuliahManageController;
-import controller.DatabaseController.ContollerDaak.rosterManageController;
+import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
+import controller.DatabaseController.ContollerDaak.RosterManageController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -253,7 +253,7 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
                 JOptionPane.showMessageDialog(null, "Isilah form terlebih dahulu");
                 return;
             }
-            DetailMatakuliah dMK = matakuliahManageController.getDetailMatakuliah(kodeMK,Integer.valueOf(tahun),semester,kelas);
+            DetailMatakuliah dMK = MatakuliahManageController.getDetailMatakuliah(kodeMK,Integer.valueOf(tahun),semester,kelas);
             if(dMK != null){
                 jadwalCreate = new JPanelHelperJadwal("Input",dMK.getId_MK());
                 jadwalCreate.setBounds(20,135,668,490);
@@ -289,10 +289,10 @@ public class JPanelJadwalPerkuliahan extends JPanel implements ActionListener,Vi
              boolean foundTest = false;
              String idMK = "";
              ArrayList<Roster> roster = null;
-             DetailMatakuliah dMK = matakuliahManageController.getDetailMatakuliah(kodeMK,Integer.valueOf(tahun),semester,kelas.charAt(0));
+             DetailMatakuliah dMK = MatakuliahManageController.getDetailMatakuliah(kodeMK,Integer.valueOf(tahun),semester,kelas.charAt(0));
              if(dMK != null){
                  idMK = dMK.getId_MK();
-                 roster = rosterManageController.getArrayRoster(idMK);
+                 roster = RosterManageController.getArrayRoster(idMK);
                  if(!roster.isEmpty()){
                      foundTest = true;
                  }

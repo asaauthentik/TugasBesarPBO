@@ -23,7 +23,7 @@ import view.loginMenu;
  * @author 1119002 Albertus Angkuw
  * @author 1119006 William Juniar
  */
-public class dashboard implements ActionListener,ViewConfig {
+public class Dashboard implements ActionListener,ViewConfig {
     private final CardLayout card;
     private final JPanel cardPanel;
     private final JPanel sideBar;
@@ -46,7 +46,7 @@ public class dashboard implements ActionListener,ViewConfig {
     private JButton exit;
     
     private JFrame frame;
-    public dashboard(){
+    public Dashboard(){
         card = new CardLayout();
         cardPanel = new JPanel(card);
         sideBar = new JPanel(new GridLayout(10, 1, 10, 5));
@@ -195,7 +195,7 @@ public class dashboard implements ActionListener,ViewConfig {
         }
         //System.out.println(option);
     }
-    public static void main(String[] args) {
-        new dashboard();
-    }
+//    public static void main(String[] args) {
+//        new Dashboard();
+//    }
 }

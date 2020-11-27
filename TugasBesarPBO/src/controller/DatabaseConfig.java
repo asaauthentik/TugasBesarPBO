@@ -11,15 +11,21 @@ package controller;
  */
 public interface DatabaseConfig {
     //Gearhost (Always On)    
-//    String DATABASE = "tubespbo";
-//    String HOST = "den1.mysql5.gear.host";
-//    String USERNAME = "tubespbo";
-//    String PASSWORD = "Ys82KQU9G_?8";
+    String DATABASE = "tugasbesarpbo";
+    String HOST = "den1.mysql3.gear.host";
+    String USERNAME = "tugasbesarpbo";
+    String PASSWORD = "Jf9L?0708?8K";
     
     //Server AWS (Not Always On)
-    String DATABASE = "tubespbo";
-    String HOST = "3.86.206.93";
-    String USERNAME = "pbo_apps";
-    String PASSWORD = "qSMj2gndcPZOHaqu";
+//    String DATABASE = "tubespbo";
+//    String HOST = "3.86.206.93";
+//    String USERNAME = "pbo_apps";
+//    String PASSWORD = "qSMj2gndcPZOHaqu";
     
+    //Server Local (Very Fast)
+//    String DATABASE = "tubespbo";
+//    String HOST = "localhost";
+//    String USERNAME = "root";
+//    String PASSWORD = "";
+//    
 }

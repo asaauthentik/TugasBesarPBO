@@ -5,7 +5,7 @@
  */
 package view.menuDaak.Helper;
 
-import controller.DatabaseController.ContollerDaak.rosterManageController;
+import controller.DatabaseController.ContollerDaak.RosterManageController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -272,14 +272,14 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
             
             Roster newRoster = new Roster(0,tanggal,jamMulai,jamSelesai,ruangan,statusDosen);
             if(roster == null){
-                if(rosterManageController.insertRoster(newRoster, idMK)){
+                if(RosterManageController.insertRoster(newRoster, idMK)){
                     JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
                 }
             }else{
-                int idroster = rosterManageController.getRoster(rosterNow, idMK);
-                if(rosterManageController.updateRoster(newRoster, idMK, idroster)){
+                int idroster = RosterManageController.getRoster(rosterNow, idMK);
+                if(RosterManageController.updateRoster(newRoster, idMK, idroster)){
                     JOptionPane.showMessageDialog(null, "Berhasil Menyimpan ke Database");
                 }else{
                     JOptionPane.showMessageDialog(null, "Gagal Menyimpan ke Database");
@@ -288,8 +288,8 @@ public class JPanelHelperJadwal extends JPanel implements ActionListener, ViewCo
             }
             
         }else if(action.equals("Hapus")){
-            int idroster = rosterManageController.getRoster(rosterNow, idMK);
-            if(rosterManageController.deleteRoster(idroster)){
+            int idroster = RosterManageController.getRoster(rosterNow, idMK);
+            if(RosterManageController.deleteRoster(idroster)){
                     JOptionPane.showMessageDialog(null, "Berhasil Menghapus di Database");
             }else{
                 JOptionPane.showMessageDialog(null, "Gagal Menghapus di Database");

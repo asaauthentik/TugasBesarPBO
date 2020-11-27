@@ -5,9 +5,9 @@
  */
 package view.menuMahasiswa;
 
-import controller.DatabaseController.ContollerDaak.matakuliahManageController;
-import controller.DatabaseController.ContollerDaak.rencanaStudiManageController;
-import controller.DatabaseController.CotrollerMahasiswa.KehadiranMahasiswaController;
+import controller.DatabaseController.ContollerDaak.MatakuliahManageController;
+import controller.DatabaseController.ContollerDaak.RencanaStudiManageController;
+import controller.DatabaseController.ControllerMahasiswa.KehadiranMahasiswaController;
 import controller.UserManager;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -100,7 +100,7 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
         String printSemester = ViewSemester.getSelectedItem().toString();
         
         Mahasiswa mhs = UserManager.getInstance().getMahasiswa();
-        RencanaStudi rsm = rencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
+        RencanaStudi rsm = RencanaStudiManageController.getRencanastudi(mhs.getNIM(), printTahun, printSemester);
         
         if(rsm == null){
             JOptionPane.showMessageDialog(null,"Maaf rencana studi tidak ditemukan ");
@@ -109,8 +109,8 @@ public class JPanelDaftarHadir extends JPanel implements ActionListener, ViewCon
         }
         String listDaftarHadir[][] = new String[rsm.getId_Mk().size()][5];
         for(int i=0; i<rsm.getId_Mk().size(); i++){
-            DetailMatakuliah dMK = matakuliahManageController.getDetailMatakuliah( rsm.getId_Mk().get(i));
-            Matakuliah mk = matakuliahManageController.getMatakuliah(dMK.getKode_MK());
+            DetailMatakuliah dMK = MatakuliahManageController.getDetailMatakuliah( rsm.getId_Mk().get(i));
+            Matakuliah mk = MatakuliahManageController.getMatakuliah(dMK.getKode_MK());
             listDaftarHadir[i][0] = String.valueOf(i + 1) + ". ";
             listDaftarHadir[i][1] = dMK.getKode_MK();
             listDaftarHadir[i][2] = mk.getNama_MK();

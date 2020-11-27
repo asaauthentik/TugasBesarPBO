@@ -14,12 +14,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
 import static javax.swing.BorderFactory.createMatteBorder;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import view.ViewConfig;
 import view.loginMenu;
@@ -28,7 +24,7 @@ import view.loginMenu;
  * @author 1119002 Albertus Angkuw
  * @author 1119038 Elangel Neilea Shaday
  */
-public class dashboard implements ActionListener,ViewConfig {
+public class Dashboard implements ActionListener,ViewConfig {
     private final CardLayout card;
     private final JPanel cardPanel;
     private final JPanel sideBar;
@@ -51,7 +47,7 @@ public class dashboard implements ActionListener,ViewConfig {
     private final JButton showJadwal;
     private JButton exit;
     private JFrame frame;
-    public dashboard(){
+    public Dashboard(){
         card = new CardLayout();
         cardPanel = new JPanel(card);
         sideBar = new JPanel(new GridLayout(10, 1, 10, 5));
